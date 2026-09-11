@@ -1,0 +1,140 @@
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  type ReactNode,
+} from "react";
+import type { User } from "@supabase/supabase-js";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import { supabase } from "../lib/supabase";
+import { authService } from "../services";
+type Profile = {
+  id: string;
+  full_name: string;
+  email: string;
+  role: "CUSTOMER" | "ADMIN";
+};
+const Context = createContext<{
+  currentUser: User | null;
+  profile: Profile | null;
+  role: string | null;
+  loading: boolean;
+  error: string;
+  refresh: () => Promise<void>;
+}>({
+  currentUser: null,
+  profile: null,
+  role: null,
+  loading: true,
+  error: "",
+  refresh: async () => {},
+});
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [currentUser, setUser] = useState<User | null>(null),
+    [profile, setProfile] = useState<Profile | null>(null),
+    [loading, setLoading] = useState(true),
+    [error, setError] = useState("");
+  async function refresh() {
+    try {
+      setError("");
+      setProfile(await authService.me());
+    } catch (e) {
+      setProfile(null);
+      setError((e as Error).message);
+    } finally {
+      setLoading(false);
+    }
+  }
+  useEffect(() => {
+    if (!supabase) {
+      setLoading(false);
+      return;
+    }
+    let active = true;
+    let generation = 0;
+    const { data } = supabase.auth.onAuthStateChange((_event, session) => {
+      const current = ++generation;
+      setUser(session?.user ?? null);
+      setProfile(null);
+      setError("");
+      if (!session) {
+        setLoading(false);
+        return;
+      }
+      setLoading(true);
+      setTimeout(() => {
+        authService
+          .me()
+          .then((p) => {
+            if (active && current === generation) setProfile(p);
+          })
+          .catch((e) => {
+            if (active && current === generation) setError(e.message);
+          })
+          .finally(() => {
+            if (active && current === generation) setLoading(false);
+          });
+      }, 0);
+    });
+    return () => {
+      active = false;
+      data.subscription.unsubscribe();
+    };
+  }, []);
+  return (
+    <Context.Provider
+      value={{
+        currentUser,
+        profile,
+        role: profile?.role ?? null,
+        loading,
+        error,
+        refresh,
+      }}
+    >
+      {children}
+    </Context.Provider>
+  );
+}
+export const useAuth = () => useContext(Context);
+function Protected({ role }: { role: string }) {
+  const auth = useAuth();
+  const location = useLocation();
+  if (auth.loading)
+    return (
+      <div className="panel skeleton" role="status">
+        Đang xác thực…
+      </div>
+    );
+  if (!auth.currentUser)
+    return (
+      <Navigate
+        to="/login"
+        state={{ from: location.pathname + location.search }}
+        replace
+      />
+    );
+  if (auth.error)
+    return (
+      <div className="panel" role="alert">
+        {auth.error}
+        <button className="btn btn-ghost" onClick={auth.refresh}>
+          Thử lại
+        </button>
+        <button className="btn btn-ghost" onClick={() => authService.logout()}>
+          Đăng xuất
+        </button>
+      </div>
+    );
+  if (auth.role !== role)
+    return (
+      <Navigate
+        to={auth.role === "ADMIN" ? "/admin/dashboard" : "/customer/dashboard"}
+        replace
+      />
+    );
+  return <Outlet />;
+}
+export const CustomerRoute = () => <Protected role="CUSTOMER" />;
+export const AdminRoute = () => <Protected role="ADMIN" />;
