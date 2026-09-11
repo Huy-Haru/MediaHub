@@ -4,12 +4,17 @@ export const authService = {
   me: () => api("/auth/me"),
   login: (email: string, password: string) =>
     authClient().auth.signInWithPassword({ email, password }),
-  register: (email: string, password: string, full_name: string) =>
+  register: (
+    email: string,
+    password: string,
+    full_name: string,
+    metadata?: { audience: "client" | "creator"; organization?: string },
+  ) =>
     authClient().auth.signUp({
       email,
       password,
       options: {
-        data: { full_name },
+        data: { full_name, ...metadata },
         emailRedirectTo: location.origin + "/login",
       },
     }),

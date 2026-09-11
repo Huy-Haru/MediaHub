@@ -22,6 +22,7 @@ const Context = createContext<{
   loading: boolean;
   error: string;
   refresh: () => Promise<void>;
+  logout: () => Promise<void>;
 }>({
   currentUser: null,
   profile: null,
@@ -29,6 +30,7 @@ const Context = createContext<{
   loading: true,
   error: "",
   refresh: async () => {},
+  logout: async () => {},
 });
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [currentUser, setUser] = useState<User | null>(null),
@@ -45,6 +47,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } finally {
       setLoading(false);
     }
+  }
+  async function logout() {
+    const result = await authService.logout();
+    if (result.error) throw result.error;
+    setUser(null);
+    setProfile(null);
+    setError("");
+    setLoading(false);
   }
   useEffect(() => {
     if (!supabase) {
@@ -91,6 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         loading,
         error,
         refresh,
+        logout,
       }}
     >
       {children}
@@ -101,6 +112,7 @@ export const useAuth = () => useContext(Context);
 function Protected({ role }: { role: string }) {
   const auth = useAuth();
   const location = useLocation();
+  const [logoutError, setLogoutError] = useState("");
   if (auth.loading)
     return (
       <div className="panel skeleton" role="status">
@@ -122,9 +134,15 @@ function Protected({ role }: { role: string }) {
         <button className="btn btn-ghost" onClick={auth.refresh}>
           Thử lại
         </button>
-        <button className="btn btn-ghost" onClick={() => authService.logout()}>
+        <button
+          className="btn btn-ghost"
+          onClick={() =>
+            auth.logout().catch((e) => setLogoutError((e as Error).message))
+          }
+        >
           Đăng xuất
         </button>
+        {logoutError && <p className="error">{logoutError}</p>}
       </div>
     );
   if (auth.role !== role)

@@ -1,7 +1,6 @@
-import { authService } from "./services";
 import { useAuth } from "./contexts/AuthContext";
 import { ReactNode, useState } from "react";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
   Bell,
   Menu,
@@ -26,9 +25,16 @@ const nav = [
 export function PublicLayout({ children }: { children?: ReactNode }) {
   const [open, setOpen] = useState(false);
   const auth = useAuth();
+  const location = useLocation();
+  const isAuthPage = [
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+  ].includes(location.pathname);
   const workspace = auth.role === "ADMIN" ? "/admin" : "/customer";
   return (
-    <div className="app">
+    <div className={`app${isAuthPage ? " auth-layout" : ""}`}>
       <header className="topbar">
         <Link className="brand" to="/">
           <span className="brand-mark">▶</span>
@@ -216,6 +222,7 @@ function DashboardShell({ children }: { children: ReactNode; title: string }) {
   );
 }
 function LogoutButton() {
+  const auth = useAuth();
   const [error, setError] = useState("");
   return (
     <>
@@ -223,8 +230,8 @@ function LogoutButton() {
         className="side-link logout-button"
         onClick={async () => {
           try {
-            const result = await authService.logout();
-            if (result.error) throw result.error;
+            setError("");
+            await auth.logout();
           } catch (e) {
             setError((e as Error).message);
           }

@@ -1,6 +1,23 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { Link, Navigate, useLocation } from "react-router-dom";
-import { ArrowRight, ShieldCheck, Sparkles, LockKeyhole } from "lucide-react";
+import {
+  ArrowRight,
+  BadgeCheck,
+  Building2,
+  CheckCircle2,
+  CreditCard,
+  Eye,
+  EyeOff,
+  Lock,
+  LockKeyhole,
+  Mail,
+  Palette,
+  School,
+  Shield,
+  ShieldCheck,
+  Sparkles,
+  UserRound,
+} from "lucide-react";
 import { useAuth } from "./contexts/AuthContext";
 import { authService } from "./services";
 import { patch } from "./services/api";
@@ -19,6 +36,7 @@ export function ForgotPassword() {
 export function ResetPassword() {
   return <AuthScreen mode="reset" />;
 }
+
 function AuthScreen({
   mode,
 }: {
@@ -27,6 +45,7 @@ function AuthScreen({
   const auth = useAuth();
   const location = useLocation();
   const [message, setMessage] = useState("");
+  const [role, setRole] = useState<"client" | "creator">("client");
   const title = {
     login: "Chào mừng trở lại!",
     register: "Bắt đầu cùng MediaHub",
@@ -47,61 +66,57 @@ function AuthScreen({
   return (
     <div className="auth-page">
       <section className="auth-art">
-        <span className="eyebrow">YOUR NEXT CREATIVE CHAPTER</span>
+        <div className="auth-network-tag">
+          <span /> Mạng lưới sáng tạo toàn quốc
+        </div>
         <h1>
-          Kết nối sáng tạo.
-          <br />
-          <span>Kiến tạo dấu ấn.</span>
+          Kết nối sáng tạo — <span>Bứt phá</span> nội dung truyền thông
         </h1>
         <p>
-          Từ ý tưởng đầu tiên đến sản phẩm hoàn chỉnh, MediaHub đồng hành cùng
-          bạn trên mỗi bước đi.
+          MediaHub đồng hành cùng doanh nghiệp tối ưu chi phí sản xuất và trao
+          cơ hội dự án thực chiến chuẩn agency cho thế hệ tài năng trẻ.
         </p>
-        <div className="auth-benefit">
-          <Sparkles />
-          <div>
-            <b>Nội dung xứng tầm thương hiệu</b>
-            <p>Kết nối đội ngũ sáng tạo phù hợp với dự án.</p>
-          </div>
-        </div>
-        <div className="auth-benefit">
-          <ShieldCheck />
-          <div>
-            <b>An tâm trong từng bước</b>
-            <p>
-              Quy trình rõ ràng, theo dõi tiến độ và duyệt sản phẩm tại một nơi.
-            </p>
-          </div>
+        <div className="auth-audience-grid">
+          <article>
+            <span className="auth-audience-icon orange"><Building2 /></span>
+            <h3>Dành cho Doanh nghiệp</h3>
+            <p>Tiết kiệm <b>40-50% chi phí</b> sản xuất truyền thông.</p>
+            <small><BadgeCheck /> Bảo chứng nghiệm thu QA 100%</small>
+          </article>
+          <article>
+            <span className="auth-audience-icon violet"><Palette /></span>
+            <h3>Dành cho Creator &amp; SV</h3>
+            <p>Thực chiến với nhãn hàng lớn &amp; nhận thù lao minh bạch.</p>
+            <small><CreditCard /> Thanh toán ký quỹ Escrow an toàn</small>
+          </article>
         </div>
         <img
           className="auth-preview"
-          src="/assets/project-2.png"
-          alt="Sản phẩm sáng tạo của MediaHub"
+          src="/assets/project-1.png"
+          alt="Đội ngũ sáng tạo đang thực hiện dự án"
         />
+        <div className="auth-trust-row">
+          <div><strong>500+ Creator đã gia nhập</strong><span>120+ Dự án hoàn thành xuất sắc</span></div>
+          <span><ShieldCheck /> Hợp đồng pháp lý minh bạch</span>
+        </div>
       </section>
       <section className="auth-card" key={mode}>
-        <span className="auth-symbol">
-          <LockKeyhole />
-        </span>
+        {(mode === "login" || mode === "register") && (
+          <div className="auth-tabs">
+            <Link className={mode === "login" ? "active" : ""} to="/login">
+              <LockKeyhole /> Đăng nhập
+            </Link>
+            <Link className={mode === "register" ? "active" : ""} to="/register">
+              <UserRound /> Đăng ký
+            </Link>
+          </div>
+        )}
         <h2>{title}</h2>
         <p>
           {mode === "forgot"
             ? "Nhập email tài khoản để nhận liên kết khôi phục mật khẩu."
             : "Không gian dành cho những ý tưởng lớn tiếp theo của bạn."}
         </p>
-        {(mode === "login" || mode === "register") && (
-          <div className="auth-tabs">
-            <Link className={mode === "login" ? "active" : ""} to="/login">
-              Đăng nhập
-            </Link>
-            <Link
-              className={mode === "register" ? "active" : ""}
-              to="/register"
-            >
-              Đăng ký
-            </Link>
-          </div>
-        )}
         <ActionForm
           showSuccess={false}
           label={
@@ -129,11 +144,16 @@ function AuthScreen({
                       email,
                       password,
                       String(data.get("full_name")),
+                      {
+                        audience: role,
+                        organization: String(data.get("organization") ?? ""),
+                      },
                     )
                   : mode === "forgot"
                     ? await authService.forgot(email)
                     : await authService.reset(password);
             if (result.error) throw result.error;
+            if (mode === "login") await auth.refresh();
             setMessage(
               mode === "forgot"
                 ? "Nếu email đã được đăng ký, bạn sẽ nhận được liên kết khôi phục. Vui lòng kiểm tra cả thư rác."
@@ -145,15 +165,45 @@ function AuthScreen({
             );
           }}
         >
-          {mode === "register" && <Field name="full_name" label="Họ và tên" />}
+          {mode === "register" && (
+            <>
+              <div className="auth-role-label">Bạn đăng ký với tư cách nào?</div>
+              <div className="auth-role-grid">
+                <button
+                  type="button"
+                  className={role === "client" ? "selected" : ""}
+                  onClick={() => setRole("client")}
+                >
+                  <Building2 /><strong>Doanh nghiệp</strong><small>Tìm giải pháp &amp; nhân tài</small>
+                  {role === "client" && <CheckCircle2 className="role-check" />}
+                </button>
+                <button
+                  type="button"
+                  className={role === "creator" ? "selected" : ""}
+                  onClick={() => setRole("creator")}
+                >
+                  <Palette /><strong>Creator / Sinh viên</strong><small>Thực chiến dự án có phí</small>
+                  {role === "creator" && <CheckCircle2 className="role-check" />}
+                </button>
+              </div>
+              <AuthField name="full_name" label="Họ và tên" icon={<UserRound />} placeholder="Nguyễn Văn A" />
+              <AuthField
+                name="organization"
+                label={role === "client" ? "Tên thương hiệu / Công ty" : "Trường ĐH / Chuyên ngành sáng tạo"}
+                icon={role === "client" ? <Building2 /> : <School />}
+                placeholder={role === "client" ? "VD: The Coffee House, Glowy Cosmetics..." : "VD: ĐH FPT (Truyền thông số)..."}
+                required={false}
+              />
+            </>
+          )}
           {mode !== "reset" && (
-            <Field name="email" label="Địa chỉ email" type="email" />
+            <AuthField name="email" label="Email doanh nghiệp / cá nhân" type="email" icon={<Mail />} placeholder="name@company.com" />
           )}
           {mode !== "forgot" && (
-            <Field name="password" label="Mật khẩu" type="password" />
+            <AuthField name="password" label="Mật khẩu" type="password" icon={<Lock />} placeholder="Ít nhất 8 ký tự" />
           )}
           {(mode === "register" || mode === "reset") && (
-            <Field name="confirm" label="Xác nhận mật khẩu" type="password" />
+            <AuthField name="confirm" label="Xác nhận mật khẩu" type="password" icon={<Lock />} placeholder="Nhập lại mật khẩu" />
           )}
           {mode === "login" && (
             <p className="auth-foot">
@@ -182,7 +232,40 @@ function AuthScreen({
             <ArrowRight size={13} />
           </Link>
         </p>
+        <div className="auth-security"><Shield /> Dữ liệu được mã hóa 256-bit SSL tiêu chuẩn Enterprise</div>
       </section>
+    </div>
+  );
+}
+function AuthField({
+  name,
+  label,
+  icon,
+  type = "text",
+  placeholder,
+  required = true,
+}: {
+  name: string;
+  label: string;
+  icon: ReactNode;
+  type?: string;
+  placeholder?: string;
+  required?: boolean;
+}) {
+  const [visible, setVisible] = useState(false);
+  const password = type === "password";
+  return (
+    <div className="auth-field field">
+      <label htmlFor={name}>{label}</label>
+      <div className="auth-input-wrap">
+        <span className="auth-input-icon">{icon}</span>
+        <input id={name} name={name} type={password && visible ? "text" : type} placeholder={placeholder} required={required} minLength={password ? 8 : undefined} />
+        {password && (
+          <button type="button" className="auth-password-toggle" aria-label={visible ? "Ẩn mật khẩu" : "Hiện mật khẩu"} onClick={() => setVisible(!visible)}>
+            {visible ? <EyeOff /> : <Eye />}
+          </button>
+        )}
+      </div>
     </div>
   );
 }
