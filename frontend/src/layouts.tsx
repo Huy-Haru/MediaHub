@@ -1,0 +1,276 @@
+import { authService } from "./services";
+import { useAuth } from "./contexts/AuthContext";
+import { ReactNode, useState } from "react";
+import { Link, NavLink, Outlet } from "react-router-dom";
+import {
+  Bell,
+  Menu,
+  X,
+  LayoutDashboard,
+  FolderKanban,
+  Users,
+  BarChart3,
+  BriefcaseBusiness,
+  Settings,
+  Palette,
+  LogOut,
+  ChevronDown,
+} from "lucide-react";
+const nav = [
+  ["Trang chủ", "/"],
+  ["Dự án", "/projects"],
+  ["Quy trình", "/#process"],
+  ["Dịch vụ", "/#services"],
+  ["Về chúng tôi", "/#about"],
+];
+export function PublicLayout({ children }: { children?: ReactNode }) {
+  const [open, setOpen] = useState(false);
+  const auth = useAuth();
+  const workspace = auth.role === "ADMIN" ? "/admin" : "/customer";
+  return (
+    <div className="app">
+      <header className="topbar">
+        <Link className="brand" to="/">
+          <span className="brand-mark">▶</span>
+          <span>
+            <b>Media</b>
+            <em>Hub</em>
+            <small>CREATIVE MEDIA AGENCY</small>
+          </span>
+        </Link>
+        <nav className={open ? "mobile-nav" : "desktop-nav"}>
+          {nav.map(([t, h]) => (
+            <a key={t} href={h} onClick={() => setOpen(false)}>
+              {t}
+            </a>
+          ))}
+        </nav>
+        <div className="top-actions">
+          <Link
+            className="icon-btn"
+            aria-label="Thông báo"
+            to={auth.currentUser ? `${workspace}/notifications` : "/login"}
+          >
+            <Bell size={18} />
+          </Link>
+          <Link
+            to={auth.currentUser ? `${workspace}/dashboard` : "/login"}
+            className="login-link"
+          >
+            {auth.currentUser ? "Tài khoản" : "Đăng nhập"}
+          </Link>
+          <Link to="/customer/projects/new" className="btn btn-primary">
+            Đăng dự án
+          </Link>
+          <button
+            className="menu-btn"
+            aria-label="Mở menu"
+            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X /> : <Menu />}
+          </button>
+        </div>
+      </header>
+      {children ?? <Outlet />}
+      <Footer />
+    </div>
+  );
+}
+export function CustomerLayout({ children }: { children?: ReactNode }) {
+  return (
+    <DashboardShell title="Customer">
+      <aside className="side">
+        <Link className="brand side-brand" to="/">
+          <span className="brand-mark">▶</span>
+          <span>
+            <b>Media</b>
+            <em>Hub</em>
+          </span>
+        </Link>
+        <p className="side-label">KHÁCH HÀNG</p>
+        <SideLink to="/customer/dashboard" icon={<LayoutDashboard />}>
+          Tổng quan
+        </SideLink>
+        <SideLink to="/customer/projects/new" icon={<FolderKanban />}>
+          Đăng dự án
+        </SideLink>
+        <SideLink to="/customer/notifications" icon={<Bell />}>
+          Thông báo
+        </SideLink>
+        <SideLink to="/customer/profile" icon={<Settings />}>
+          Hồ sơ & Bảo mật
+        </SideLink>
+        <div className="side-bottom">
+          <LogoutButton />
+        </div>
+      </aside>
+      <main className="dash-main">{children ?? <Outlet />}</main>
+    </DashboardShell>
+  );
+}
+export function AdminLayout({ children }: { children?: ReactNode }) {
+  return (
+    <DashboardShell title="Admin">
+      <aside className="side">
+        <Link className="brand side-brand" to="/">
+          <span className="brand-mark">▶</span>
+          <span>
+            <b>Media</b>
+            <em>Hub</em>
+          </span>
+        </Link>
+        <p className="side-label">QUẢN TRỊ HỆ THỐNG</p>
+        <SideLink to="/admin/dashboard" icon={<LayoutDashboard />}>
+          Tổng quan
+        </SideLink>
+        <SideLink to="/admin/projects" icon={<FolderKanban />}>
+          Dự án
+        </SideLink>
+        <SideLink to="/admin/customers" icon={<Users />}>
+          Khách hàng
+        </SideLink>
+        <SideLink to="/admin/revenue" icon={<BarChart3 />}>
+          Doanh số
+        </SideLink>
+        <SideLink to="/admin/employees" icon={<BriefcaseBusiness />}>
+          Nhân viên
+        </SideLink>
+        <SideLink to="/admin/services" icon={<Palette />}>
+          Dịch vụ
+        </SideLink>
+        <SideLink to="/admin/portfolio" icon={<BriefcaseBusiness />}>
+          Hồ sơ dự án
+        </SideLink>
+        <SideLink to="/admin/testimonials" icon={<Users />}>
+          Đánh giá
+        </SideLink>
+        <SideLink to="/admin/notifications" icon={<Bell />}>
+          Thông báo
+        </SideLink>
+        <SideLink to="/admin/profile" icon={<Settings />}>
+          Hồ sơ & Bảo mật
+        </SideLink>
+        <div className="side-bottom">
+          <LogoutButton />
+        </div>
+      </aside>
+      <main className="dash-main">{children ?? <Outlet />}</main>
+    </DashboardShell>
+  );
+}
+function SideLink({
+  to,
+  icon,
+  children,
+}: {
+  to: string;
+  icon: ReactNode;
+  children: ReactNode;
+}) {
+  return (
+    <NavLink
+      className={({ isActive }) => `side-link ${isActive ? "active" : ""}`}
+      to={to}
+    >
+      {icon}
+      <span>{children}</span>
+    </NavLink>
+  );
+}
+function DashboardShell({ children }: { children: ReactNode; title: string }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={`dashboard-shell ${open ? "drawer-open" : ""}`}>
+      <button
+        aria-label="Đóng menu"
+        className="drawer-backdrop"
+        onClick={() => setOpen(false)}
+      />
+      <div className="mobile-dashbar">
+        <Link className="brand" to="/">
+          <span className="brand-mark">▶</span>
+          <span>
+            <b>Media</b>
+            <em>Hub</em>
+          </span>
+        </Link>
+        <button
+          className="icon-btn"
+          aria-label="Mở menu"
+          aria-expanded={open}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+      <div
+        onClick={(e) => {
+          if ((e.target as HTMLElement).closest("a")) setOpen(false);
+        }}
+        className="shell-content"
+      >
+        {children}
+      </div>
+    </div>
+  );
+}
+function LogoutButton() {
+  const [error, setError] = useState("");
+  return (
+    <>
+      <button
+        className="side-link logout-button"
+        onClick={async () => {
+          try {
+            const result = await authService.logout();
+            if (result.error) throw result.error;
+          } catch (e) {
+            setError((e as Error).message);
+          }
+        }}
+      >
+        <LogOut size={16} /> Đăng xuất
+      </button>
+      {error && (
+        <p role="alert" className="error">
+          {error}
+        </p>
+      )}
+    </>
+  );
+}
+function Footer() {
+  return (
+    <footer id="about">
+      <div>
+        <Link className="brand" to="/">
+          <span className="brand-mark">▶</span>
+          <span>
+            <b>Media</b>
+            <em>Hub</em>
+            <small>CREATIVE MEDIA AGENCY</small>
+          </span>
+        </Link>
+        <p>Kết nối sáng tạo – Bứt phá nội dung.</p>
+      </div>
+      <div>
+        <b>MediaHub</b>
+        <a href="/#about">Về chúng tôi</a>
+        <Link to="/projects">Dự án</Link>
+        <a href="/#services">Dịch vụ</a>
+      </div>
+      <div>
+        <b>Dành cho khách hàng</b>
+        <Link to="/customer/projects/new">Đăng dự án</Link>
+        <a href="/#services">Dịch vụ & Báo giá</a>
+        <a href="mailto:hello@mediahub.vn">Hỗ trợ</a>
+      </div>
+      <div>
+        <b>Liên hệ</b>
+        <a href="mailto:hello@mediahub.vn">hello@mediahub.vn</a>
+        <a href="tel:+84322119698">+84 322 119 698</a>
+      </div>
+    </footer>
+  );
+}
