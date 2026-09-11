@@ -1935,7 +1935,11 @@ footer > div > a {
 .auth-card {
   min-width: 0;
   border: 1px solid rgba(135, 151, 185, 0.2);
-  background: linear-gradient(145deg, rgba(17, 24, 40, 0.9), rgba(8, 12, 22, 0.88));
+  background: linear-gradient(
+    145deg,
+    rgba(17, 24, 40, 0.9),
+    rgba(8, 12, 22, 0.88)
+  );
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.28);
   border-radius: 18px;
 }

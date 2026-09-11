@@ -1,0 +1,46 @@
+import { config } from "dotenv";
+import { fileURLToPath } from "node:url";
+import { z } from "zod";
+
+export const envSchema = z.object({
+  NODE_ENV: z
+    .enum(["development", "test", "production"])
+    .default("development"),
+  PORT: z.coerce.number().int().min(1).max(65535).default(5000),
+  SUPABASE_URL: z.url(),
+  SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  CORS_ORIGIN: z
+    .string()
+    .default("http://localhost:5173,http://127.0.0.1:5173")
+    .transform((value) =>
+      value
+        .split(",")
+        .map((origin) => origin.trim())
+        .filter(Boolean),
+    )
+    .pipe(z.array(z.url()).min(1)),
+});
+export type Environment = z.infer<typeof envSchema>;
+export function loadEnvironment(): Environment {
+  // Explicit backend overrides root; injected process variables take precedence.
+  config({
+    path: fileURLToPath(new URL("../../.env", import.meta.url)),
+    quiet: true,
+  });
+  config({
+    path: fileURLToPath(new URL("../../../.env", import.meta.url)),
+    quiet: true,
+  });
+  if (
+    !process.env.SUPABASE_SERVICE_ROLE_KEY &&
+    process.env.SUPABASE_SECRET_KEY
+  ) {
+    process.env.SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SECRET_KEY;
+  }
+  const parsed = envSchema.safeParse(process.env);
+  if (!parsed.success)
+    throw new Error(
+      `Invalid backend configuration: ${[...new Set(parsed.error.issues.map((issue) => issue.path.join(".")))].join(", ")}. See backend/.env.example.`,
+    );
+  return parsed.data;
+}

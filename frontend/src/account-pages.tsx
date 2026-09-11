@@ -78,16 +78,26 @@ function AuthScreen({
         </p>
         <div className="auth-audience-grid">
           <article>
-            <span className="auth-audience-icon orange"><Building2 /></span>
+            <span className="auth-audience-icon orange">
+              <Building2 />
+            </span>
             <h3>Dành cho Doanh nghiệp</h3>
-            <p>Tiết kiệm <b>40-50% chi phí</b> sản xuất truyền thông.</p>
-            <small><BadgeCheck /> Bảo chứng nghiệm thu QA 100%</small>
+            <p>
+              Tiết kiệm <b>40-50% chi phí</b> sản xuất truyền thông.
+            </p>
+            <small>
+              <BadgeCheck /> Bảo chứng nghiệm thu QA 100%
+            </small>
           </article>
           <article>
-            <span className="auth-audience-icon violet"><Palette /></span>
+            <span className="auth-audience-icon violet">
+              <Palette />
+            </span>
             <h3>Dành cho Creator &amp; SV</h3>
             <p>Thực chiến với nhãn hàng lớn &amp; nhận thù lao minh bạch.</p>
-            <small><CreditCard /> Thanh toán ký quỹ Escrow an toàn</small>
+            <small>
+              <CreditCard /> Thanh toán ký quỹ Escrow an toàn
+            </small>
           </article>
         </div>
         <img
@@ -96,8 +106,13 @@ function AuthScreen({
           alt="Đội ngũ sáng tạo đang thực hiện dự án"
         />
         <div className="auth-trust-row">
-          <div><strong>500+ Creator đã gia nhập</strong><span>120+ Dự án hoàn thành xuất sắc</span></div>
-          <span><ShieldCheck /> Hợp đồng pháp lý minh bạch</span>
+          <div>
+            <strong>500+ Creator đã gia nhập</strong>
+            <span>120+ Dự án hoàn thành xuất sắc</span>
+          </div>
+          <span>
+            <ShieldCheck /> Hợp đồng pháp lý minh bạch
+          </span>
         </div>
       </section>
       <section className="auth-card" key={mode}>
@@ -106,7 +121,10 @@ function AuthScreen({
             <Link className={mode === "login" ? "active" : ""} to="/login">
               <LockKeyhole /> Đăng nhập
             </Link>
-            <Link className={mode === "register" ? "active" : ""} to="/register">
+            <Link
+              className={mode === "register" ? "active" : ""}
+              to="/register"
+            >
               <UserRound /> Đăng ký
             </Link>
           </div>
@@ -167,14 +185,18 @@ function AuthScreen({
         >
           {mode === "register" && (
             <>
-              <div className="auth-role-label">Bạn đăng ký với tư cách nào?</div>
+              <div className="auth-role-label">
+                Bạn đăng ký với tư cách nào?
+              </div>
               <div className="auth-role-grid">
                 <button
                   type="button"
                   className={role === "client" ? "selected" : ""}
                   onClick={() => setRole("client")}
                 >
-                  <Building2 /><strong>Doanh nghiệp</strong><small>Tìm giải pháp &amp; nhân tài</small>
+                  <Building2 />
+                  <strong>Doanh nghiệp</strong>
+                  <small>Tìm giải pháp &amp; nhân tài</small>
                   {role === "client" && <CheckCircle2 className="role-check" />}
                 </button>
                 <button
@@ -182,28 +204,63 @@ function AuthScreen({
                   className={role === "creator" ? "selected" : ""}
                   onClick={() => setRole("creator")}
                 >
-                  <Palette /><strong>Creator / Sinh viên</strong><small>Thực chiến dự án có phí</small>
-                  {role === "creator" && <CheckCircle2 className="role-check" />}
+                  <Palette />
+                  <strong>Creator / Sinh viên</strong>
+                  <small>Thực chiến dự án có phí</small>
+                  {role === "creator" && (
+                    <CheckCircle2 className="role-check" />
+                  )}
                 </button>
               </div>
-              <AuthField name="full_name" label="Họ và tên" icon={<UserRound />} placeholder="Nguyễn Văn A" />
+              <AuthField
+                name="full_name"
+                label="Họ và tên"
+                icon={<UserRound />}
+                placeholder="Nguyễn Văn A"
+              />
               <AuthField
                 name="organization"
-                label={role === "client" ? "Tên thương hiệu / Công ty" : "Trường ĐH / Chuyên ngành sáng tạo"}
+                label={
+                  role === "client"
+                    ? "Tên thương hiệu / Công ty"
+                    : "Trường ĐH / Chuyên ngành sáng tạo"
+                }
                 icon={role === "client" ? <Building2 /> : <School />}
-                placeholder={role === "client" ? "VD: The Coffee House, Glowy Cosmetics..." : "VD: ĐH FPT (Truyền thông số)..."}
+                placeholder={
+                  role === "client"
+                    ? "VD: The Coffee House, Glowy Cosmetics..."
+                    : "VD: ĐH FPT (Truyền thông số)..."
+                }
                 required={false}
               />
             </>
           )}
           {mode !== "reset" && (
-            <AuthField name="email" label="Email doanh nghiệp / cá nhân" type="email" icon={<Mail />} placeholder="name@company.com" />
+            <AuthField
+              name="email"
+              label="Email doanh nghiệp / cá nhân"
+              type="email"
+              icon={<Mail />}
+              placeholder="name@company.com"
+            />
           )}
           {mode !== "forgot" && (
-            <AuthField name="password" label="Mật khẩu" type="password" icon={<Lock />} placeholder="Ít nhất 8 ký tự" />
+            <AuthField
+              name="password"
+              label="Mật khẩu"
+              type="password"
+              icon={<Lock />}
+              placeholder="Ít nhất 8 ký tự"
+            />
           )}
           {(mode === "register" || mode === "reset") && (
-            <AuthField name="confirm" label="Xác nhận mật khẩu" type="password" icon={<Lock />} placeholder="Nhập lại mật khẩu" />
+            <AuthField
+              name="confirm"
+              label="Xác nhận mật khẩu"
+              type="password"
+              icon={<Lock />}
+              placeholder="Nhập lại mật khẩu"
+            />
           )}
           {mode === "login" && (
             <p className="auth-foot">
@@ -232,7 +289,9 @@ function AuthScreen({
             <ArrowRight size={13} />
           </Link>
         </p>
-        <div className="auth-security"><Shield /> Dữ liệu được mã hóa 256-bit SSL tiêu chuẩn Enterprise</div>
+        <div className="auth-security">
+          <Shield /> Dữ liệu được mã hóa 256-bit SSL tiêu chuẩn Enterprise
+        </div>
       </section>
     </div>
   );
@@ -259,9 +318,21 @@ function AuthField({
       <label htmlFor={name}>{label}</label>
       <div className="auth-input-wrap">
         <span className="auth-input-icon">{icon}</span>
-        <input id={name} name={name} type={password && visible ? "text" : type} placeholder={placeholder} required={required} minLength={password ? 8 : undefined} />
+        <input
+          id={name}
+          name={name}
+          type={password && visible ? "text" : type}
+          placeholder={placeholder}
+          required={required}
+          minLength={password ? 8 : undefined}
+        />
         {password && (
-          <button type="button" className="auth-password-toggle" aria-label={visible ? "Ẩn mật khẩu" : "Hiện mật khẩu"} onClick={() => setVisible(!visible)}>
+          <button
+            type="button"
+            className="auth-password-toggle"
+            aria-label={visible ? "Ẩn mật khẩu" : "Hiện mật khẩu"}
+            onClick={() => setVisible(!visible)}
+          >
             {visible ? <EyeOff /> : <Eye />}
           </button>
         )}
