@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint src",
     "db:check": "npm run build && node scripts/check-migrations.mjs",
-    "db:migrate": "npm run build && node scripts/migrate.mjs --apply"
+    "db:migrate": "npm run build && node scripts/migrate.mjs --apply",
+    "db:seed-demo": "npm run build && node scripts/seed-demo.mjs --apply"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.0",

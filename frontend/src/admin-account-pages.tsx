@@ -19,8 +19,11 @@ export function AdminUsers() {
   return (
     <Page title="Quản lý tài khoản">
       <section className="panel">
-        <h2>Mời khách hàng</h2>
-        <p>Gửi lời mời qua Supabase Auth. Tài khoản mới có quyền Customer.</p>
+        <h2>Mời tài khoản</h2>
+        <p>
+          Gửi lời mời qua Supabase Auth. Nhân viên chỉ có quyền vào khu vực hỗ
+          trợ.
+        </p>
         <ActionForm
           label="Gửi lời mời"
           onSubmit={(data) => {
@@ -29,12 +32,20 @@ export function AdminUsers() {
             return post("/admin/customers/invite", {
               full_name: data.get("full_name"),
               email: data.get("email"),
+              role: data.get("role"),
             });
           }}
           onSuccess={query.reload}
         >
           <Field name="full_name" label="Họ và tên" />
           <Field name="email" label="Email" type="email" />
+          <label className="field">
+            Vai trò
+            <select name="role" defaultValue="CUSTOMER">
+              <option value="CUSTOMER">Khách hàng</option>
+              <option value="STAFF">Nhân viên hỗ trợ</option>
+            </select>
+          </label>
         </ActionForm>
       </section>
       <div className="toolbar">
@@ -76,6 +87,7 @@ export function AdminUsers() {
                   <select name="role" defaultValue={user.role}>
                     <option>ADMIN</option>
                     <option>CUSTOMER</option>
+                    <option>STAFF</option>
                   </select>
                 </label>
                 <label className="checkbox-field">

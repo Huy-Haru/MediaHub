@@ -33,7 +33,7 @@ export function PublicLayout({ children }: { children?: ReactNode }) {
     "/forgot-password",
     "/reset-password",
   ].includes(location.pathname);
-  const workspace = auth.role === "ADMIN" ? "/admin" : "/customer";
+  const workspace = auth.role === "ADMIN" ? "/admin" : auth.role === "STAFF" ? "/staff" : "/customer";
   return (
     <div className={`app${isAuthPage ? " auth-layout" : ""}`}>
       <header className="topbar">
@@ -96,6 +96,8 @@ export function CustomerLayout({ children }: { children?: ReactNode }) {
           </span>
         </Link>
         <p className="side-label">KHÁCH HÀNG</p>
+        <SideLink to="/customer/support" icon={<Users/>}>Trung tâm hỗ trợ</SideLink>
+        <SideLink to="/customer/payments" icon={<BarChart3/>}>Cọc & Thanh toán</SideLink>
         <SideLink to="/customer/dashboard" icon={<LayoutDashboard />}>
           Tổng quan
         </SideLink>
@@ -137,6 +139,7 @@ export function AdminLayout({ children }: { children?: ReactNode }) {
           </span>
         </Link>
         <p className="side-label">QUẢN TRỊ HỆ THỐNG</p>
+        <SideLink to="/admin/support" icon={<Users/>}>Hỗ trợ khách hàng</SideLink><SideLink to="/admin/payments" icon={<BarChart3/>}>Cọc & Thanh toán</SideLink><SideLink to="/admin/payment-settings" icon={<Settings/>}>Ngân hàng & QR</SideLink>
         <SideLink to="/admin/dashboard" icon={<LayoutDashboard />}>
           Tổng quan
         </SideLink>
@@ -320,3 +323,5 @@ function Footer() {
     </footer>
   );
 }
+
+export function StaffLayout(){return <DashboardShell title="Nhân viên hỗ trợ"><aside className="side"><Link className="brand side-brand" to="/"><span className="brand-mark">▶</span><b>MediaHub</b></Link><p className="side-label">NHÂN VIÊN HỖ TRỢ</p><SideLink to="/staff/dashboard" icon={<LayoutDashboard/>}>Hàng đợi hỗ trợ</SideLink><SideLink to="/staff/notifications" icon={<Bell/>}>Thông báo</SideLink><SideLink to="/staff/profile" icon={<Settings/>}>Hồ sơ & Bảo mật</SideLink><div className="side-bottom"><LogoutButton/></div></aside><main className="dash-main"><Outlet/></main></DashboardShell>}

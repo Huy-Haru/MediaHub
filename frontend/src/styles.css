@@ -2465,3 +2465,14 @@ textarea {
     border: 0;
   }
 }
+
+/* Support and payment workspaces share the Stitch dark card language. */
+.support-intro {background:linear-gradient(120deg,#191019,#0d1020);border-color:#443044;}
+.support-thread {display:flex;flex-direction:column;gap:18px;min-height:250px;}
+.chat-bubble {max-width:80%;align-self:flex-start;background:#171c2c;border:1px solid #2a3042;padding:18px 22px;border-radius:16px 16px 16px 4px;}
+.chat-bubble.mine {align-self:flex-end;background:#332019;border-color:#743820;border-radius:16px 16px 4px 16px;}
+.chat-bubble p {white-space:pre-wrap;overflow-wrap:anywhere;margin:8px 0;}
+.chat-bubble small {color:#949bad;font-size:11px;}
+.payment-card {padding:24px;border:1px solid #272c3c;border-radius:16px;background:#0a0d16;}
+.payment-qr {display:block;width:220px;height:220px;object-fit:contain;background:white;border-radius:12px;padding:10px;margin:18px 0;}
+@media(max-width:600px){.chat-bubble{max-width:95%;padding:14px}.payment-card{padding:16px}}

@@ -13,7 +13,7 @@ type Profile = {
   id: string;
   full_name: string;
   email: string;
-  role: "CUSTOMER" | "ADMIN";
+  role: "CUSTOMER" | "ADMIN" | "STAFF";
   phone: string | null;
   avatar_url: string | null;
   company_name: string | null;
@@ -152,7 +152,7 @@ function Protected({ role }: { role: string }) {
   if (auth.role !== role)
     return (
       <Navigate
-        to={auth.role === "ADMIN" ? "/admin/dashboard" : "/customer/dashboard"}
+        to={auth.role === "ADMIN" ? "/admin/dashboard" : auth.role === "STAFF" ? "/staff/dashboard" : "/customer/dashboard"}
         replace
       />
     );
@@ -160,3 +160,5 @@ function Protected({ role }: { role: string }) {
 }
 export const CustomerRoute = () => <Protected role="CUSTOMER" />;
 export const AdminRoute = () => <Protected role="ADMIN" />;
+
+export const StaffRoute = () => <Protected role="STAFF" />;

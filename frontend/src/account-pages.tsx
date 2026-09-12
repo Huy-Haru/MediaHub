@@ -53,7 +53,7 @@ function AuthScreen({
     reset: "Tạo mật khẩu mới",
   }[mode];
   const destination = (location.state as { from?: string } | null)?.from;
-  const prefix = auth.role === "ADMIN" ? "/admin/" : "/customer/";
+  const prefix = auth.role === "ADMIN" ? "/admin/" : auth.role === "STAFF" ? "/staff/" : "/customer/";
   if (auth.role && (mode === "login" || mode === "register"))
     return (
       <Navigate

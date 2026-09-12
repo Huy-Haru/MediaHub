@@ -9,3 +9,4 @@ dist/
 # Locally installed agent skills
 /frontend/.agents/
 /frontend/skills-lock.json
+/design-reference/

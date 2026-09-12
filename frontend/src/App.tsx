@@ -1,8 +1,10 @@
+import {SupportInbox,SupportConversation} from './support-pages';
+import {PaymentSettingsPage,PaymentsPage} from './payment-pages';
 import { RouteMetadata } from "./content-pages";
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { PublicLayout, CustomerLayout, AdminLayout } from "./layouts";
-import { CustomerRoute, AdminRoute } from "./contexts/AuthContext";
+import { PublicLayout, CustomerLayout, AdminLayout, StaffLayout } from "./layouts";
+import { CustomerRoute, AdminRoute, StaffRoute } from "./contexts/AuthContext";
 const Login = lazy(() =>
   import("./account-pages").then((module) => ({ default: module.Login })),
 );
@@ -189,6 +191,7 @@ export default function App() {
         }
       >
         <Routes>
+          <Route element={<StaffRoute/>}><Route path="/staff" element={<StaffLayout/>}><Route index element={<Navigate to="dashboard" replace/>}/><Route path="dashboard" element={<SupportInbox/>}/><Route path="support" element={<SupportInbox/>}/><Route path="support/:id" element={<SupportConversation/>}/><Route path="profile" element={<Profile/>}/><Route path="notifications" element={<Notifications/>}/></Route></Route>
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route
@@ -222,6 +225,7 @@ export default function App() {
           </Route>
           <Route element={<CustomerRoute />}>
             <Route path="/customer" element={<CustomerLayout />}>
+              <Route path="support" element={<SupportInbox/>}/><Route path="support/:id" element={<SupportConversation/>}/><Route path="payments" element={<PaymentsPage/>}/>
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<CustomerDashboard />} />
               <Route path="projects" element={<ProjectList />} />
@@ -247,6 +251,7 @@ export default function App() {
           </Route>
           <Route element={<AdminRoute />}>
             <Route path="/admin" element={<AdminLayout />}>
+              <Route path="support" element={<SupportInbox/>}/><Route path="support/:id" element={<SupportConversation/>}/><Route path="payments" element={<PaymentsPage/>}/><Route path="payment-settings" element={<PaymentSettingsPage/>}/>
               <Route index element={<Navigate to="dashboard" replace />} />
               <Route path="dashboard" element={<AdminDashboard />} />
               <Route path="files" element={<AdminFiles />} />
