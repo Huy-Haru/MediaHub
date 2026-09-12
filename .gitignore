@@ -5,3 +5,7 @@ dist/
 !.env.example
 *.tsbuildinfo
 *.log
+
+# Locally installed agent skills
+/frontend/.agents/
+/frontend/skills-lock.json
