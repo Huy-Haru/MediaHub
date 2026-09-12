@@ -37,6 +37,8 @@ try {
     "011_project_management.sql",
     "012_quotation_drafts.sql",
     "013_lead_project_conversion.sql",
+    "014_support_and_payments.sql",
+    "015_staff_account_management.sql",
   ]) {
     const sql = await fs.readFile(
       new URL(`../../supabase/migrations/${name}`, import.meta.url),

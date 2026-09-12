@@ -73,6 +73,11 @@ type Audit = {
   entity_id: string;
   created_at: string;
 };
+export type SupportTicket = {id:string;customer_id:string;subject:string;category:string;status:string;assigned_to:string|null;created_at:string;updated_at:string};
+export type SupportMessage = {id:string;ticket_id:string;sender_id:string;message:string;created_at:string};
+export type PaymentSettings = {id:string;bank_name:string;account_number:string;account_name:string;qr_image:string;deposit_percent:number;enabled:boolean;instructions:string;updated_at:string};
+export type PaymentPlan = {id:string;project_id:string;quotation_id:string;total:number;deposit_percent:number;created_at:string};
+export type PaymentInstallment = {id:string;plan_id:string;stage:string;amount:number;status:string;reference:string;transfer_note:string;reported_at:string|null;paid_at:string|null;confirmed_by:string|null};
 type Table<T, Required extends keyof T> = {
   Row: T;
   Insert: Pick<T, Required> & Partial<Omit<T, Required>>;
@@ -113,6 +118,8 @@ type Extended<
 export type PlatformDatabase = Omit<Database, "public"> & {
   public: Omit<Database["public"], "Tables" | "Functions"> & {
     Functions: Database["public"]["Functions"] & {
+      support_action: {Args:{actor_id:string;operation:string;target_id:string|null;payload:import('./database.types.js').Json};Returns:{id:string}};
+      payment_action: {Args:{actor_id:string;operation:string;target_id:string;payload:import('./database.types.js').Json};Returns:{id:string}};
       save_quotation: {
         Args: {
           actor_id: string;
@@ -236,6 +243,11 @@ export type PlatformDatabase = Omit<Database, "public"> & {
         Update: Partial<LeadInsert>;
         Relationships: [];
       };
+      support_tickets: Table<SupportTicket, 'customer_id'|'subject'>;
+      support_messages: Table<SupportMessage,'ticket_id'|'sender_id'|'message'>;
+      payment_settings: Table<PaymentSettings,'id'>;
+      payment_plans: Table<PaymentPlan,'project_id'|'quotation_id'|'total'|'deposit_percent'>;
+      payment_installments: Table<PaymentInstallment,'plan_id'|'stage'|'amount'>;
       partners: Table<Partner, "name">;
       work_processes: Table<Process, "title" | "description" | "step">;
       website_settings: Table<Setting, "key" | "title">;
