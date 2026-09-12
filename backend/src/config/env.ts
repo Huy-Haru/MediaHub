@@ -9,6 +9,9 @@ export const envSchema = z.object({
   PORT: z.coerce.number().int().min(1).max(65535).default(5000),
   SUPABASE_URL: z.url(),
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
+  SITE_URL: z.url().optional(),
+  AUTH_REDIRECT_URL: z.url().optional(),
+  TRUST_PROXY_HOPS: z.coerce.number().int().min(0).max(5).default(0),
   CORS_ORIGIN: z
     .string()
     .default("http://localhost:5173,http://127.0.0.1:5173")

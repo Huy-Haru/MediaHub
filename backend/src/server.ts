@@ -1,3 +1,18 @@
-import {app} from './app.js';
-const server=app.listen(Number(process.env.PORT??5000),()=>console.info(`MediaHub API listening on ${process.env.PORT??5000}`));
-process.on('SIGTERM',()=>server.close());
+import { app } from "./app.js";
+import { env } from "./config/database.js";
+const server = app.listen(env.PORT, () =>
+  console.info(`MediaHub API listening on ${env.PORT}`),
+);
+let stopping = false;
+function shutdown() {
+  if (stopping) return;
+  stopping = true;
+  server.close((error) => {
+    if (error) process.exitCode = 1;
+  });
+  setTimeout(() => {
+    server.closeAllConnections();
+  }, 10000).unref();
+}
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
