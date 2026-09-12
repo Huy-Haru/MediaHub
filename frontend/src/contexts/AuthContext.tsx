@@ -14,6 +14,10 @@ type Profile = {
   full_name: string;
   email: string;
   role: "CUSTOMER" | "ADMIN";
+  phone: string | null;
+  avatar_url: string | null;
+  company_name: string | null;
+  notification_preferences: { email: boolean; in_app: boolean };
 };
 const Context = createContext<{
   currentUser: User | null;

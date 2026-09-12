@@ -2405,3 +2405,63 @@ footer > div > a {
     font-size: 23px;
   }
 }
+/* Shared content and workspace safeguards. */
+.enquiry {
+  max-width: 820px;
+  margin-inline: auto;
+}
+.catalog-image {
+  display: block;
+  max-width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+.partner-logo {
+  width: 160px;
+  height: 90px;
+  object-fit: contain;
+}
+.message {
+  border-bottom: 1px solid #334155;
+  padding-block: 16px;
+  overflow-wrap: anywhere;
+}
+.dash-main,
+.stack,
+.split > *,
+.service-card {
+  min-width: 0;
+}
+.panel,
+.service-card,
+article {
+  overflow-wrap: anywhere;
+}
+input,
+select,
+textarea {
+  max-width: 100%;
+}
+:focus-visible {
+  outline: 3px solid #fa8c38;
+  outline-offset: 3px;
+}
+@media print {
+  .side,
+  .topbar,
+  footer,
+  .dash-header,
+  .no-print {
+    display: none !important;
+  }
+  .dash-main {
+    margin: 0 !important;
+    width: 100% !important;
+  }
+  .invoice-print {
+    color: black;
+    background: white;
+    border: 0;
+  }
+}

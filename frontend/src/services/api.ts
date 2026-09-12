@@ -18,7 +18,7 @@ export async function api<T = any>(
   let response: Response;
   try {
     response = await fetch(
-      `${import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api"}${path}`,
+      `${import.meta.env.VITE_API_BASE_URL || "/api"}${path}`,
       {
         ...options,
         headers: {
