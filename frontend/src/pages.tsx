@@ -3,9 +3,13 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowRight, Search, PlayCircle } from "lucide-react";
 import { useApi } from "./hooks/useApi";
 import { State, Pagination } from "./components/ui";
+import { ProcessPage, Metadata, PartnersPage } from "./content-pages";
 export function Home() {
-  const catalog = useApi("/public/services?limit=100"),
-    portfolio = useApi("/public/portfolio?limit=4"),
+  const hero = useApi<{ title: string; content: string; image: string } | null>(
+    "/public/pages/hero",
+  );
+  const catalog = useApi("/public/services?featured=true&limit=8"),
+    portfolio = useApi("/public/portfolio?featured=true&limit=4"),
     testimonials = useApi("/public/testimonials?limit=6");
   const services = catalog.data?.items ?? [];
   const projects = (portfolio.data?.items ?? []).map(mapPortfolio);
@@ -15,17 +19,20 @@ export function Home() {
         <div className="hero-copy">
           <span className="eyebrow">CREATIVE MEDIA AGENCY · FOR SME</span>
           <h1>
-            Kết nối sáng tạo
-            <br />
-            <span>– Bứt phá nội dung</span>
+            {hero.data?.title || (
+              <>
+                Kết nối sáng tạo
+                <br />
+                <span>– Bứt phá nội dung</span>
+              </>
+            )}
           </h1>
           <p>
-            MediaHub giúp doanh nghiệp nhỏ sở hữu nội dung truyền thông chuyên
-            nghiệp với ngân sách hợp lý — và tạo cơ hội để tài năng trẻ làm dự
-            án thật.
+            {hero.data?.content ||
+              "MediaHub đồng hành cùng doanh nghiệp từ yêu cầu và báo giá đến sản xuất, nghiệm thu và bàn giao nội dung."}
           </p>
           <div className="hero-actions">
-            <Link to="/customer/projects/new" className="btn btn-primary">
+            <Link to="/request-project" className="btn btn-primary">
               Đăng dự án ngay <ArrowRight size={17} />
             </Link>
             <Link to="/projects" className="btn btn-ghost">
@@ -41,7 +48,7 @@ export function Home() {
           <div className="hero-orb" />
           <div className="hero-image">
             <img
-              src="/assets/project-1.png"
+              src={hero.data?.image || "/assets/project-1.png"}
               alt="Dự án sản xuất nội dung MediaHub"
             />
             <div className="image-overlay" />
@@ -50,11 +57,6 @@ export function Home() {
             <span>✦</span>
             <b>Video Production</b>
             <small>Creative team</small>
-          </div>
-          <div className="float-card fc2">
-            <span>◉</span>
-            <b>98%</b>
-            <small>Khách hàng hài lòng</small>
           </div>
         </div>
       </section>
@@ -101,7 +103,7 @@ export function Home() {
                 <span>0{i + 1}</span>
                 <h3>{s.name}</h3>
                 <p>{s.description}</p>
-                <Link to="/customer/projects/new">
+                <Link to="/request-project">
                   Đăng yêu cầu <ArrowRight size={15} />
                 </Link>
               </div>
@@ -130,37 +132,20 @@ export function Home() {
           </Link>
         </div>
       </section>
-      <section className="process section" id="process">
-        <SectionTitle
-          kicker="QUY TRÌNH"
-          title="5 bước – Minh bạch & hiệu quả"
-        />
-        <div className="steps">
-          {[
-            "Doanh nghiệp gửi yêu cầu",
-            "MediaHub tư vấn & báo giá",
-            "Chọn đội ngũ phù hợp",
-            "Thực hiện & quản lý tiến độ",
-            "QC & bàn giao sản phẩm",
-          ].map((s, i) => (
-            <div className="step" key={s}>
-              <span>0{i + 1}</span>
-              <h3>{s}</h3>
-              <p>
-                {
-                  [
-                    "Brief nhu cầu, ngân sách và deadline.",
-                    "Chốt scope, timeline và quotation.",
-                    "MediaHub chuẩn bị creative team.",
-                    "Theo dõi, review và xử lý revision.",
-                    "Kiểm soát chất lượng trước bàn giao.",
-                  ][i]
-                }
-              </p>
-            </div>
-          ))}
-        </div>
+      <ProcessPage embedded />
+      <section className="section">
+        <h2>Về MediaHub</h2>
+        <p>
+          MediaHub cung cấp dịch vụ truyền thông được quản lý xuyên suốt: làm rõ
+          yêu cầu, xác nhận phạm vi và báo giá, tổ chức sản xuất, kiểm soát chất
+          lượng và bàn giao. Khách hàng làm việc qua một đầu mối và theo dõi
+          tiến độ trong không gian dự án.
+        </p>
+        <Link className="btn btn-ghost" to="/about">
+          Tìm hiểu MediaHub
+        </Link>
       </section>
+      <PartnersPage embedded />
       <section className="section">
         <SectionTitle kicker="KHÁCH HÀNG" title="Đánh giá về MediaHub" />
         <State query={testimonials}>
@@ -189,7 +174,7 @@ export function Home() {
             nghiệp.
           </p>
         </div>
-        <Link to="/customer/projects/new" className="btn btn-primary">
+        <Link to="/request-project" className="btn btn-primary">
           Bắt đầu dự án <ArrowRight />
         </Link>
       </section>
@@ -215,7 +200,7 @@ function SectionTitle({
 }
 function ProjectCard({ p }: { p: any }) {
   return (
-    <Link to={`/projects/${p.id}`} className="project-card">
+    <Link to={`/portfolio/${p.slug || p.id}`} className="project-card">
       <div className="project-img">
         <img
           src={p.image || "/assets/project-1.png"}
@@ -239,9 +224,15 @@ function mapPortfolio(p: any) {
 export function Projects() {
   const [params] = useSearchParams();
   const [q, setQ] = useState(params.get("search") ?? ""),
+    [category, setCategory] = useState(""),
     [page, setPage] = useState(1);
   const query = useApi(
-    "/public/portfolio?page=" + page + "&search=" + encodeURIComponent(q),
+    "/public/portfolio?page=" +
+      page +
+      "&search=" +
+      encodeURIComponent(q) +
+      "&category=" +
+      encodeURIComponent(category),
   );
   return (
     <div className="page section">
@@ -264,6 +255,16 @@ export function Projects() {
             placeholder="Tìm dự án…"
           />
         </div>
+        <input
+          aria-label="Lọc theo danh mục"
+          placeholder="Danh mục (ví dụ: Video)"
+          value={category}
+          maxLength={100}
+          onChange={(event) => {
+            setCategory(event.target.value);
+            setPage(1);
+          }}
+        />
       </div>
       <State query={query}>
         <div className="project-grid">
@@ -292,9 +293,13 @@ export function ProjectDetail() {
             <div className="detail-hero">
               <div>
                 <span className="eyebrow">{p.category}</span>
+                <Metadata
+                  title={p.seo_title || p.title}
+                  description={p.seo_description || p.description}
+                />
                 <h1>{p.title}</h1>
                 <p>{p.description}</p>
-                <Link to="/customer/projects/new" className="btn btn-primary">
+                <Link to="/request-project" className="btn btn-primary">
                   Bắt đầu dự án tương tự <ArrowRight />
                 </Link>
               </div>
@@ -302,16 +307,54 @@ export function ProjectDetail() {
             </div>
             <div className="detail-grid">
               <article>
-                <h2>Quy trình sáng tạo</h2>
-                <p>
-                  MediaHub xây dựng ý tưởng từ nhu cầu kinh doanh, quản lý tiến
-                  độ và kiểm soát chất lượng trước khi bàn giao.
-                </p>
+                {(["challenge", "solution", "result"] as const).map(
+                  (key) =>
+                    p[key] && (
+                      <section key={key}>
+                        <h2>
+                          {
+                            {
+                              challenge: "Thách thức",
+                              solution: "Giải pháp",
+                              result: "Kết quả",
+                            }[key]
+                          }
+                        </h2>
+                        <p className="preserve-lines">{p[key]}</p>
+                      </section>
+                    ),
+                )}
+                {p.deliverables?.length > 0 && (
+                  <>
+                    <h2>Sản phẩm bàn giao</h2>
+                    <ul>
+                      {p.deliverables.map((item: string) => (
+                        <li key={item}>{item}</li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+                {p.gallery?.length > 0 && (
+                  <div className="project-grid">
+                    {p.gallery.map((url: string, index: number) => (
+                      <img
+                        className="catalog-image"
+                        src={url}
+                        key={url}
+                        alt={`${p.title} — ${index + 1}`}
+                        loading="lazy"
+                      />
+                    ))}
+                  </div>
+                )}
               </article>
               <aside className="detail-side">
                 <b>Thông tin dự án</b>
                 <p>Khách hàng: {p.client}</p>
                 <p>Dịch vụ: {p.category}</p>
+                {p.industry && <p>Lĩnh vực: {p.industry}</p>}
+                {p.year && <p>Năm: {p.year}</p>}
+                {p.duration && <p>Thời gian: {p.duration}</p>}
               </aside>
             </div>
           </>
