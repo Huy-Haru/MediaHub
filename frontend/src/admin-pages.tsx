@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Plus, Search, Pencil, X } from "lucide-react";
 import { useApi } from "./hooks/useApi";
 import {
@@ -76,6 +77,87 @@ const schemas: Record<string, { title: string; fields: ResourceField[] }> = {
     ],
   },
 };
+Object.assign(schemas, {
+  partners: {
+    title: "Đối tác",
+    fields: [
+      { name: "name", label: "Tên đối tác" },
+      { name: "logo", label: "URL logo", type: "url", optional: true },
+      { name: "website", label: "Website", type: "url", optional: true },
+      { name: "description", label: "Mô tả", type: "textarea", optional: true },
+      { name: "industry", label: "Lĩnh vực", optional: true },
+      { name: "display_order", label: "Thứ tự hiển thị", type: "number" },
+      { name: "active", label: "Công khai", type: "checkbox" },
+    ],
+  },
+  work_processes: {
+    title: "Quy trình",
+    fields: [
+      { name: "title", label: "Tiêu đề" },
+      { name: "description", label: "Mô tả", type: "textarea" },
+      { name: "step", label: "Bước", type: "number" },
+      { name: "display_order", label: "Thứ tự hiển thị", type: "number" },
+      { name: "icon", label: "Biểu tượng", optional: true },
+      { name: "image", label: "URL ảnh", type: "url", optional: true },
+      { name: "active", label: "Công khai", type: "checkbox" },
+    ],
+  },
+  website_settings: {
+    title: "Nội dung & cấu hình website",
+    fields: [
+      {
+        name: "key",
+        label:
+          "Khóa nội dung (hero, about, privacy, terms, company_email, company_phone)",
+      },
+      { name: "title", label: "Tiêu đề" },
+      { name: "content", label: "Nội dung", type: "textarea" },
+      { name: "image", label: "URL ảnh", type: "url", optional: true },
+      { name: "published", label: "Công khai", type: "checkbox" },
+    ],
+  },
+});
+export function AdminContent({ resource }: { resource: string }) {
+  return <ResourcePage resource={resource} />;
+}
+schemas.services.fields.push(
+  { name: "featured", label: "Nổi bật", type: "checkbox" },
+  { name: "display_order", label: "Thứ tự", type: "number" },
+  {
+    name: "features",
+    label: "Đặc điểm (phân cách bằng dấu phẩy)",
+    optional: true,
+  },
+  {
+    name: "deliverables",
+    label: "Sản phẩm bàn giao (phân cách bằng dấu phẩy)",
+    optional: true,
+  },
+  { name: "seo_title", label: "Tiêu đề SEO", optional: true },
+  { name: "seo_description", label: "Mô tả SEO", optional: true },
+);
+schemas.portfolio.fields.push(
+  { name: "slug", label: "Đường dẫn" },
+  { name: "industry", label: "Lĩnh vực", optional: true },
+  { name: "year", label: "Năm", type: "number", optional: true },
+  { name: "duration", label: "Thời lượng", optional: true },
+  { name: "challenge", label: "Thách thức", type: "textarea", optional: true },
+  { name: "solution", label: "Giải pháp", type: "textarea", optional: true },
+  { name: "result", label: "Kết quả", type: "textarea", optional: true },
+  {
+    name: "gallery",
+    label: "URL gallery (mỗi dòng một URL)",
+    type: "textarea",
+    optional: true,
+  },
+  {
+    name: "deliverables",
+    label: "Sản phẩm bàn giao (phân cách bằng dấu phẩy)",
+    optional: true,
+  },
+  { name: "seo_title", label: "Tiêu đề SEO", optional: true },
+  { name: "seo_description", label: "Mô tả SEO", optional: true },
+);
 export function AdminEmployees() {
   return <ResourcePage resource="employees" />;
 }
@@ -89,16 +171,29 @@ export function AdminTestimonials() {
   return <ResourcePage resource="testimonials" />;
 }
 function ResourcePage({ resource }: { resource: string }) {
+  const { id } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isNew = location.pathname.endsWith("/new");
   const schema = schemas[resource],
     [search, setSearch] = useState(""),
     [page, setPage] = useState(1),
-    [editing, setEditing] = useState<any | null>(null);
+    [editing, setEditing] = useState<any | null>(isNew ? {} : null);
+  const detail = useApi(id ? `/admin/${resource}/${id}` : null);
+  useEffect(() => {
+    if (detail.data) setEditing(detail.data);
+  }, [detail.data]);
   const query = useApi(
     `/admin/${resource}?page=${page}&search=${encodeURIComponent(search)}`,
   );
   return (
     <Page title={schema.title}>
       <p>Quản lý nội dung và thông tin trên nền tảng MediaHub.</p>
+      {id && (
+        <State query={detail}>
+          <span />
+        </State>
+      )}
       <div className="toolbar">
         <div className="search-input">
           <Search size={18} />
@@ -138,10 +233,17 @@ function ResourcePage({ resource }: { resource: string }) {
                   f.type === "checkbox"
                     ? data.has(f.name)
                     : f.type === "number"
-                      ? Number(data.get(f.name))
-                      : f.name === "skills"
+                      ? f.optional && !data.get(f.name)
+                        ? null
+                        : Number(data.get(f.name))
+                      : [
+                            "skills",
+                            "features",
+                            "deliverables",
+                            "gallery",
+                          ].includes(f.name)
                         ? String(data.get(f.name))
-                            .split(",")
+                            .split(f.name === "gallery" ? "\n" : ",")
                             .map((s) => s.trim())
                             .filter(Boolean)
                         : String(data.get(f.name) ?? "");
@@ -158,6 +260,7 @@ function ResourcePage({ resource }: { resource: string }) {
             onSuccess={() => {
               setEditing(null);
               query.reload();
+              if (id || isNew) navigate(`/admin/${resource}`);
             }}
           >
             <div className="form-grid">
@@ -204,7 +307,9 @@ function ResourcePage({ resource }: { resource: string }) {
                     required={!f.optional}
                     value={
                       Array.isArray(editing[f.name])
-                        ? editing[f.name].join(", ")
+                        ? editing[f.name].join(
+                            f.name === "gallery" ? "\n" : ", ",
+                          )
                         : editing[f.name]
                     }
                   />

@@ -30,7 +30,9 @@ import {
   uploadService,
   reviewService,
 } from "./services";
-import { post } from "./services/api";
+import { ProjectMessages, ProjectMilestones } from "./customer-pages";
+import { EditProject } from "./project-management";
+import { patch, post } from "./services/api";
 
 export function CustomerDashboard() {
   return <Dashboard />;
@@ -53,6 +55,48 @@ function Dashboard({ admin = false }: { admin?: boolean }) {
       </div>
       <State query={query}>
         <Metrics data={query.data} admin={admin} />
+        <div className="kpi-grid">
+          {admin && (
+            <div className="kpi">
+              <div>
+                <small>Lead mới</small>
+                <b>{query.data?.new_leads ?? 0}</b>
+              </div>
+            </div>
+          )}
+          <div className="kpi">
+            <div>
+              <small>Báo giá chờ phản hồi</small>
+              <b>{query.data?.pending_quotations ?? 0}</b>
+            </div>
+          </div>
+          <div className="kpi">
+            <div>
+              <small>Dự án chờ duyệt</small>
+              <b>{query.data?.pending_reviews ?? 0}</b>
+            </div>
+          </div>
+          <div className="kpi">
+            <div>
+              <small>Hóa đơn chưa thanh toán</small>
+              <b>{query.data?.outstanding_invoices ?? 0}</b>
+            </div>
+          </div>
+        </div>
+        <section className="panel">
+          <h2>Thông báo gần đây</h2>
+          {query.data?.recent_notifications?.map(
+            (notification: { id: string; title: string; message: string }) => (
+              <article key={notification.id}>
+                <h3>{notification.title}</h3>
+                <p>{notification.message}</p>
+              </article>
+            ),
+          )}
+          {!query.data?.recent_notifications?.length && (
+            <p>Chưa có thông báo.</p>
+          )}
+        </section>
         <div className="panel">
           <div className="panel-head">
             <b>Tiến độ dự án</b>
@@ -111,7 +155,7 @@ export function AdminProjects() {
     </Page>
   );
 }
-function ProjectList({ admin = false }: { admin?: boolean }) {
+export function ProjectList({ admin = false }: { admin?: boolean }) {
   const [search, setSearch] = useState(""),
     [status, setStatus] = useState(""),
     [page, setPage] = useState(1);
@@ -376,6 +420,26 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
       <State query={query}>
         {p && (
           <div className="customer-project">
+            <nav className="toolbar" aria-label="Nội dung dự án">
+              {[
+                ["quotation", "Báo giá"],
+                ["deliverables", "Bàn giao"],
+                ["files", "Tệp"],
+                ["revisions", "Chỉnh sửa"],
+                ["timeline", "Lịch sử"],
+              ].map(([anchor, title]) => (
+                <a className="btn btn-ghost" key={anchor} href={`#${anchor}`}>
+                  {title}
+                </a>
+              ))}
+              <Link
+                className="btn btn-ghost"
+                to={`${admin ? "/admin" : "/customer"}/projects/${id}/messages`}
+              >
+                Trao đổi
+              </Link>
+            </nav>
+            <ProjectMilestones projectId={id} admin={admin} />
             <section className="panel">
               <div className="project-title">
                 <div>
@@ -385,6 +449,11 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                 <Status value={p.status} />
               </div>
               <p className="preserve-lines">{p.description}</p>
+              {p.scope && <p className="preserve-lines">Phạm vi: {p.scope}</p>}
+              <label>
+                Tiến độ: {p.progress ?? 0}%{" "}
+                <progress max="100" value={p.progress ?? 0} />
+              </label>
               <div className="result-row">
                 <div>
                   <span>Ngân sách dự kiến</span>
@@ -403,7 +472,7 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
             <div className="split">
               <div className="stack">
                 <section className="panel">
-                  <h2>Báo giá</h2>
+                  <h2 id="quotation">Báo giá</h2>
                   {!p.quotations?.length && (
                     <p>MediaHub đang chuẩn bị báo giá cho dự án.</p>
                   )}
@@ -421,6 +490,15 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                         </p>
                       ))}
                       <p>Giảm giá: {money(q.discount)}</p>
+                      <p>
+                        Tạm tính: {money(q.subtotal)} · Thuế ({q.tax_rate ?? 0}
+                        %): {money(q.tax ?? 0)}
+                      </p>
+                      {admin && (
+                        <Link to={`/admin/quotations/${q.id}`}>
+                          Xem và quản lý báo giá
+                        </Link>
+                      )}
                       <p>{q.notes}</p>
                       {!admin &&
                         p.status === "QUOTATION_SENT" &&
@@ -428,9 +506,18 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                           <div className="toolbar">
                             <ActionForm
                               label="Chấp nhận báo giá"
-                              onSubmit={() =>
-                                projectService.action(id, "accept-quotation")
-                              }
+                              onSubmit={() => {
+                                if (
+                                  !window.confirm(
+                                    "Xác nhận chấp nhận báo giá và phạm vi dự án?",
+                                  )
+                                )
+                                  throw new Error("Chưa xác nhận báo giá.");
+                                return projectService.action(
+                                  id,
+                                  "accept-quotation",
+                                );
+                              }}
                               onSuccess={query.reload}
                             />
                             <ActionForm
@@ -455,7 +542,7 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                   ))}
                 </section>
                 <section className="panel">
-                  <h2>Sản phẩm bàn giao</h2>
+                  <h2 id="deliverables">Sản phẩm bàn giao</h2>
                   <FileList
                     id={id}
                     files={p.deliverables ?? []}
@@ -469,9 +556,42 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                   )}
                   {!admin && p.status === "WAITING_REVIEW" && (
                     <>
+                      {p.deliverables
+                        ?.filter(
+                          (deliverable: { status: string }) =>
+                            deliverable.status === "PENDING_APPROVAL",
+                        )
+                        .map((deliverable: { id: string; name: string }) => (
+                          <ActionForm
+                            key={deliverable.id}
+                            label={`Duyệt: ${deliverable.name}`}
+                            onSubmit={() => {
+                              if (
+                                !window.confirm(
+                                  "Xác nhận duyệt sản phẩm bàn giao này?",
+                                )
+                              )
+                                throw new Error("Chưa xác nhận.");
+                              return projectService.action(
+                                id,
+                                "approve-deliverable",
+                                { deliverable_id: deliverable.id },
+                              );
+                            }}
+                            onSuccess={query.reload}
+                          />
+                        ))}
                       <ActionForm
                         label="Duyệt & hoàn thành dự án"
-                        onSubmit={() => projectService.action(id, "complete")}
+                        onSubmit={() => {
+                          if (
+                            !window.confirm(
+                              "Xác nhận nghiệm thu sản phẩm và hoàn thành dự án?",
+                            )
+                          )
+                            throw new Error("Chưa xác nhận nghiệm thu.");
+                          return projectService.action(id, "complete");
+                        }}
                         onSuccess={query.reload}
                       />
                       <ActionForm
@@ -479,6 +599,13 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                         onSubmit={(data) =>
                           projectService.action(id, "revisions", {
                             description: String(data.get("description")),
+                            ...(data.get("deliverable_id")
+                              ? {
+                                  deliverable_id: String(
+                                    data.get("deliverable_id"),
+                                  ),
+                                }
+                              : {}),
                           })
                         }
                         onSuccess={query.reload}
@@ -488,12 +615,35 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                           label="Nội dung cần chỉnh sửa"
                           type="textarea"
                         />
+                        <label className="field">
+                          Sản phẩm cần chỉnh sửa
+                          <select name="deliverable_id">
+                            <option value="">
+                              Tất cả sản phẩm đang chờ duyệt
+                            </option>
+                            {p.deliverables
+                              ?.filter(
+                                (deliverable: { status: string }) =>
+                                  deliverable.status === "PENDING_APPROVAL",
+                              )
+                              .map(
+                                (deliverable: { id: string; name: string }) => (
+                                  <option
+                                    value={deliverable.id}
+                                    key={deliverable.id}
+                                  >
+                                    {deliverable.name}
+                                  </option>
+                                ),
+                              )}
+                          </select>
+                        </label>
                       </ActionForm>
                     </>
                   )}
                 </section>
                 <section className="panel">
-                  <h2>Tài liệu dự án</h2>
+                  <h2 id="files">Tài liệu dự án</h2>
                   <FileList
                     id={id}
                     files={p.project_files ?? []}
@@ -508,6 +658,9 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                 </section>
               </div>
               <aside className="stack">
+                {admin && !["COMPLETED", "CANCELLED"].includes(p.status) && (
+                  <EditProject project={p} reload={query.reload} />
+                )}
                 {admin && transitions[p.status]?.length > 0 && (
                   <section className="panel">
                     <h2>Cập nhật tiến độ</h2>
@@ -534,11 +687,14 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                   <QuoteForm
                     id={id}
                     services={p.project_services ?? []}
+                    draft={p.quotations?.find(
+                      (quote: { status: string }) => quote.status === "DRAFT",
+                    )}
                     reload={query.reload}
                   />
                 )}
                 <section className="panel">
-                  <h2>Lịch sử hoạt động</h2>
+                  <h2 id="timeline">Lịch sử hoạt động</h2>
                   <ol className="activity-list">
                     {[...(p.project_status_history ?? [])]
                       .sort((a: any, b: any) =>
@@ -563,6 +719,11 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                       <p>{i.invoice_number}</p>
                       <h3>{money(i.amount)}</h3>
                       <Status value={i.status} />
+                      {admin && i.status === "DRAFT" && (
+                        <Link to={`/admin/invoices/${i.id}`}>
+                          Xem và phát hành hóa đơn
+                        </Link>
+                      )}
                       {admin && i.status === "PENDING" && (
                         <ActionForm
                           label="Xác nhận đã thanh toán"
@@ -584,11 +745,37 @@ function ProjectWorkspace({ admin = false }: { admin?: boolean }) {
                 </section>
                 {p.revision_requests?.length > 0 && (
                   <section className="panel">
-                    <h2>Yêu cầu chỉnh sửa</h2>
+                    <h2 id="revisions">Yêu cầu chỉnh sửa</h2>
                     {p.revision_requests.map((r: any) => (
                       <div key={r.id}>
                         <Status value={r.status} />
                         <p>{r.description}</p>
+                        {admin &&
+                          ["PENDING", "REQUESTED", "IN_PROGRESS"].includes(
+                            r.status,
+                          ) && (
+                            <ActionForm
+                              onSubmit={(data) =>
+                                patch(
+                                  "/admin/projects/" +
+                                    id +
+                                    "/revisions/" +
+                                    r.id,
+                                  { status: data.get("revision_status") },
+                                )
+                              }
+                              onSuccess={query.reload}
+                            >
+                              <label className="field">
+                                Trạng thái
+                                <select name="revision_status">
+                                  <option>IN_PROGRESS</option>
+                                  <option>RESOLVED</option>
+                                  <option>CANCELLED</option>
+                                </select>
+                              </label>
+                            </ActionForm>
+                          )}
                       </div>
                     ))}
                   </section>
@@ -721,40 +908,119 @@ function QuoteForm({
   id,
   services,
   reload,
+  draft,
 }: {
   id: string;
   services: any[];
   reload: () => void;
+  draft?: {
+    quotation_items: {
+      service_id: string;
+      description: string;
+      quantity: number;
+      unit_price: number;
+    }[];
+    discount: number;
+    valid_until: string;
+    notes: string;
+    tax_rate: number;
+  };
 }) {
   return (
     <section className="panel">
-      <h2>Gửi báo giá</h2>
+      <h2>Soạn báo giá</h2>
       <ActionForm
-        label="Gửi báo giá"
+        label="Lưu báo giá"
         onSubmit={(data) =>
-          quotationService.send(id, {
-            items: services.map((s, i) => ({
-              service_id: s.service_id,
-              description: String(data.get(`desc-${i}`)),
-              quantity: 1,
-              unit_price: Number(data.get(`price-${i}`)),
-            })),
-            discount: Number(data.get("discount")),
-            valid_until: String(data.get("valid_until")),
-            notes: String(data.get("notes")),
-          })
+          post(
+            `/admin/projects/${id}/${data.get("mode") === "DRAFT" ? "quotation-draft" : "quotation"}`,
+            {
+              items: services.map((s, i) => ({
+                service_id: s.service_id,
+                description: String(data.get(`desc-${i}`)),
+                quantity: Number(data.get(`quantity-${i}`)),
+                unit_price: Number(data.get(`price-${i}`)),
+              })),
+              discount: Number(data.get("discount")),
+              tax_rate: Number(data.get("tax_rate")),
+              valid_until: String(data.get("valid_until")),
+              notes: String(data.get("notes")),
+            },
+          )
         }
         onSuccess={reload}
       >
         {services.map((s, i) => (
           <div key={s.service_id}>
-            <Field name={`desc-${i}`} label={`Hạng mục ${i + 1}`} />
-            <Field name={`price-${i}`} label="Thành tiền (VNĐ)" type="number" />
+            <Field
+              name={`desc-${i}`}
+              label={`Hạng mục ${i + 1}`}
+              value={
+                draft?.quotation_items.find(
+                  (item) => item.service_id === s.service_id,
+                )?.description
+              }
+            />
+            <label className="field">
+              Số lượng
+              <input
+                type="number"
+                name={`quantity-${i}`}
+                min="1"
+                max="10000"
+                step="1"
+                required
+                defaultValue={
+                  draft?.quotation_items.find(
+                    (item) => item.service_id === s.service_id,
+                  )?.quantity ?? 1
+                }
+              />
+            </label>
+            <Field
+              name={`price-${i}`}
+              label="Đơn giá (VNĐ)"
+              type="number"
+              value={
+                draft?.quotation_items.find(
+                  (item) => item.service_id === s.service_id,
+                )?.unit_price
+              }
+            />
           </div>
         ))}
-        <Field name="discount" label="Giảm giá (VNĐ)" type="number" value={0} />
-        <Field name="valid_until" label="Hiệu lực đến" type="date" />
-        <Field name="notes" label="Ghi chú" type="textarea" required={false} />
+        <Field
+          name="discount"
+          label="Giảm giá (VNĐ)"
+          type="number"
+          value={draft?.discount ?? 0}
+        />
+        <Field
+          name="tax_rate"
+          label="Thuế (%)"
+          type="number"
+          value={draft?.tax_rate ?? 0}
+        />
+        <Field
+          name="valid_until"
+          label="Hiệu lực đến"
+          type="date"
+          value={draft?.valid_until}
+        />
+        <Field
+          name="notes"
+          label="Điều khoản và ghi chú"
+          type="textarea"
+          required={false}
+          value={draft?.notes}
+        />
+        <label className="field">
+          Thao tác
+          <select name="mode" defaultValue="DRAFT">
+            <option value="DRAFT">Lưu bản nháp để xem trước</option>
+            <option value="SENT">Lưu và gửi cho khách hàng</option>
+          </select>
+        </label>
       </ActionForm>
     </section>
   );

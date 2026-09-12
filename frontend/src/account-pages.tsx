@@ -45,7 +45,7 @@ function AuthScreen({
   const auth = useAuth();
   const location = useLocation();
   const [message, setMessage] = useState("");
-  const [role, setRole] = useState<"client" | "creator">("client");
+  const role = "client";
   const title = {
     login: "Chào mừng trở lại!",
     register: "Bắt đầu cùng MediaHub",
@@ -82,11 +82,9 @@ function AuthScreen({
               <Building2 />
             </span>
             <h3>Dành cho Doanh nghiệp</h3>
-            <p>
-              Tiết kiệm <b>40-50% chi phí</b> sản xuất truyền thông.
-            </p>
+            <p>Làm rõ ngân sách và phạm vi sản xuất truyền thông.</p>
             <small>
-              <BadgeCheck /> Bảo chứng nghiệm thu QA 100%
+              <BadgeCheck /> Kiểm soát chất lượng trước bàn giao
             </small>
           </article>
           <article>
@@ -96,7 +94,7 @@ function AuthScreen({
             <h3>Dành cho Creator &amp; SV</h3>
             <p>Thực chiến với nhãn hàng lớn &amp; nhận thù lao minh bạch.</p>
             <small>
-              <CreditCard /> Thanh toán ký quỹ Escrow an toàn
+              <CreditCard /> Trao đổi tiến độ và bàn giao tập trung
             </small>
           </article>
         </div>
@@ -107,8 +105,8 @@ function AuthScreen({
         />
         <div className="auth-trust-row">
           <div>
-            <strong>500+ Creator đã gia nhập</strong>
-            <span>120+ Dự án hoàn thành xuất sắc</span>
+            <strong>Quản lý từ yêu cầu đến nghiệm thu</strong>
+            <span>Báo giá và tiến độ minh bạch</span>
           </div>
           <span>
             <ShieldCheck /> Hợp đồng pháp lý minh bạch
@@ -185,33 +183,6 @@ function AuthScreen({
         >
           {mode === "register" && (
             <>
-              <div className="auth-role-label">
-                Bạn đăng ký với tư cách nào?
-              </div>
-              <div className="auth-role-grid">
-                <button
-                  type="button"
-                  className={role === "client" ? "selected" : ""}
-                  onClick={() => setRole("client")}
-                >
-                  <Building2 />
-                  <strong>Doanh nghiệp</strong>
-                  <small>Tìm giải pháp &amp; nhân tài</small>
-                  {role === "client" && <CheckCircle2 className="role-check" />}
-                </button>
-                <button
-                  type="button"
-                  className={role === "creator" ? "selected" : ""}
-                  onClick={() => setRole("creator")}
-                >
-                  <Palette />
-                  <strong>Creator / Sinh viên</strong>
-                  <small>Thực chiến dự án có phí</small>
-                  {role === "creator" && (
-                    <CheckCircle2 className="role-check" />
-                  )}
-                </button>
-              </div>
               <AuthField
                 name="full_name"
                 label="Họ và tên"
@@ -354,6 +325,12 @@ export function Profile() {
               await patch("/auth/me", {
                 full_name: String(data.get("full_name")),
                 phone: String(data.get("phone")),
+                company_name: String(data.get("company_name")),
+                avatar_url: String(data.get("avatar_url")),
+                notification_preferences: {
+                  email: auth.profile?.notification_preferences?.email ?? true,
+                  in_app: data.has("in_app"),
+                },
               });
               await auth.refresh();
             }}
@@ -370,6 +347,29 @@ export function Profile() {
               required={false}
               value={(auth.profile as { phone?: string } | null)?.phone}
             />
+            <Field
+              name="company_name"
+              label="Công ty"
+              value={auth.profile?.company_name ?? ""}
+              required={false}
+            />
+            <Field
+              name="avatar_url"
+              label="URL ảnh đại diện (HTTPS)"
+              type="url"
+              value={auth.profile?.avatar_url ?? ""}
+              required={false}
+            />
+            <label className="checkbox-field">
+              <input
+                name="in_app"
+                type="checkbox"
+                defaultChecked={
+                  auth.profile?.notification_preferences?.in_app ?? true
+                }
+              />
+              Nhận thông báo trong ứng dụng
+            </label>
           </ActionForm>
         </section>
         <section className="panel">
