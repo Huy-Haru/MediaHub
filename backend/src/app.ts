@@ -1,3 +1,5 @@
+import { supportRoutes } from './support-routes.js';
+import { paymentRoutes } from './payment-routes.js';
 import { quotationRoutes } from "./quotation-routes.js";
 import { seoRoutes } from "./seo-routes.js";
 import { fileType } from "./file-validation.js";
@@ -234,6 +236,13 @@ app.get("/api/public/services/:slug", async (req, res) => {
   send(res, service);
 });
 app.use("/api", authenticate);
+app.use('/api/support', supportRoutes);
+app.use('/api/payments', paymentRoutes);
+// Staff have a dedicated support surface. Existing admin/customer APIs stay restricted.
+app.use('/api',(req,_res,next)=>{
+ if(req.identity.role==='STAFF' && !/^\/(auth\/me|notifications)(\/|$)/.test(req.path)) return next(new ApiError(403,'FORBIDDEN','Chỉ có quyền truy cập khu vực hỗ trợ.'));
+ next();
+});
 app.use("/api/customer", requireRole("CUSTOMER"), customerRoutes);
 app.use("/api/projects", communicationRoutes);
 app.get("/api/auth/me", (req, res) => send(res, req.identity));

@@ -24,7 +24,7 @@ export const authenticate: RequestHandler = async (req, _res, next) => {
         .eq("auth_user_id", data.user.id)
         .maybeSingle(),
     );
-    if (!p || !p.active || (p.role !== "CUSTOMER" && p.role !== "ADMIN"))
+    if (!p || !p.active || (p.role !== "CUSTOMER" && p.role !== "ADMIN" && p.role !== "STAFF"))
       throw new ApiError(
         403,
         "FORBIDDEN",

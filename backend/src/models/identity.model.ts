@@ -1,4 +1,4 @@
-// STAFF exists in the database but is not an enabled API actor.
+// Application roles, with STAFF limited to the support workspace.
 export type Identity = {
   id: string;
   auth_user_id: string;
@@ -8,6 +8,6 @@ export type Identity = {
   avatar_url: string | null;
   company_name: string | null;
   notification_preferences: { email: boolean; in_app: boolean };
-  role: "CUSTOMER" | "ADMIN";
+  role: "CUSTOMER" | "ADMIN" | "STAFF";
   customer_id: string | null;
 };

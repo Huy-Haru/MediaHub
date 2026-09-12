@@ -60,7 +60,7 @@ adminAccountRoutes.get("/users", async (req, res) => {
 });
 adminAccountRoutes.patch("/users/:id", async (req, res) => {
   const body = z
-    .object({ role: z.enum(["ADMIN", "CUSTOMER"]), active: z.boolean() })
+    .object({ role: z.enum(["ADMIN", "CUSTOMER", "STAFF"]), active: z.boolean() })
     .strict()
     .parse(req.body);
   const data = await result(
@@ -81,6 +81,7 @@ adminAccountRoutes.post("/customers/invite", async (req, res) => {
         .max(254)
         .transform((v) => v.toLowerCase()),
       full_name: z.string().trim().min(1).max(150),
+      role: z.enum(["CUSTOMER", "STAFF"]).default("CUSTOMER"),
     })
     .strict()
     .parse(req.body);
@@ -103,6 +104,25 @@ adminAccountRoutes.post("/customers/invite", async (req, res) => {
       "INVITATION_FAILED",
       "Unable to invite this account. Check whether it already exists and verify email delivery configuration.",
     );
+  if (body.role === "STAFF") {
+    const profile = await result(
+      db.from("profiles").select("id").eq("email", body.email).single(),
+    );
+    if (!profile)
+      throw new ApiError(
+        503,
+        "PROFILE_PENDING",
+        "Invitation was created but the profile is not ready. Please retry shortly.",
+      );
+    await result(
+      db.rpc("manage_user", {
+        actor_id: req.identity.id,
+        target_id: profile.id,
+        new_role: "STAFF",
+        new_active: true,
+      }),
+    );
+  }
   res.status(201).json({ success: true, data: { invited: true } });
 });
 adminAccountRoutes.post("/leads/:id/convert", async (req, res) => {
