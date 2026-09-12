@@ -1,4 +1,5 @@
 import { useAuth } from "./contexts/AuthContext";
+import { CompanyContact } from "./contexts/SiteSettings";
 import { ReactNode, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
@@ -18,9 +19,9 @@ import {
 const nav = [
   ["Trang chủ", "/"],
   ["Dự án", "/projects"],
-  ["Quy trình", "/#process"],
-  ["Dịch vụ", "/#services"],
-  ["Về chúng tôi", "/#about"],
+  ["Quy trình", "/process"],
+  ["Dịch vụ", "/services"],
+  ["Về chúng tôi", "/about"],
 ];
 export function PublicLayout({ children }: { children?: ReactNode }) {
   const [open, setOpen] = useState(false);
@@ -65,7 +66,7 @@ export function PublicLayout({ children }: { children?: ReactNode }) {
           >
             {auth.currentUser ? "Tài khoản" : "Đăng nhập"}
           </Link>
-          <Link to="/customer/projects/new" className="btn btn-primary">
+          <Link to="/request-project" className="btn btn-primary">
             Đăng dự án
           </Link>
           <button
@@ -98,8 +99,17 @@ export function CustomerLayout({ children }: { children?: ReactNode }) {
         <SideLink to="/customer/dashboard" icon={<LayoutDashboard />}>
           Tổng quan
         </SideLink>
-        <SideLink to="/customer/projects/new" icon={<FolderKanban />}>
+        <SideLink to="/request-project" icon={<FolderKanban />}>
           Đăng dự án
+        </SideLink>
+        <SideLink to="/customer/projects" icon={<FolderKanban />}>
+          Dự án
+        </SideLink>
+        <SideLink to="/customer/quotations" icon={<BriefcaseBusiness />}>
+          Báo giá
+        </SideLink>
+        <SideLink to="/customer/invoices" icon={<BarChart3 />}>
+          Hóa đơn
         </SideLink>
         <SideLink to="/customer/notifications" icon={<Bell />}>
           Thông báo
@@ -129,6 +139,33 @@ export function AdminLayout({ children }: { children?: ReactNode }) {
         <p className="side-label">QUẢN TRỊ HỆ THỐNG</p>
         <SideLink to="/admin/dashboard" icon={<LayoutDashboard />}>
           Tổng quan
+        </SideLink>
+        <SideLink to="/admin/files" icon={<FolderKanban />}>
+          Files
+        </SideLink>
+        <SideLink to="/admin/users" icon={<Users />}>
+          Tài khoản
+        </SideLink>
+        <SideLink to="/admin/quotations" icon={<BriefcaseBusiness />}>
+          Báo giá
+        </SideLink>
+        <SideLink to="/admin/invoices" icon={<BarChart3 />}>
+          Hóa đơn
+        </SideLink>
+        <SideLink to="/admin/leads" icon={<Users />}>
+          Yêu cầu khách hàng
+        </SideLink>
+        <SideLink to="/admin/partners" icon={<Users />}>
+          Đối tác
+        </SideLink>
+        <SideLink to="/admin/process" icon={<FolderKanban />}>
+          Quy trình
+        </SideLink>
+        <SideLink to="/admin/settings" icon={<Settings />}>
+          Nội dung website
+        </SideLink>
+        <SideLink to="/admin/activity-logs" icon={<Bell />}>
+          Nhật ký hoạt động
         </SideLink>
         <SideLink to="/admin/projects" icon={<FolderKanban />}>
           Dự án
@@ -263,20 +300,22 @@ function Footer() {
       </div>
       <div>
         <b>MediaHub</b>
-        <a href="/#about">Về chúng tôi</a>
+        <a href="/about">Về chúng tôi</a>
         <Link to="/projects">Dự án</Link>
-        <a href="/#services">Dịch vụ</a>
+        <a href="/services">Dịch vụ</a>
       </div>
       <div>
         <b>Dành cho khách hàng</b>
-        <Link to="/customer/projects/new">Đăng dự án</Link>
-        <a href="/#services">Dịch vụ & Báo giá</a>
+        <Link to="/request-project">Đăng dự án</Link>
+        <a href="/services">Dịch vụ & Báo giá</a>
         <a href="mailto:hello@mediahub.vn">Hỗ trợ</a>
       </div>
       <div>
         <b>Liên hệ</b>
-        <a href="mailto:hello@mediahub.vn">hello@mediahub.vn</a>
-        <a href="tel:+84322119698">+84 322 119 698</a>
+        <CompanyContact />
+        <Link to="/contact">Liên hệ MediaHub</Link>
+        <Link to="/privacy">Chính sách bảo mật</Link>
+        <Link to="/terms">Điều khoản sử dụng</Link>
       </div>
     </footer>
   );
