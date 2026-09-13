@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useApi } from "./hooks/useApi";
-import { useAuth } from "./contexts/AuthContext";
+import { useApi } from "../../hooks/useApi";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   ActionForm,
   Field,
@@ -10,8 +10,8 @@ import {
   Pagination,
   Status,
   money,
-} from "./components/ui";
-import { post, patch } from "./services/api";
+} from "../../components/ui";
+import { post, patch } from "../../services/api";
 type Collection<T> = { items: T[]; total: number };
 type Invoice = {
   id: string;

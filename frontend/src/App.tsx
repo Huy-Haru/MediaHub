@@ -1,183 +1,187 @@
-import {SupportInbox,SupportConversation} from './support-pages';
-import {PaymentSettingsPage,PaymentsPage} from './payment-pages';
-import { RouteMetadata } from "./content-pages";
+import {SupportInbox,SupportConversation} from './pages/shared/SupportPages';
+import {PaymentSettingsPage,PaymentsPage} from './pages/shared/PaymentPages';
+import { RouteMetadata } from "./pages/public/PublicContentPages";
 import { lazy, Suspense } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import { PublicLayout, CustomerLayout, AdminLayout, StaffLayout } from "./layouts";
-import { CustomerRoute, AdminRoute, StaffRoute } from "./contexts/AuthContext";
+import { PublicLayout, CustomerLayout, AdminLayout, StaffLayout } from "./layouts/ApplicationLayouts";
+import { CustomerRoute, AdminRoute, StaffRoute, AuthenticatedRoute } from "./contexts/AuthContext";
 const Login = lazy(() =>
-  import("./account-pages").then((module) => ({ default: module.Login })),
+  import("./pages/auth/AuthenticationPages").then((module) => ({ default: module.Login })),
 );
 const Register = lazy(() =>
-  import("./account-pages").then((module) => ({ default: module.Register })),
+  import("./pages/auth/AuthenticationPages").then((module) => ({ default: module.Register })),
 );
 const ForgotPassword = lazy(() =>
-  import("./account-pages").then((module) => ({
+  import("./pages/auth/AuthenticationPages").then((module) => ({
     default: module.ForgotPassword,
   })),
 );
 const ResetPassword = lazy(() =>
-  import("./account-pages").then((module) => ({
+  import("./pages/auth/AuthenticationPages").then((module) => ({
     default: module.ResetPassword,
   })),
 );
 const Profile = lazy(() =>
-  import("./account-pages").then((module) => ({ default: module.Profile })),
+  import("./pages/auth/AuthenticationPages").then((module) => ({ default: module.Profile })),
 );
 const Notifications = lazy(() =>
-  import("./account-pages").then((module) => ({
+  import("./pages/auth/AuthenticationPages").then((module) => ({
     default: module.Notifications,
   })),
 );
 const ProjectList = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.ProjectList,
   })),
 );
 const CustomerDashboard = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.CustomerDashboard,
   })),
 );
 const CreateProject = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.CreateProject,
   })),
 );
 const CustomerProject = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.CustomerProject,
   })),
 );
 const AdminDashboard = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.AdminDashboard,
   })),
 );
 const AdminProjects = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.AdminProjects,
   })),
 );
 const AdminProjectDetail = lazy(() =>
-  import("./workspace-pages").then((module) => ({
+  import("./pages/shared/WorkspacePages").then((module) => ({
     default: module.AdminProjectDetail,
   })),
 );
 const AdminContent = lazy(() =>
-  import("./admin-pages").then((module) => ({ default: module.AdminContent })),
+  import("./pages/admin/AdminResourcePages").then((module) => ({ default: module.AdminContent })),
 );
 const AdminCustomers = lazy(() =>
-  import("./admin-pages").then((module) => ({
+  import("./pages/admin/AdminResourcePages").then((module) => ({
     default: module.AdminCustomers,
   })),
 );
 const AdminRevenue = lazy(() =>
-  import("./admin-pages").then((module) => ({ default: module.AdminRevenue })),
+  import("./pages/admin/AdminResourcePages").then((module) => ({ default: module.AdminRevenue })),
 );
 const AdminEmployees = lazy(() =>
-  import("./admin-pages").then((module) => ({
+  import("./pages/admin/AdminResourcePages").then((module) => ({
     default: module.AdminEmployees,
   })),
 );
 const AdminServices = lazy(() =>
-  import("./admin-pages").then((module) => ({ default: module.AdminServices })),
+  import("./pages/admin/AdminResourcePages").then((module) => ({ default: module.AdminServices })),
 );
 const AdminPortfolio = lazy(() =>
-  import("./admin-pages").then((module) => ({
+  import("./pages/admin/AdminResourcePages").then((module) => ({
     default: module.AdminPortfolio,
   })),
 );
 const AdminTestimonials = lazy(() =>
-  import("./admin-pages").then((module) => ({
+  import("./pages/admin/AdminResourcePages").then((module) => ({
     default: module.AdminTestimonials,
   })),
 );
 const Home = lazy(() =>
-  import("./pages").then((module) => ({ default: module.Home })),
+  import("./pages/public/HomePage").then((module) => ({ default: module.HomePage })),
 );
 const Projects = lazy(() =>
-  import("./pages").then((module) => ({ default: module.Projects })),
+  import("./pages/public/ProjectPortfolioPages").then((module) => ({ default: module.Projects })),
 );
+const Creators = lazy(() =>
+  import("./pages/public/CreatorDiscoveryPage").then((module) => ({ default: module.Creators })),
+);
+const MessengerPage = lazy(() => import("./pages/shared/MessengerPage").then((module) => ({ default: module.MessengerPage })));
 const ProjectDetail = lazy(() =>
-  import("./pages").then((module) => ({ default: module.ProjectDetail })),
+  import("./pages/public/ProjectPortfolioPages").then((module) => ({ default: module.ProjectDetail })),
 );
 const NotFound = lazy(() =>
-  import("./pages").then((module) => ({ default: module.NotFound })),
+  import("./pages/public/ProjectPortfolioPages").then((module) => ({ default: module.NotFound })),
 );
 const Services = lazy(() =>
-  import("./public-pages").then((module) => ({ default: module.Services })),
+  import("./pages/public/PublicServiceAndEnquiryPages").then((module) => ({ default: module.Services })),
 );
 const ServiceDetail = lazy(() =>
-  import("./public-pages").then((module) => ({
+  import("./pages/public/PublicServiceAndEnquiryPages").then((module) => ({
     default: module.ServiceDetail,
   })),
 );
 const Enquiry = lazy(() =>
-  import("./public-pages").then((module) => ({ default: module.Enquiry })),
+  import("./pages/public/PublicServiceAndEnquiryPages").then((module) => ({ default: module.Enquiry })),
 );
 const AdminLeads = lazy(() =>
-  import("./public-pages").then((module) => ({ default: module.AdminLeads })),
+  import("./pages/public/PublicServiceAndEnquiryPages").then((module) => ({ default: module.AdminLeads })),
 );
 const AdminLeadDetail = lazy(() =>
-  import("./public-pages").then((module) => ({
+  import("./pages/public/PublicServiceAndEnquiryPages").then((module) => ({
     default: module.AdminLeadDetail,
   })),
 );
 
 const CustomerInvoices = lazy(() =>
-  import("./customer-pages").then((module) => ({
+  import("./pages/customer/CustomerBillingAndMessagesPages").then((module) => ({
     default: module.CustomerInvoices,
   })),
 );
 const CustomerInvoice = lazy(() =>
-  import("./customer-pages").then((module) => ({
+  import("./pages/customer/CustomerBillingAndMessagesPages").then((module) => ({
     default: module.CustomerInvoice,
   })),
 );
 const CustomerQuotations = lazy(() =>
-  import("./customer-pages").then((module) => ({
+  import("./pages/customer/CustomerBillingAndMessagesPages").then((module) => ({
     default: module.CustomerQuotations,
   })),
 );
 const ProjectMessages = lazy(() =>
-  import("./customer-pages").then((module) => ({
+  import("./pages/customer/CustomerBillingAndMessagesPages").then((module) => ({
     default: module.ProjectMessages,
   })),
 );
 const ContentPage = lazy(() =>
-  import("./content-pages").then((module) => ({ default: module.ContentPage })),
+  import("./pages/public/PublicContentPages").then((module) => ({ default: module.ContentPage })),
 );
 const PartnersPage = lazy(() =>
-  import("./content-pages").then((module) => ({
+  import("./pages/public/PublicContentPages").then((module) => ({
     default: module.PartnersPage,
   })),
 );
 const ProcessPage = lazy(() =>
-  import("./content-pages").then((module) => ({ default: module.ProcessPage })),
+  import("./pages/public/PublicContentPages").then((module) => ({ default: module.ProcessPage })),
 );
 const ActivityLogs = lazy(() =>
-  import("./content-pages").then((module) => ({
+  import("./pages/public/PublicContentPages").then((module) => ({
     default: module.ActivityLogs,
   })),
 );
 const AdminUsers = lazy(() =>
-  import("./admin-account-pages").then((module) => ({
+  import("./pages/admin/AdminAccountPages").then((module) => ({
     default: module.AdminUsers,
   })),
 );
 const AdminFiles = lazy(() =>
-  import("./project-management").then((module) => ({
+  import("./pages/admin/ProjectFileManagementPage").then((module) => ({
     default: module.AdminFiles,
   })),
 );
 const AdminQuotation = lazy(() =>
-  import("./quotation-page").then((module) => ({
+  import("./pages/admin/QuotationManagementPage").then((module) => ({
     default: module.AdminQuotation,
   })),
 );
 const ErrorPage = lazy(() =>
-  import("./error-page").then((module) => ({ default: module.ErrorPage })),
+  import("./pages/shared/ErrorPage").then((module) => ({ default: module.ErrorPage })),
 );
 export default function App() {
   return (
@@ -218,10 +222,15 @@ export default function App() {
             <Route path="/portfolio/:id" element={<ProjectDetail />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/projects/:id" element={<ProjectDetail />} />
+            <Route path="/creators" element={<Creators />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
+          </Route>
+          <Route element={<AuthenticatedRoute />}>
+            <Route path="/messages" element={<MessengerPage />} />
+            <Route path="/messages/:id" element={<MessengerPage />} />
           </Route>
           <Route element={<CustomerRoute />}>
             <Route path="/customer" element={<CustomerLayout />}>

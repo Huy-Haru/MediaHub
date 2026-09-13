@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
-import { useAuth } from "./contexts/AuthContext";
-import { CompanyContact } from "./contexts/SiteSettings";
-import { useApi } from "./hooks/useApi";
-import { ActionForm, Field, State, Pagination, money } from "./components/ui";
-import { Metadata } from "./content-pages";
-import { api, post, patch } from "./services/api";
+import { useAuth } from "../../contexts/AuthContext";
+import { CompanyContact } from "../../contexts/SiteSettings";
+import { useApi } from "../../hooks/useApi";
+import { ActionForm, Field, State, Pagination, money } from "../../components/ui";
+import { Metadata } from "./PublicContentPages";
+import { api, post, patch } from "../../services/api";
 
 type Service = {
   features: string[];

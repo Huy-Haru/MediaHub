@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
-import { useApi } from "./hooks/useApi";
-import { Page, State, Status, ActionForm, money } from "./components/ui";
-import { post } from "./services/api";
+import { useApi } from "../../hooks/useApi";
+import { Page, State, Status, ActionForm, money } from "../../components/ui";
+import { post } from "../../services/api";
 type Quote = {
   id: string;
   project_id: string;

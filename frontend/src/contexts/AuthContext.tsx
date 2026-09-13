@@ -13,7 +13,7 @@ type Profile = {
   id: string;
   full_name: string;
   email: string;
-  role: "CUSTOMER" | "ADMIN" | "STAFF";
+  role: "CUSTOMER" | "ADMIN" | "STAFF" | "BUSINESS" | "CREATOR" | "STUDENT_CREATOR";
   phone: string | null;
   avatar_url: string | null;
   company_name: string | null;
@@ -113,7 +113,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 export const useAuth = () => useContext(Context);
-function Protected({ role }: { role: string }) {
+function Protected({ role }: { role?: string | string[] }) {
   const auth = useAuth();
   const location = useLocation();
   const [logoutError, setLogoutError] = useState("");
@@ -149,16 +149,17 @@ function Protected({ role }: { role: string }) {
         {logoutError && <p className="error">{logoutError}</p>}
       </div>
     );
-  if (auth.role !== role)
+  if (role && !(Array.isArray(role) ? role.includes(auth.role ?? "") : auth.role === role))
     return (
       <Navigate
-        to={auth.role === "ADMIN" ? "/admin/dashboard" : auth.role === "STAFF" ? "/staff/dashboard" : "/customer/dashboard"}
+        to={auth.role === "ADMIN" ? "/admin/dashboard" : auth.role === "STAFF" ? "/staff/dashboard" : auth.role === "CUSTOMER" || auth.role === "BUSINESS" ? "/customer/dashboard" : "/messages"}
         replace
       />
     );
   return <Outlet />;
 }
-export const CustomerRoute = () => <Protected role="CUSTOMER" />;
+export const CustomerRoute = () => <Protected role={["CUSTOMER", "BUSINESS"]} />;
 export const AdminRoute = () => <Protected role="ADMIN" />;
 
 export const StaffRoute = () => <Protected role="STAFF" />;
+export const AuthenticatedRoute = () => <Protected />;

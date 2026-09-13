@@ -1,9 +1,9 @@
 import {useState} from 'react';
 import {Link,useParams,useNavigate} from 'react-router-dom';
-import {useAuth} from './contexts/AuthContext';
-import {useApi} from './hooks/useApi';
-import {Page,State,ActionForm,Field,Pagination} from './components/ui';
-import {post} from './services/api';
+import {useAuth} from '../../contexts/AuthContext';
+import {useApi} from '../../hooks/useApi';
+import {Page,State,ActionForm,Field,Pagination} from '../../components/ui';
+import {post} from '../../services/api';
 const labels:Record<string,string>={OPEN:'Mới',IN_PROGRESS:'Đang hỗ trợ',RESOLVED:'Đã giải quyết',CLOSED:'Đã đóng',GENERAL:'Tư vấn chung',PROJECT:'Dự án',PAYMENT:'Thanh toán',TECHNICAL:'Kỹ thuật'};
 type Ticket={id:string;subject:string;category:string;status:string;assigned_to:string|null;updated_at:string};
 export function SupportInbox(){

@@ -1,6 +1,6 @@
-import { ActionForm, Field, State, Page, Pagination } from "./components/ui";
-import { patch, api } from "./services/api";
-import { useApi } from "./hooks/useApi";
+import { ActionForm, Field, State, Page, Pagination } from "../../components/ui";
+import { patch, api } from "../../services/api";
+import { useApi } from "../../hooks/useApi";
 import { useState } from "react";
 type Project = {
   id: string;

@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { useApi } from "./hooks/useApi";
-import { ActionForm, Field, Page, Pagination, State } from "./components/ui";
-import { post, patch } from "./services/api";
+import { useApi } from "../../hooks/useApi";
+import { ActionForm, Field, Page, Pagination, State } from "../../components/ui";
+import { post, patch } from "../../services/api";
 type User = {
   id: string;
   full_name: string;

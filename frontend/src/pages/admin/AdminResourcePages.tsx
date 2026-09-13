@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { Plus, Search, Pencil, X } from "lucide-react";
-import { useApi } from "./hooks/useApi";
+import { useApi } from "../../hooks/useApi";
 import {
   ActionForm,
   Field,
@@ -10,9 +10,9 @@ import {
   Pagination,
   Status,
   money,
-} from "./components/ui";
-import { adminService } from "./services";
-import { date } from "./workspace-pages";
+} from "../../components/ui";
+import { adminService } from "../../services";
+import { date } from "../shared/WorkspacePages";
 
 type ResourceField = {
   name: string;

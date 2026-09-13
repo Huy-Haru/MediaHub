@@ -1,5 +1,5 @@
-import { useAuth } from "./contexts/AuthContext";
-import { CompanyContact } from "./contexts/SiteSettings";
+import { useAuth } from "../contexts/AuthContext";
+import { CompanyContact } from "../contexts/SiteSettings";
 import { ReactNode, useState } from "react";
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import {
@@ -15,9 +15,11 @@ import {
   Palette,
   LogOut,
   ChevronDown,
+  MessageCircle,
 } from "lucide-react";
 const nav = [
   ["Trang chủ", "/"],
+  ["Tìm Creator", "/creators"],
   ["Dự án", "/projects"],
   ["Quy trình", "/process"],
   ["Dịch vụ", "/services"],
@@ -53,6 +55,7 @@ export function PublicLayout({ children }: { children?: ReactNode }) {
           ))}
         </nav>
         <div className="top-actions">
+          {auth.currentUser && <Link className="icon-btn" aria-label="Tin nhắn" to="/messages"><MessageCircle size={18}/></Link>}
           <Link
             className="icon-btn"
             aria-label="Thông báo"

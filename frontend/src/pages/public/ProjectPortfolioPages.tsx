@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowRight, Search, PlayCircle } from "lucide-react";
-import { useApi } from "./hooks/useApi";
-import { State, Pagination } from "./components/ui";
-import { ProcessPage, Metadata, PartnersPage } from "./content-pages";
+import { useApi } from "../../hooks/useApi";
+import { State, Pagination } from "../../components/ui";
+import { ProcessPage, Metadata, PartnersPage } from "./PublicContentPages";
 export function Home() {
   const hero = useApi<{ title: string; content: string; image: string } | null>(
     "/public/pages/hero",

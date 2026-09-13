@@ -18,11 +18,11 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
-import { useAuth } from "./contexts/AuthContext";
-import { authService } from "./services";
-import { patch } from "./services/api";
-import { ActionForm, Field, Page, State, Pagination } from "./components/ui";
-import { useApi } from "./hooks/useApi";
+import { useAuth } from "../../contexts/AuthContext";
+import { authService } from "../../services";
+import { patch } from "../../services/api";
+import { ActionForm, Field, Page, State, Pagination } from "../../components/ui";
+import { useApi } from "../../hooks/useApi";
 
 export function Login() {
   return <AuthScreen mode="login" />;
@@ -53,12 +53,12 @@ function AuthScreen({
     reset: "Tạo mật khẩu mới",
   }[mode];
   const destination = (location.state as { from?: string } | null)?.from;
-  const prefix = auth.role === "ADMIN" ? "/admin/" : auth.role === "STAFF" ? "/staff/" : "/customer/";
+  const prefix = auth.role === "ADMIN" ? "/admin/" : auth.role === "STAFF" ? "/staff/" : auth.role === "CUSTOMER" || auth.role === "BUSINESS" ? "/customer/" : "/messages";
   if (auth.role && (mode === "login" || mode === "register"))
     return (
       <Navigate
         to={
-          destination?.startsWith(prefix) ? destination : prefix + "dashboard"
+          destination?.startsWith("/messages") || destination?.startsWith(prefix) ? destination : prefix === "/messages" ? prefix : prefix + "dashboard"
         }
         replace
       />

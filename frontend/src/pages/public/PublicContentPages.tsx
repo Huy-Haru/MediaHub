@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { useApi } from "./hooks/useApi";
-import { State, Pagination, Page } from "./components/ui";
+import { useApi } from "../../hooks/useApi";
+import { State, Pagination, Page } from "../../components/ui";
 type Collection<T> = { items: T[]; total: number };
 type Setting = { key: string; title: string; content: string; image: string };
 export function ContentPage({ name, title }: { name: string; title: string }) {

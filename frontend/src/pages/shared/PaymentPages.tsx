@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {useAuth} from './contexts/AuthContext';
-import {useApi} from './hooks/useApi';
-import {Page,State,ActionForm,Field,Pagination} from './components/ui';
-import {api,post} from './services/api';
+import {useAuth} from '../../contexts/AuthContext';
+import {useApi} from '../../hooks/useApi';
+import {Page,State,ActionForm,Field,Pagination} from '../../components/ui';
+import {api,post} from '../../services/api';
 type Settings={bank_name:string;account_number:string;account_name:string;qr_image:string;deposit_percent:number;enabled:boolean;instructions:string};
 type Installment={id:string;stage:string;amount:number;status:string;reference:string;transfer_note:string;paid_at:string|null};
 type Plan={id:string;total:number;deposit_percent:number;project:{id:string;title:string;status:string};installments:Installment[]};

@@ -11,8 +11,8 @@ import {
   Download,
   ArrowRight,
 } from "lucide-react";
-import { useAuth } from "./contexts/AuthContext";
-import { useApi } from "./hooks/useApi";
+import { useAuth } from "../../contexts/AuthContext";
+import { useApi } from "../../hooks/useApi";
 import {
   ActionForm,
   Field,
@@ -22,17 +22,17 @@ import {
   Pagination,
   money,
   labels,
-} from "./components/ui";
+} from "../../components/ui";
 import {
   projectService,
   adminService,
   quotationService,
   uploadService,
   reviewService,
-} from "./services";
-import { ProjectMessages, ProjectMilestones } from "./customer-pages";
-import { EditProject } from "./project-management";
-import { patch, post } from "./services/api";
+} from "../../services";
+import { ProjectMessages, ProjectMilestones } from "../customer/CustomerBillingAndMessagesPages";
+import { EditProject } from "../admin/ProjectFileManagementPage";
+import { patch, post } from "../../services/api";
 
 export function CustomerDashboard() {
   return <Dashboard />;
