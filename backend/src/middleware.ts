@@ -24,7 +24,7 @@ export const authenticate: RequestHandler = async (req, _res, next) => {
         .eq("auth_user_id", data.user.id)
         .maybeSingle(),
     );
-    if (!p || !p.active || (p.role !== "CUSTOMER" && p.role !== "ADMIN" && p.role !== "STAFF"))
+    if (!p || !p.active || !["CUSTOMER","ADMIN","STAFF","BUSINESS","CREATOR","STUDENT_CREATOR"].includes(p.role))
       throw new ApiError(
         403,
         "FORBIDDEN",
@@ -37,7 +37,7 @@ export const authenticate: RequestHandler = async (req, _res, next) => {
         .eq("profile_id", p.id)
         .maybeSingle(),
     );
-    if (p.role === "CUSTOMER" && !c)
+    if (["CUSTOMER","BUSINESS"].includes(p.role) && !c)
       throw new ApiError(
         403,
         "ACCOUNT_INCOMPLETE",
@@ -61,9 +61,9 @@ export const authenticate: RequestHandler = async (req, _res, next) => {
   }
 };
 export const requireRole =
-  (role: string): RequestHandler =>
+  (role: string | string[]): RequestHandler =>
   (req, _res, next) =>
-    req.identity.role === role
+    (Array.isArray(role) ? role.includes(req.identity.role) : req.identity.role === role)
       ? next()
       : next(
           new ApiError(

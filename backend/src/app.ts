@@ -32,6 +32,8 @@ import { adminAccountRoutes } from "./admin-account-routes.js";
 import { publicContentRoutes, adminContentRoutes } from "./content-routes.js";
 import { customerRoutes, communicationRoutes } from "./customer-routes.js";
 import { publicLeadRoutes, adminLeadRoutes } from "./lead-routes.js";
+import { creatorRoutes } from "./creator-routes.js";
+import { messagingRoutes } from "./messaging-routes.js";
 export const app = express();
 app.set("trust proxy", env.TRUST_PROXY_HOPS);
 app.use("/api", (_req, res, next) => {
@@ -194,6 +196,22 @@ app.get("/api/public/testimonials", async (req, res) =>
     ),
   ),
 );
+app.get("/api/public/home", async (_req, res) => {
+  const client = db as any;
+  const [hero, services, projects, creators, testimonials, partners, creatorCount, projectCount] = await Promise.all([
+    client.from("website_settings").select("title,content,image").eq("key", "hero").eq("published", true).maybeSingle(),
+    client.from("services").select("id,name,slug,description,category,thumbnail_url,starting_price,features").eq("active", true).order("featured", { ascending: false }).order("display_order").limit(6),
+    client.from("portfolio").select("id,slug,title,client,description,category,image_url,year").eq("published", true).order("featured", { ascending: false }).order("created_at", { ascending: false }).limit(4),
+    client.from("creator_profiles").select("id,slug,display_name,title,avatar_url,location,rating,completed_projects,verified,creator_skills(skills(id,name,slug))").order("featured", { ascending: false }).order("rating", { ascending: false, nullsFirst: false }).limit(4),
+    client.from("testimonials").select("id,content,published_at").eq("status", "APPROVED").order("published_at", { ascending: false }).limit(1),
+    client.from("partners").select("id,name,logo,website").eq("active", true).order("display_order").limit(8),
+    client.from("creator_profiles").select("id", { count: "exact", head: true }),
+    client.from("portfolio").select("id", { count: "exact", head: true }).eq("published", true),
+  ]);
+  const failed = [hero, services, projects, creators, testimonials, partners, creatorCount, projectCount].find((x) => x.error);
+  if (failed?.error) throw new ApiError(500, "DATABASE_ERROR", "Không thể tải dữ liệu trang chủ.");
+  send(res, { hero: hero.data, services: services.data, projects: projects.data, creators: creators.data, testimonials: testimonials.data, partners: partners.data, stats: { creators: creatorCount.count ?? 0, projects: projectCount.count ?? 0, satisfaction: 98, experience: 5 } });
+});
 app.get("/api/public/portfolio/:id", async (req, res) => {
   const p = await result(
     db
@@ -215,7 +233,7 @@ app.get("/api/public/portfolio/:id", async (req, res) => {
   if (!p) throw new ApiError(404, "NOT_FOUND", "Không tìm thấy dự án.");
   send(res, p);
 });
-app.use("/api/public", publicLeadRoutes, publicContentRoutes, seoRoutes);
+app.use("/api/public", publicLeadRoutes, publicContentRoutes, creatorRoutes, seoRoutes);
 app.get("/api/public/services/:slug", async (req, res) => {
   const slug = z
     .string()
@@ -238,12 +256,13 @@ app.get("/api/public/services/:slug", async (req, res) => {
 app.use("/api", authenticate);
 app.use('/api/support', supportRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/messages', messagingRoutes);
 // Staff have a dedicated support surface. Existing admin/customer APIs stay restricted.
 app.use('/api',(req,_res,next)=>{
  if(req.identity.role==='STAFF' && !/^\/(auth\/me|notifications)(\/|$)/.test(req.path)) return next(new ApiError(403,'FORBIDDEN','Chỉ có quyền truy cập khu vực hỗ trợ.'));
  next();
 });
-app.use("/api/customer", requireRole("CUSTOMER"), customerRoutes);
+app.use("/api/customer", requireRole(["CUSTOMER", "BUSINESS"]), customerRoutes);
 app.use("/api/projects", communicationRoutes);
 app.get("/api/auth/me", (req, res) => send(res, req.identity));
 app.patch("/api/auth/me", async (req, res) => {
@@ -297,7 +316,7 @@ app.patch("/api/notifications/:id", async (req, res) => {
     ),
   );
 });
-app.get("/api/customer/dashboard", requireRole("CUSTOMER"), async (req, res) =>
+app.get("/api/customer/dashboard", requireRole(["CUSTOMER", "BUSINESS"]), async (req, res) =>
   send(
     res,
     await result(db.rpc("dashboard_report", { actor_id: req.identity.id })),
@@ -325,7 +344,7 @@ async function projectList(req: Request) {
   return list(req, q, "title");
 }
 app.get("/api/projects", async (req, res) => send(res, await projectList(req)));
-app.post("/api/projects", requireRole("CUSTOMER"), async (req, res) => {
+app.post("/api/projects", requireRole(["CUSTOMER", "BUSINESS"]), async (req, res) => {
   const body = projectSchema.parse(req.body);
   res.status(201);
   send(
@@ -375,7 +394,7 @@ app.get("/api/projects/:id", async (req, res) => {
     ...Object.fromEntries(tables.map((t, i) => [t, values[i]])),
   });
 });
-app.patch("/api/projects/:id", requireRole("CUSTOMER"), async (req, res) =>
+app.patch("/api/projects/:id", requireRole(["CUSTOMER", "BUSINESS"]), async (req, res) =>
   send(res, await action(req, "edit", projectSchema.parse(req.body))),
 );
 for (const [path, table] of [
@@ -406,13 +425,13 @@ for (const [path, name, schema] of [
 ] as const)
   app.post(
     `/api/projects/:id/${path}`,
-    requireRole("CUSTOMER"),
+    requireRole(["CUSTOMER", "BUSINESS"]),
     async (req, res) =>
       send(res, await action(req, name, schema.parse(req.body))),
   );
 app.post(
   "/api/projects/:id/approve-deliverable",
-  requireRole("CUSTOMER"),
+  requireRole(["CUSTOMER", "BUSINESS"]),
   async (req, res) =>
     send(
       res,

@@ -8,6 +8,6 @@ export type Identity = {
   avatar_url: string | null;
   company_name: string | null;
   notification_preferences: { email: boolean; in_app: boolean };
-  role: "CUSTOMER" | "ADMIN" | "STAFF";
+  role: "CUSTOMER" | "ADMIN" | "STAFF" | "BUSINESS" | "CREATOR" | "STUDENT_CREATOR";
   customer_id: string | null;
 };

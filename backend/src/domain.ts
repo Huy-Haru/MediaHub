@@ -15,7 +15,7 @@ export function canAccess(
   customerId: string | null,
   owner: string,
 ) {
-  return role === "ADMIN" || (role === "CUSTOMER" && customerId === owner);
+  return role === "ADMIN" || (["CUSTOMER", "BUSINESS"].includes(role) && customerId === owner);
 }
 export function canTransition(from: string, to: string) {
   return transitions[from]?.includes(to) ?? false;
