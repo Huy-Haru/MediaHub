@@ -208,9 +208,24 @@ app.get("/api/public/home", async (_req, res) => {
     client.from("creator_profiles").select("id", { count: "exact", head: true }),
     client.from("portfolio").select("id", { count: "exact", head: true }).eq("published", true),
   ]);
-  const failed = [hero, services, projects, creators, testimonials, partners, creatorCount, projectCount].find((x) => x.error);
-  if (failed?.error) throw new ApiError(500, "DATABASE_ERROR", "Không thể tải dữ liệu trang chủ.");
-  send(res, { hero: hero.data, services: services.data, projects: projects.data, creators: creators.data, testimonials: testimonials.data, partners: partners.data, stats: { creators: creatorCount.count ?? 0, projects: projectCount.count ?? 0, satisfaction: 98, experience: 5 } });
+  const sources = { hero, services, projects, creators, testimonials, partners, creatorCount, projectCount };
+  for (const [name, response] of Object.entries(sources)) {
+    if (response.error) console.error("Homepage data source failed", name, response.error.code ?? "UNKNOWN");
+  }
+  send(res, {
+    hero: hero.data ?? null,
+    services: services.data ?? [],
+    projects: projects.data ?? [],
+    creators: creators.data ?? [],
+    testimonials: testimonials.data ?? [],
+    partners: partners.data ?? [],
+    stats: {
+      creators: creatorCount.count ?? creators.data?.length ?? 0,
+      projects: projectCount.count ?? projects.data?.length ?? 0,
+      satisfaction: 98,
+      experience: 5,
+    },
+  });
 });
 app.get("/api/public/portfolio/:id", async (req, res) => {
   const p = await result(
