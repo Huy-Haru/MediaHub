@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediaHub - Chi tiết Dự án | The Coffee House TVC Campaign</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<!-- FontAwesome Icons -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF5E1E',
+              purple: '#8B5CF6',
+              deepPurple: '#6D28D9',
+              darkBg: '#080B14',
+              surface: '#0D111E',
+              card: '#131929',
+              border: '#1E263C',
+              hover: '#182138'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          backgroundImage: {
+            'gradient-primary': 'linear-gradient(135deg, #FF5E1E 0%, #8B5CF6 100%)',
+            'gradient-orange': 'linear-gradient(135deg, #FF5E1E 0%, #FF8C38 100%)',
+            'gradient-purple': 'linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%)',
+          }
+        }
+      }
+    }
+  </script>
+<style data-purpose="custom-utilities">
+    body {
+      background-color: #080B14;
+      color: #E2E8F0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+    .glow-orange {
+      box-shadow: 0 0 25px -5px rgba(255, 94, 30, 0.35);
+    }
+    .glow-purple {
+      box-shadow: 0 0 25px -5px rgba(139, 92, 246, 0.35);
+    }
+    .glass-nav {
+      background: rgba(8, 11, 20, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .glass-card {
+      background: rgba(19, 25, 41, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid #1E263C;
+    }
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #080B14;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E263C;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8B5CF6;
+    }
+  </style>
+</head>
+<body class="selection:bg-brand-orange selection:text-white">
+<!-- BEGIN: TopHeader -->
+<header class="fixed top-0 left-0 right-0 z-50 glass-nav border-b border-brand-border/60 transition-all duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- MediaHub Logo & Tagline -->
+<a class="flex items-center gap-3 group" href="#">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-purple flex items-center justify-center p-0.5 shadow-lg shadow-brand-orange/20 transition-transform group-hover:scale-105">
+<div class="w-full h-full bg-brand-darkBg rounded-[10px] flex items-center justify-center">
+<i class="fa-solid fa-play text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-purple text-lg ml-0.5"></i>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center text-xl font-extrabold tracking-tight text-white">
+            Media<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-brand-purple">HUB</span>
+</div>
+<span class="text-[9px] uppercase tracking-widest text-gray-400 font-medium">Creative Media Agency</span>
+</div>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+<a class="hover:text-white transition-colors" href="#">Trang chủ</a>
+<a class="hover:text-white transition-colors" href="#">Tìm Creator</a>
+<a class="text-brand-orange font-semibold relative py-1" href="#">
+          Dự án
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-brand-orange rounded-full"></span>
+</a>
+<a class="hover:text-white transition-colors" href="#">Quy trình</a>
+<a class="hover:text-white transition-colors" href="#">Bảng giá &amp; Dịch vụ</a>
+<a class="hover:text-white transition-colors" href="#">Về chúng tôi</a>
+</nav>
+<!-- Action Items & CTA -->
+<div class="flex items-center gap-4">
+<button aria-label="Thông báo" class="w-10 h-10 rounded-full bg-brand-card hover:bg-brand-hover border border-brand-border flex items-center justify-center text-gray-300 hover:text-white transition-colors relative" type="button">
+<i class="fa-regular fa-bell"></i>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand-orange ring-2 ring-brand-darkBg"></span>
+</button>
+<a class="hidden sm:inline-flex text-sm font-medium text-gray-300 hover:text-white px-3 py-2 transition-colors" href="#">
+          Đăng nhập
+        </a>
+<a class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white bg-gradient-orange hover:opacity-95 transition-all shadow-md shadow-brand-orange/30 active:scale-95" href="#">
+<span>Đăng dự án ngay</span>
+<i class="fa-solid fa-arrow-right text-xs"></i>
+</a>
+</div>
+</div>
+</header>
+<!-- END: TopHeader -->
+<!-- BEGIN: HeroProjectShowcase -->
+<section class="pt-28 pb-12 relative overflow-hidden border-b border-brand-border/40">
+<!-- Ambient Backdrop Light Glows -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-brand-purple/15 blur-[120px] pointer-events-none rounded-full"></div>
+<div class="absolute top-1/3 right-10 w-[350px] h-[250px] bg-brand-orange/10 blur-[100px] pointer-events-none rounded-full"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+<!-- Breadcrumb Navigation -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-xs sm:text-sm text-gray-400 mb-6 flex-wrap">
+<a class="hover:text-gray-200 transition-colors" href="#">Trang chủ</a>
+<i class="fa-solid fa-chevron-right text-[10px] text-gray-600"></i>
+<a class="hover:text-gray-200 transition-colors" href="#">Dự án</a>
+<i class="fa-solid fa-chevron-right text-[10px] text-gray-600"></i>
+<a class="hover:text-gray-200 transition-colors" href="#">TVC &amp; Video Production</a>
+<i class="fa-solid fa-chevron-right text-[10px] text-gray-600"></i>
+<span class="text-brand-orange font-medium">Video quảng cáo - The Coffee House</span>
+</nav>
+<!-- Case Study Title & Key Meta -->
+<div class="space-y-4 mb-8">
+<div class="flex flex-wrap items-center gap-2.5">
+<span class="px-3 py-1 rounded-full text-xs font-semibold bg-brand-orange/20 text-brand-orange border border-brand-orange/30 tracking-wide uppercase">
+            TVC Commercial Video
+          </span>
+<span class="px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-gray-300 border border-brand-border flex items-center gap-1.5">
+<i class="fa-regular fa-building text-brand-purple text-xs"></i> Khách hàng: <strong class="text-white font-semibold">The Coffee House Vietnam</strong>
+</span>
+<span class="px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-gray-300 border border-brand-border">
+            Ngành hàng: <span class="text-white">F&amp;B &amp; Lifestyle</span>
+</span>
+<span class="px-3 py-1 rounded-full text-xs font-medium bg-brand-card text-gray-300 border border-brand-border">
+            Năm thực hiện: <span class="text-white">2024</span>
+</span>
+</div>
+<h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight leading-tight">
+          Chiến dịch Video Quảng Cáo Mùa Thu: <br class="hidden sm:inline"/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-orange via-pink-400 to-brand-purple">
+            Đậm Vị Mới Cùng The Coffee House
+          </span>
+</h1>
+<!-- Categorical Hashtags -->
+<div class="flex flex-wrap gap-2 text-xs font-medium text-gray-400 pt-1">
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#VideoProduction</span>
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#TVC</span>
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#MotionGraphics</span>
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#CreativeStorytelling</span>
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#StudentCreators</span>
+<span class="hover:text-brand-purple cursor-pointer transition-colors">#ColorGradingDaVinci</span>
+</div>
+</div>
+<!-- Cinematic Project Player Showcase (Mockup) -->
+<div class="relative rounded-2xl overflow-hidden border border-brand-border shadow-2xl shadow-black/80 bg-brand-card group">
+<!-- Main Media Frame (Cinematic Set Image) -->
+<div class="relative aspect-video w-full max-h-[580px] bg-gray-900 overflow-hidden flex items-center justify-center">
+<img alt="The Coffee House TVC Frame - Set quay phim chuyên nghiệp" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 ease-out brightness-[0.85]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDw1P67NCVxQj3kdlOHaQztKVYDyENNz6TD1Gtt29SWgBklHtv0HjCNt4norFODTyY4J1XDmJs3yQLwgO_mZ020eV4YyOmD90I8xhFWvhUXWoGFbjup2HRlwRi8nyR8VEmKU5xfCOm-TL4p2zUp1Y6BzUeljysZGmRu2a7jS2PTK11u3iuVZKR05h49VQ6ko6-kEi-d-KK_VOJcy9GCB-nyn4tNl5GimOhhdcAsfMHlodwpG7jxgM8yIg"/>
+<div class="absolute inset-0 bg-gradient-to-t from-brand-darkBg via-transparent to-black/40"></div>
+<!-- Video Badges Top Right & Left -->
+<div class="absolute top-5 left-6 flex items-center gap-3">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-bold tracking-wider bg-red-600/90 text-white uppercase backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
+              4K Master Cut
+            </span>
+<span class="px-2.5 py-1 rounded-md text-xs font-semibold bg-black/60 text-gray-200 border border-white/10 backdrop-blur-md">
+              16:9 Cinema 24fps
+            </span>
+</div>
+<div class="absolute top-5 right-6">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-brand-purple/80 text-white backdrop-blur-md border border-brand-purple/40">
+<i class="fa-solid fa-shield-halved text-[11px]"></i> MediaHub QA Approved
+            </span>
+</div>
+<!-- Central Play Button Overlay -->
+<button aria-label="Xem video showcase" class="absolute z-20 w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-brand-orange/90 hover:bg-brand-orange text-white flex items-center justify-center shadow-xl shadow-brand-orange/50 transition-all transform group-hover:scale-110 active:scale-95" type="button">
+<i class="fa-solid fa-play text-2xl sm:text-3xl ml-1 text-white"></i>
+</button>
+<!-- Bottom Playback Control Bar Visual Indicator -->
+<div class="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black via-black/70 to-transparent">
+<div class="flex items-center justify-between text-xs text-gray-300 mb-2">
+<span class="font-mono">00:18 / 00:30</span>
+<div class="flex items-center gap-3">
+<span class="text-xs bg-white/10 px-2 py-0.5 rounded text-gray-300">Dolby 5.1 Atmos</span>
+<i class="fa-solid fa-volume-high cursor-pointer hover:text-white"></i>
+<i class="fa-solid fa-expand cursor-pointer hover:text-white"></i>
+</div>
+</div>
+<!-- Progress Line -->
+<div class="w-full bg-gray-700/60 h-1.5 rounded-full overflow-hidden cursor-pointer">
+<div class="bg-gradient-to-r from-brand-orange to-brand-purple h-full w-[60%] rounded-full relative">
+<div class="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Quick Metrics Bar below video -->
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+<div class="glass-card rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-brand-orange/15 text-brand-orange flex items-center justify-center text-lg">
+<i class="fa-regular fa-clock"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400">Thời gian triển khai</p>
+<p class="text-sm font-bold text-white">14 Ngày (Đúng hạn)</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-brand-purple/15 text-brand-purple flex items-center justify-center text-lg">
+<i class="fa-solid fa-users-gear"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400">Quy mô nhân sự</p>
+<p class="text-sm font-bold text-white">4 Creators + 1 MediaHub PM</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/15 text-emerald-400 flex items-center justify-center text-lg">
+<i class="fa-solid fa-chart-line"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400">Tối ưu chi phí</p>
+<p class="text-sm font-bold text-white">Tiết kiệm 45% ngân sách</p>
+</div>
+</div>
+<div class="glass-card rounded-xl p-4 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-amber-500/15 text-amber-400 flex items-center justify-center text-lg">
+<i class="fa-solid fa-star"></i>
+</div>
+<div>
+<p class="text-xs text-gray-400">Đánh giá nghiệm thu</p>
+<p class="text-sm font-bold text-white">5.0 / 5.0 (Xuất sắc)</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroProjectShowcase -->
+<!-- BEGIN: TwoColumnProjectDetail -->
+<section class="py-14 bg-brand-darkBg">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+<!-- LEFT COLUMN: The Case Study Journey (8 cols) -->
+<main class="lg:col-span-8 space-y-12">
+<!-- Block 01: Đề bài & Thách thức -->
+<article class="glass-card rounded-2xl p-6 sm:p-8 relative overflow-hidden" data-purpose="brief-section">
+<div class="flex items-center gap-3 mb-5">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-orange/20 text-brand-orange font-mono font-bold text-sm">
+                01
+              </span>
+<h2 class="text-xl sm:text-2xl font-bold text-white">Đề bài &amp; Thách thức (The Brief &amp; Challenge)</h2>
+</div>
+<div class="space-y-4 text-gray-300 leading-relaxed text-sm sm:text-base">
+<p>
+                Thương hiệu <strong class="text-white">The Coffee House</strong> chuẩn bị ra mắt chuỗi thức uống Thu Đông đặc trưng với thông điệp tôn vinh hương vị hạt cà phê Cầu Đất nguyên bản. Đề bài đặt ra là sản xuất một TVC thương mại 30 giây cùng hệ thống video ngắn cho mạng xã hội đạt tính thẩm mỹ điện ảnh (cinematic feel), truyền tải cảm xúc ấm cúng và sự sành điệu của thế hệ trẻ.
+              </p>
+<div class="bg-brand-surface/90 border-l-4 border-brand-orange p-4 rounded-r-xl my-4 text-sm">
+<h4 class="font-semibold text-brand-orange mb-1">Rào cản then chốt:</h4>
+<p class="text-gray-300">
+                  Thời hạn bàn giao gấp trong vòng 2 tuần trước ngày kickoff chiến dịch, đồng thời ngân sách sản xuất yêu cầu phải tối ưu hơn 40% so với báo giá từ các production house truyền thống nhưng vẫn phải bảo chứng chất lượng hình ảnh cấp chiếu rạp và POSM kỹ thuật số.
+                </p>
+</div>
+<p>
+                Doanh nghiệp cần một đối tác có thể cam kết quản trị rủi ro tiến độ, đảm bảo bản quyền âm nhạc và hỗ trợ xuất nhiều format đa nền tảng (16:9, 9:16 TikTok, 1:1 Instagram).
+              </p>
+</div>
+</article>
+<!-- Block 02: Giải pháp từ MediaHub -->
+<article class="glass-card rounded-2xl p-6 sm:p-8" data-purpose="solution-section">
+<div class="flex items-center gap-3 mb-5">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-purple/20 text-brand-purple font-mono font-bold text-sm">
+                02
+              </span>
+<h2 class="text-xl sm:text-2xl font-bold text-white">Giải pháp &amp; Ý tưởng Sáng tạo (Creative Concept)</h2>
+</div>
+<div class="space-y-4 text-gray-300 leading-relaxed text-sm sm:text-base">
+<p>
+                Đội ngũ sáng tạo của <strong class="text-white">MediaHub Agency</strong> đã trực tiếp tiếp nhận bài toán, nghiên cứu tệp khách hàng Gen Z và người đi làm văn phòng để đề xuất concept: <em class="text-brand-orange font-semibold">"Đánh thức từng tầng hương vị – Gói trọn thu trong một ngụm cà phê"</em>.
+              </p>
+<!-- Solution key points cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+<div class="bg-brand-surface p-4 rounded-xl border border-brand-border/60">
+<div class="text-brand-purple mb-2 text-lg"><i class="fa-solid fa-palette"></i></div>
+<h4 class="text-white font-semibold text-sm mb-1">Moodboard &amp; Storyboard chi tiết</h4>
+<p class="text-xs text-gray-400">Thiết lập bảng màu ấm (warm tone amber &amp; deep roast brown) kết hợp lighting tương phản cao tạo chiều sâu cho dòng bọt sữa và hạt cà phê.</p>
+</div>
+<div class="bg-brand-surface p-4 rounded-xl border border-brand-border/60">
+<div class="text-brand-orange mb-2 text-lg"><i class="fa-solid fa-user-check"></i></div>
+<h4 class="text-white font-semibold text-sm mb-1">Tuyển chọn Ekip Creator Chuẩn Gu</h4>
+<p class="text-xs text-gray-400">MediaHub tuyển chọn ekip sinh viên xuất sắc từ ĐH Sân Khấu Điện Ảnh và ĐH FPT Arena – chuyên về visual commercial &amp; DoP ánh sáng macro.</p>
+</div>
+</div>
+<p class="pt-2">
+                Bằng việc phân rã quy trình thành các mốc rõ ràng dưới sự điều phối trực tiếp của MediaHub Account Director, mọi rủi ro về thiết bị, diễn viên và bối cảnh được giải quyết dứt điểm trước ngày bấm máy.
+              </p>
+</div>
+</article>
+<!-- Block 03: Quy trình thực hiện & Kiểm duyệt chất lượng -->
+<article class="glass-card rounded-2xl p-6 sm:p-8" data-purpose="process-section">
+<div class="flex items-center gap-3 mb-5">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 font-mono font-bold text-sm">
+                03
+              </span>
+<h2 class="text-xl sm:text-2xl font-bold text-white">Quy trình Sản xuất &amp; Giám sát QA</h2>
+</div>
+<div class="relative border-l border-brand-border pl-6 ml-3 space-y-6 text-sm">
+<!-- Step 1 -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-brand-orange ring-4 ring-brand-darkBg"></span>
+<h4 class="text-white font-bold text-base">Giai đoạn 1: Tiền kỳ &amp; Thử nghiệm Food Styling (2 Ngày)</h4>
+<p class="text-gray-400 mt-1">Lên shooting board chi tiết từng frame 24fps. Thử nghiệm đổ dòng cà phê (macro pour test) với hệ thống đèn chuyên dụng để đạt độ sánh mịn hoàn hảo.</p>
+</div>
+<!-- Step 2 -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-brand-purple ring-4 ring-brand-darkBg"></span>
+<h4 class="text-white font-bold text-base">Giai đoạn 2: Bấm máy tại Studio chuyên nghiệp (1 Ngày)</h4>
+<p class="text-gray-400 mt-1">Sử dụng máy quay điện ảnh RED Cinema + dàn lens macro chuyên dụng. Đại diện MediaHub Art Director túc trực tại set cùng Brand Manager của The Coffee House để duyệt monitor trực tiếp.</p>
+</div>
+<!-- Step 3 -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-blue-500 ring-4 ring-brand-darkBg"></span>
+<h4 class="text-white font-bold text-base">Giai đoạn 3: Hậu kỳ, Chỉnh màu DaVinci &amp; Sound FX (5 Ngày)</h4>
+<p class="text-gray-400 mt-1">Dựng thô (Rough cut), chỉnh màu DaVinci Resolve Studio bản quyền, hòa âm sound design tiếng giọt cà phê, tiếng khuấy ly chân thực. Trải qua 2 vòng duyệt QA nội bộ MediaHub trước khi gửi khách hàng.</p>
+</div>
+<!-- Step 4 -->
+<div class="relative">
+<span class="absolute -left-[31px] top-0 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-brand-darkBg"></span>
+<h4 class="text-white font-bold text-base">Giai đoạn 4: Nghiệm thu &amp; Xuất Master File (6 Ngày)</h4>
+<p class="text-gray-400 mt-1">Bàn giao toàn bộ master và adaptation formats. Hoàn tất hợp đồng và kích hoạt thanh toán an toàn cho Creator thông qua MediaHub Escrow.</p>
+</div>
+</div>
+</article>
+<!-- Block 04: Bộ bàn giao hoàn chỉnh (Deliverables) -->
+<article class="glass-card rounded-2xl p-6 sm:p-8" data-purpose="deliverables-section">
+<div class="flex items-center justify-between mb-5 flex-wrap gap-2">
+<div class="flex items-center gap-3">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-pink-500/20 text-pink-400 font-mono font-bold text-sm">
+                  04
+                </span>
+<h2 class="text-xl sm:text-2xl font-bold text-white">Gói Bàn Giao Hoàn Chỉnh (Deliverables)</h2>
+</div>
+<span class="text-xs bg-brand-surface text-gray-300 px-3 py-1 rounded-full border border-brand-border">
+<i class="fa-solid fa-box-archive text-brand-orange mr-1"></i> Full Assets Package
+              </span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+<div class="bg-brand-surface/80 p-4 rounded-xl border border-brand-border flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-brand-orange/20 text-brand-orange flex items-center justify-center flex-shrink-0">
+<i class="fa-solid fa-film"></i>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm">01 Master TVC 4K UHD</h4>
+<p class="text-xs text-gray-400 mt-0.5">Tỉ lệ 16:9, chuẩn phát LCD thương mại, màn hình rạp và YouTube ads (30 giây &amp; 15 giây).</p>
+</div>
+</div>
+<div class="bg-brand-surface/80 p-4 rounded-xl border border-brand-border flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-brand-purple/20 text-brand-purple flex items-center justify-center flex-shrink-0">
+<i class="fa-solid fa-mobile-screen"></i>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm">03 Cut-downs Dọc (9:16)</h4>
+<p class="text-xs text-gray-400 mt-0.5">Tối ưu cho TikTok, Facebook Reels &amp; Shorts với caption động thu hút tệp khán giả trẻ.</p>
+</div>
+</div>
+<div class="bg-brand-surface/80 p-4 rounded-xl border border-brand-border flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center flex-shrink-0">
+<i class="fa-solid fa-camera-retro"></i>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm">Bộ 20 Hình High-Res POSM</h4>
+<p class="text-xs text-gray-400 mt-0.5">Ảnh tĩnh chất lượng cao dùng in ấn standee tại hơn 100 cửa hàng trên toàn quốc.</p>
+</div>
+</div>
+<div class="bg-brand-surface/80 p-4 rounded-xl border border-brand-border flex items-start gap-3">
+<div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0">
+<i class="fa-solid fa-certificate"></i>
+</div>
+<div>
+<h4 class="text-white font-bold text-sm">Giấy phép Âm nhạc &amp; Hóa đơn VAT</h4>
+<p class="text-xs text-gray-400 mt-0.5">Chứng nhận bản quyền thương mại trọn đời kèm bộ hóa đơn VAT tài chính minh bạch.</p>
+</div>
+</div>
+</div>
+</article>
+<!-- Block 05: Kết quả chiến dịch -->
+<article class="glass-card rounded-2xl p-6 sm:p-8" data-purpose="results-section">
+<div class="flex items-center gap-3 mb-5">
+<span class="flex items-center justify-center w-8 h-8 rounded-lg bg-brand-orange/20 text-brand-orange font-mono font-bold text-sm">
+                05
+              </span>
+<h2 class="text-xl sm:text-2xl font-bold text-white">Hiệu quả Chiến dịch (Results &amp; Impact)</h2>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center my-6">
+<div class="bg-brand-surface p-5 rounded-xl border border-brand-border">
+<div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-orange to-pink-500">1.8M+</div>
+<div class="text-xs text-gray-400 mt-1 font-medium">Lượt xem trên TikTok &amp; Facebook</div>
+</div>
+<div class="bg-brand-surface p-5 rounded-xl border border-brand-border">
+<div class="text-2xl sm:text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-brand-purple to-indigo-400">+42%</div>
+<div class="text-xs text-gray-400 mt-1 font-medium">Tỷ lệ tương tác &amp; ghé cửa hàng</div>
+</div>
+<div class="bg-brand-surface p-5 rounded-xl border border-brand-border">
+<div class="text-2xl sm:text-3xl font-extrabold text-emerald-400">100%</div>
+<div class="text-xs text-gray-400 mt-1 font-medium">Đúng hẹn bàn giao và vượt KPI</div>
+</div>
+</div>
+<p class="text-sm text-gray-300 leading-relaxed">
+              Chiến dịch không chỉ giúp The Coffee House đạt lượng bán vượt kỳ vọng cho dòng thức uống mới mà còn là minh chứng mạnh mẽ cho mô hình kết hợp giữa <strong class="text-white">tài năng sáng tạo trẻ</strong> và <strong class="text-white">sự giám sát chuyên nghiệp của MediaHub Agency</strong>.
+            </p>
+</article>
+<!-- Media Gallery: Behind The Scenes -->
+<section class="space-y-4" data-purpose="bts-gallery">
+<div class="flex items-center justify-between">
+<h3 class="text-lg sm:text-xl font-bold text-white flex items-center gap-2">
+<i class="fa-solid fa-clapperboard text-brand-orange"></i>
+                Hậu trường Thực hiện (Behind The Scenes)
+              </h3>
+<span class="text-xs text-gray-400 font-medium">4 khoảnh khắc tại studio</span>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="rounded-xl overflow-hidden border border-brand-border aspect-square bg-gray-900 group relative">
+<img alt="Dựng set ánh sáng macro" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVqARst5GB4WBKZg3HxpXPwXbpORukC_qtNJbeO_cgfyZYHIjuK-D0ZMn8gms0XtaAJnGG6Lixc0zpHab6hr-sA_avGH-u1Uij9We-gcsKpVq8GtfezE5ZHEfGVz1_EonlwEMVymwOFT253cYoL50uwYSfQcfGkSVFRW5RHk1IckKNbiMFJgWcH4aifPq9XaTfPIy9nfrcVdIDPilE6tV2YU_dAq0fg9KnuxmlP-MTvAlxnkxwgWNZNg"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
+<span class="text-[11px] text-white font-medium">Set ánh sáng macro</span>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden border border-brand-border aspect-square bg-gray-900 group relative">
+<img alt="DoP Minh Quân căn chỉnh ống kính" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCwU7f3pxuAFKdzyTHvMy0AzxinR3SFeHZ05bXPAALW2yTEBUmBAPoYsGfNVmA2JnnP4ypkpmj14Ld8Af8-d5BkjGGpkUEtMNbFCxux85KMGG83XRmW_grCe1iOvjHqgH-Nzh-YocQ9LUubdAVykoE_RKnkBTzKrMF05dW5D6YT7ZUz1W3yQhHGzyovVSe4AUl5xzxMY0Zd6JNMgbt1D3OhcAxWL4qknidmYHVVbrVKQcUZ7KeUqfYgQ"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
+<span class="text-[11px] text-white font-medium">DoP căn chỉnh camera</span>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden border border-brand-border aspect-square bg-gray-900 group relative">
+<img alt="Ekip MediaHub cùng khách hàng duyệt monitor" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBowGP7Pmo1YmqkJEsk3HpIPOp8x5d0X7fn24udu27OBaJKi6Qwk3K4S_UAQCRem17NIg1MmRwbqpmfLisWSMrYgURb--ZTon1CEavUOe-z_zfjEiMie2c1AAxkE1rwHAqQFMUzJbAV4NN0hcVkMZPnerMwAEwRqTrVu3tV1_DguKSVetNyMqBoDqRLEGAVliYbp772xuwE7hBht628izwWLjXot5j_7alFe-iXZuZg6wLsHw7jI6mJng"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
+<span class="text-[11px] text-white font-medium">Duyệt monitor trực tiếp</span>
+</div>
+</div>
+<div class="rounded-xl overflow-hidden border border-brand-border aspect-square bg-gray-900 group relative">
+<img alt="Phòng chỉnh màu DaVinci Resolve" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmPhR0DPh9Nn8bDGeTKwiXraXmshGDSLv0vtb6LYYQo0FHhxcaaD8OPMcXByFF_gW4kjRFNyCrRJ8sdEYFdkOYiMcHwD9J-1Hc1NVLiNm3482u2Ohwda-piiczZ1NXLTemIeA5DzbdDtLoWJ-SDbcOirBCKpOX5rNBI2usMqVzlxnO2d_PkRDtLNJyXjgkS0qxC1hpLMG7DwWGzYHdyWKIUbb_jKRBJ7pd0CQ7QZOGTVHRgl3-bV2dcA"/>
+<div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-2.5">
+<span class="text-[11px] text-white font-medium">Hậu kỳ chỉnh màu</span>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- RIGHT COLUMN: Creator Team, Client Review & Sticky CTA (4 cols) -->
+<aside class="lg:col-span-4 space-y-6">
+<div class="sticky top-28 space-y-6">
+<!-- Card: Ekip Sinh viên & MediaHub Supervision -->
+<section class="glass-card rounded-2xl p-6 relative border-brand-purple/40 shadow-xl" data-purpose="creator-team-sidebar">
+<div class="flex items-center justify-between pb-4 border-b border-brand-border">
+<div>
+<h3 class="font-bold text-white text-base">Ekip Thực Hiện Dự Án</h3>
+<p class="text-xs text-brand-purple font-medium">Đã xác minh năng lực &amp; thẩm định bởi MediaHub</p>
+</div>
+<span class="w-8 h-8 rounded-full bg-brand-purple/20 text-brand-purple flex items-center justify-center text-sm">
+<i class="fa-solid fa-users"></i>
+</span>
+</div>
+<!-- Team Member List -->
+<div class="divide-y divide-brand-border/60">
+<!-- Member 1: Account / MediaHub Art Director -->
+<div class="py-3.5 flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<img alt="Vũ Hoàng Long" class="w-10 h-10 rounded-full object-cover ring-2 ring-brand-orange" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxcTIDkId1LJPT4EhWfhMWdlMksi1psgFC2J26eAnccVdsxQm_c1N1-2vEzUQBJElg01KlYjkvlm7_cs4zB7APqDAKpBaM3UsUByooSd7jhZNOc2pZlSmszZvKyECPGKQizwgUpMRGRlG-hZR80bwU7bnUuVOlVf3BlTQzg9iLF-u0YQhzLQm9R3N8cUFd4f69N4HhAIMQzUokQHuZm9UvP4xDWH11PsBmpkWzpeaYl4a8lsOR_2NkyA"/>
+<div>
+<div class="flex items-center gap-1.5">
+<h4 class="text-sm font-bold text-white group-hover:text-brand-orange transition-colors">Vũ Hoàng Long</h4>
+<span class="text-[10px] bg-brand-orange/20 text-brand-orange font-semibold px-1.5 py-0.2 rounded">MediaHub</span>
+</div>
+<p class="text-[11px] text-gray-400">Creative Lead &amp; PM Giám sát</p>
+</div>
+</div>
+<span class="text-xs text-gray-400"><i class="fa-solid fa-circle-check text-emerald-400"></i></span>
+</div>
+<!-- Member 2: Student DoP -->
+<div class="py-3.5 flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<img alt="Đặng Minh Quân" class="w-10 h-10 rounded-full object-cover ring-2 ring-brand-purple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJEpmdqojhbqSMZFLLoSREqchp_tTQbYxpoW-frKh_sKr3QcaNjxUplRPLuyIdhw4wHEmVC8o6As74HtFUm9Abagzf1CJNCrAJPYbCgLDVVOYfFpfIG6z1DYvghV4eGtV6_eZELJOQgPfshjkMFOOgZdxUb_jE7agS0CtWJGoMEa3EBjN0X1NX9bgBBuElMWWniZGyloXFursX6QzHrIhHuxyaHmo1bjWidDzDkDbV087N5OymaHao7g"/>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-brand-purple transition-colors">Đặng Minh Quân</h4>
+<p class="text-[11px] text-gray-400">DoP &amp; Đạo diễn hình ảnh</p>
+<span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5">
+<i class="fa-solid fa-graduation-cap text-xs text-brand-purple"></i> ĐH Sân Khấu Điện Ảnh
+                      </span>
+</div>
+</div>
+<a class="text-xs text-brand-purple hover:underline" href="#">Hồ sơ</a>
+</div>
+<!-- Member 3: Lead Editor -->
+<div class="py-3.5 flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<img alt="Trần Quốc Bảo" class="w-10 h-10 rounded-full object-cover ring-2 ring-brand-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAakeKBJPDP5OrjAPUO9MQ2nSttLHwH50JE3U-29N4MF6MH60ya0_JuAoW2JLbJLFr4n4DzqbLTtBGjVqf2St33Osj0ylSo9r4wQUCw_V9H5t7mwO4z_4ODmMf2Hm6o8EI7PVqvn99K1nzLT615cETBNAr97LnnZ7EShlEhnMnDTuapp4QQmPL0mARoFD7hyJiOSS6vytPIbk4HS3tnKYqLPpwdnUAx2fdFcBr3Jc1lxt7VlOClMtMxIw"/>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-brand-purple transition-colors">Trần Quốc Bảo</h4>
+<p class="text-[11px] text-gray-400">Lead Video Editor &amp; Colorist</p>
+<span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5">
+<i class="fa-solid fa-graduation-cap text-xs text-brand-purple"></i> FPT Arena Multimedia
+                      </span>
+</div>
+</div>
+<a class="text-xs text-brand-purple hover:underline" href="#">Hồ sơ</a>
+</div>
+<!-- Member 4: Commercial Photographer -->
+<div class="py-3.5 flex items-center justify-between group">
+<div class="flex items-center gap-3">
+<img alt="Lê Tuấn Hưng" class="w-10 h-10 rounded-full object-cover ring-2 ring-brand-border" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtg5kuXkYrEP8ESQuhBHDqYr-_un316ufcwsJKrPOml_iA7pxdznHLrZJh-eeTsZRsqAySbz6HkmmjhlTXw6gnr0eruZKvCGiB15gAlVgOVZRnP-6reOjlbZ-Ubdjn0h9NgMQWjwv8BF6H9Pp77KVwunfHlYmX-4tZsTZTSx0H7antWadKstHqHKRhz5pzdb422w_uKaTDFaRPn_g5edQTgch3WuNSJUVONwVvNBUg4Cs6oNTbmEuKMg"/>
+<div>
+<h4 class="text-sm font-bold text-white group-hover:text-brand-purple transition-colors">Lê Tuấn Hưng</h4>
+<p class="text-[11px] text-gray-400">Commercial Photographer</p>
+<span class="text-[10px] text-gray-400 flex items-center gap-1 mt-0.5">
+<i class="fa-solid fa-graduation-cap text-xs text-brand-purple"></i> ĐH RMIT Vietnam
+                      </span>
+</div>
+</div>
+<a class="text-xs text-brand-purple hover:underline" href="#">Hồ sơ</a>
+</div>
+</div>
+<!-- MediaHub Escrow Guarantee Badge -->
+<div class="mt-4 p-3 rounded-xl bg-brand-surface/90 border border-brand-border flex items-center gap-3 text-xs text-gray-300">
+<i class="fa-solid fa-lock text-brand-orange text-base"></i>
+<span>Chất lượng được cam kết &amp; bảo vệ 100% qua chính sách MediaHub QA.</span>
+</div>
+</section>
+<!-- Card: Khách Hàng Đánh Giá -->
+<section class="glass-card rounded-2xl p-6 relative" data-purpose="client-review-card">
+<div class="flex items-center gap-1 text-amber-400 text-xs mb-3">
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<i class="fa-solid fa-star"></i>
+<span class="text-gray-400 ml-2 font-mono text-[11px]">5.0 / 5.0</span>
+</div>
+<blockquote class="text-sm text-gray-300 italic mb-4 leading-relaxed">
+                "MediaHub đã giúp chúng tôi giải bài toán chi phí lẫn tiến độ một cách không tưởng. Ekip sinh viên vô cùng sáng tạo, năng lượng và quan trọng nhất là team Account MediaHub giám sát từng deadline cực kỳ chặt chẽ!"
+              </blockquote>
+<div class="flex items-center gap-3 pt-3 border-t border-brand-border/60">
+<img alt="Nguyễn Minh Quân - The Coffee House" class="w-10 h-10 rounded-full object-cover border border-white/20" src="https://lh3.googleusercontent.com/aida-public/AB6AXuClECmHxA3ZBIz6HQ2uSTv_WeFoiB2p3Eproq92ubKpCmxJgBGU35W5_CrJyko-RFRdlgxJd1x9nnOv28ddhKZFGMrAwYWnm4BfVb11qfESswn-FOWJT9-DdEjWG9UdDLc-AHEPXuU-rxVjhuQky4kdkkQRK_CSnlCE9kbLoDA0wVGUdOygsKALSX0QLqKdltKupHIjYOMsEnAC-PK8byUihrQNtslyQ7M_8KUfEU6VFKc7cxigpPsi9A"/>
+<div>
+<h4 class="text-sm font-bold text-white">Nguyễn Minh Quân</h4>
+<p class="text-xs text-gray-400">Marketing Lead — The Coffee House</p>
+</div>
+</div>
+</section>
+<!-- Card: Primary CTA Box -->
+<section class="rounded-2xl p-6 bg-gradient-to-b from-brand-card to-brand-surface border border-brand-orange/40 relative overflow-hidden shadow-2xl" data-purpose="action-sidebar">
+<!-- Glow blob -->
+<div class="absolute -top-10 -right-10 w-32 h-32 bg-brand-orange/20 rounded-full blur-2xl pointer-events-none"></div>
+<h3 class="text-lg font-bold text-white mb-2">Bạn muốn thực hiện dự án tương tự?</h3>
+<p class="text-xs text-gray-300 mb-5 leading-relaxed">
+                MediaHub hỗ trợ hoàn thiện đề bài, tư vấn phong cách thị giác và kết nối ekip Creator phù hợp với ngân sách của doanh nghiệp trong 24 giờ.
+              </p>
+<div class="space-y-3">
+<a class="w-full inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl text-sm font-bold text-white bg-gradient-orange hover:brightness-110 shadow-lg shadow-brand-orange/30 transition-all active:scale-[0.98]" href="#">
+<span>Bắt đầu dự án tương tự ngay</span>
+<i class="fa-solid fa-arrow-right text-xs"></i>
+</a>
+<button class="w-full inline-flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl text-xs font-semibold text-gray-300 bg-brand-surface hover:bg-brand-hover border border-brand-border transition-colors" type="button">
+<i class="fa-regular fa-file-pdf text-brand-orange"></i>
+<span>Tải Case Study (PDF 4.2MB)</span>
+</button>
+</div>
+<div class="mt-4 pt-3 border-t border-brand-border/40 text-center">
+<span class="text-[11px] text-gray-400 flex items-center justify-center gap-1.5">
+<i class="fa-solid fa-bolt text-brand-orange"></i> Tư vấn &amp; Báo giá miễn phí không ràng buộc
+                </span>
+</div>
+</section>
+</div>
+</aside>
+</div>
+</div>
+</section>
+<!-- END: TwoColumnProjectDetail -->
+<!-- BEGIN: RelatedProjectsSection -->
+<section class="py-16 bg-[#060910] border-t border-brand-border/50" data-purpose="related-projects">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between mb-8">
+<div>
+<span class="text-xs font-bold uppercase tracking-widest text-brand-orange">SẢN PHẨM THỰC TẾ KHÁC</span>
+<h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-1">Dự án liên quan cùng thể loại</h2>
+</div>
+<a class="text-sm font-semibold text-brand-purple hover:text-white flex items-center gap-2 transition-colors" href="#">
+          Xem tất cả dự án <i class="fa-solid fa-arrow-right text-xs"></i>
+</a>
+</div>
+<!-- 3 Related Project Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<article class="glass-card rounded-2xl overflow-hidden group hover:border-brand-purple/60 transition-all duration-300 flex flex-col">
+<div class="relative aspect-video overflow-hidden bg-gray-900">
+<img alt="Chụp ảnh sản phẩm - Lamer Perfume" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC467IbNdBos7zE8MNNsUaVEbj6rtCcbsv7s01NCcQoVWXT5tdazaQRo3WtE0do7q6AMpsuG-bxamk80JsWOTjUD_2wb-xYo0HSFcZsR_C0QAKE2CDdbsp7GhylHvXnGDXz0Oy2sSRh6doFqOnLM5ySa_RUDklZwbEjHjzeROv2oNAv1uK8-gk6AbTf_r1tdMys9tJTLluGDRz-hNrh2aq6LHki26cNyRkGoWXWLrL5a8Q0ySzfAouuDQ"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-bold bg-blue-600 text-white uppercase">
+              CHỤP ẢNH
+            </span>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="text-base font-bold text-white group-hover:text-brand-purple transition-colors mb-1.5">
+                Chụp ảnh sản phẩm – Lamer Perfume
+              </h3>
+<p class="text-xs text-gray-400 line-clamp-2 mb-4">
+                Bộ ảnh concept luxury cho lookbook ra mắt dòng nước hoa thu đông mới của thương hiệu.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-brand-border/60 text-xs">
+<span class="text-gray-400">Bởi nhóm: <strong class="text-gray-200">Frame Studio</strong></span>
+<span class="text-amber-400 font-semibold flex items-center gap-1">
+<i class="fa-solid fa-star text-[10px]"></i> 4.9
+              </span>
+</div>
+</div>
+</article>
+<!-- Card 2 -->
+<article class="glass-card rounded-2xl overflow-hidden group hover:border-brand-orange/60 transition-all duration-300 flex flex-col">
+<div class="relative aspect-video overflow-hidden bg-gray-900">
+<img alt="TVC giới thiệu - TechTalk Live" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDL__qq50RCi9QpFQBkgGAG6mDMyuNg0PXcyoMoiFt-mWqweHJ-G2AlEsxsW7izU6dWtaZcbZns1VzTN-kpdwdvHoUFnYYV3OtHaAwScyonpHiDjSECVzQWElxbHBx12a9KK4aXO1Nnk80YFFW_6CkRxAU1EKrN19cxRFc4RL66oB_5m33eu34ak-HNIOUM1VvB_M3hP6qaGPgY70d4I7ObZ1ljiItOPrk-ozTwyPTcx0KC89JxRnajxQ"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-bold bg-brand-orange text-white uppercase">
+              VIDEO TVC
+            </span>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="text-base font-bold text-white group-hover:text-brand-orange transition-colors mb-1.5">
+                TVC giới thiệu – TechTalk Live 2024
+              </h3>
+<p class="text-xs text-gray-400 line-clamp-2 mb-4">
+                Motion graphics &amp; dựng teaser 45s cho hội thảo công nghệ thường niên quy tụ 2000 chuyên gia.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-brand-border/60 text-xs">
+<span class="text-gray-400">Bởi nhóm: <strong class="text-gray-200">MediaCrew Hub</strong></span>
+<span class="text-amber-400 font-semibold flex items-center gap-1">
+<i class="fa-solid fa-star text-[10px]"></i> 4.8
+              </span>
+</div>
+</div>
+</article>
+<!-- Card 3 -->
+<article class="glass-card rounded-2xl overflow-hidden group hover:border-brand-purple/60 transition-all duration-300 flex flex-col">
+<div class="relative aspect-video overflow-hidden bg-gray-900">
+<img alt="Thiết kế poster - Summer Vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDE5sYlpLovfl1qFd8wEcNqF_p1wwIIsdadYkcXnyuVmB2nXGiGdC7Cx1gWvBXh5AEE6_duDV2mtWowTkvH5s4hLaU6tFUnPRcOh6VSPN_eYQ959RzlJ2rXlGeiURL-U6RBGWeMVtHlF90rxyi3yIceRkid-L9nr5blvsaz8qZzmGH1ZIKBlfn74Bx9Pn68VYoLy-Oy2inIsoHM51pecq3xP1ioEYFqSkl2Na7JEtskQ7gHhjbu3xQYKg"/>
+<span class="absolute top-3 left-3 px-2.5 py-1 rounded-md text-[11px] font-bold bg-brand-purple text-white uppercase">
+              THIẾT KẾ
+            </span>
+</div>
+<div class="p-5 flex-1 flex flex-col justify-between">
+<div>
+<h3 class="text-base font-bold text-white group-hover:text-brand-purple transition-colors mb-1.5">
+                Thiết kế poster – Summer Vibes Music Fest
+              </h3>
+<p class="text-xs text-gray-400 line-clamp-2 mb-4">
+                Key visual ấn tượng và hệ thống nhận diện POSM cho nhạc hội sinh viên thường niên.
+              </p>
+</div>
+<div class="flex items-center justify-between pt-3 border-t border-brand-border/60 text-xs">
+<span class="text-gray-400">Bởi nhóm: <strong class="text-gray-200">Design Hub 84</strong></span>
+<span class="text-amber-400 font-semibold flex items-center gap-1">
+<i class="fa-solid fa-star text-[10px]"></i> 5.0
+              </span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- END: RelatedProjectsSection -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-brand-darkBg border-t border-brand-border text-gray-400 text-xs pt-16 pb-12" data-purpose="site-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-brand-border/60">
+<!-- Brand Summary (Col 1 & 2) -->
+<div class="lg:col-span-2 space-y-4">
+<a class="flex items-center gap-2.5" href="#">
+<div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-brand-orange to-brand-purple flex items-center justify-center p-0.5">
+<div class="w-full h-full bg-brand-darkBg rounded-[6px] flex items-center justify-center">
+<i class="fa-solid fa-play text-brand-orange text-xs ml-0.5"></i>
+</div>
+</div>
+<span class="text-lg font-extrabold text-white tracking-tight">
+              Media<span class="text-brand-orange">HUB</span>
+</span>
+</a>
+<p class="text-gray-400 text-xs max-w-sm leading-relaxed">
+            MediaHub Agency kết nối doanh nghiệp với nguồn nhân lực trẻ tài năng, cung cấp giải pháp truyền thông sáng tạo, hiệu quả với chi phí tối ưu nhất trên thị trường.
+          </p>
+<div class="flex items-center gap-3 pt-2">
+<a aria-label="Facebook" class="w-8 h-8 rounded-full bg-brand-card hover:bg-brand-orange hover:text-white flex items-center justify-center transition-colors" href="#">
+<i class="fa-brands fa-facebook-f text-xs"></i>
+</a>
+<a aria-label="TikTok" class="w-8 h-8 rounded-full bg-brand-card hover:bg-brand-orange hover:text-white flex items-center justify-center transition-colors" href="#">
+<i class="fa-brands fa-tiktok text-xs"></i>
+</a>
+<a aria-label="YouTube" class="w-8 h-8 rounded-full bg-brand-card hover:bg-brand-orange hover:text-white flex items-center justify-center transition-colors" href="#">
+<i class="fa-brands fa-youtube text-xs"></i>
+</a>
+<a aria-label="LinkedIn" class="w-8 h-8 rounded-full bg-brand-card hover:bg-brand-orange hover:text-white flex items-center justify-center transition-colors" href="#">
+<i class="fa-brands fa-linkedin-in text-xs"></i>
+</a>
+</div>
+</div>
+<!-- Links: Dịch Vụ -->
+<div>
+<h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">DỊCH VỤ</h4>
+<ul class="space-y-2.5">
+<li><a class="hover:text-white transition-colors" href="#">Thiết kế sáng tạo</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Sản xuất video &amp; TVC</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Marketing &amp; Truyền thông</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Viết nội dung &amp; PR</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Web &amp; Landing page</a></li>
+</ul>
+</div>
+<!-- Links: Về MediaHub -->
+<div>
+<h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">MEDIAHUB</h4>
+<ul class="space-y-2.5">
+<li><a class="hover:text-white transition-colors" href="#">Giới thiệu về chúng tôi</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Đội ngũ sáng tạo</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Tuyển dụng Creator</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Tin tức &amp; Sự kiện</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Bảng giá minh bạch</a></li>
+</ul>
+</div>
+<!-- Links: Liên Hệ & Hỗ Trợ -->
+<div>
+<h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">LIÊN HỆ &amp; HỖ TRỢ</h4>
+<ul class="space-y-3">
+<li class="flex items-start gap-2">
+<i class="fa-solid fa-location-dot text-brand-orange mt-0.5"></i>
+<span>Tòa nhà MediaHub, Cầu Giấy, Hà Nội</span>
+</li>
+<li class="flex items-center gap-2">
+<i class="fa-solid fa-phone text-brand-orange"></i>
+<span>0983 456 789</span>
+</li>
+<li class="flex items-center gap-2">
+<i class="fa-solid fa-envelope text-brand-orange"></i>
+<span>hello@mediahub.vn</span>
+</li>
+<li class="pt-1">
+<a class="text-brand-orange hover:underline font-medium" href="#">Chính sách bảo mật &amp; Điều khoản</a>
+</li>
+</ul>
+</div>
+</div>
+<!-- Copyright bottom -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-500">
+<p>© 2025 MediaHub Creative Agency. All rights reserved.</p>
+<div class="flex gap-6">
+<a class="hover:text-gray-400 transition-colors" href="#">Quy chế hoạt động</a>
+<a class="hover:text-gray-400 transition-colors" href="#">Điều khoản dịch vụ</a>
+<a class="hover:text-gray-400 transition-colors" href="#">Bảo mật thanh toán</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>

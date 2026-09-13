@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediaHub – Creative Media Agency | Kết nối sáng tạo – Bứt phá nội dung</title>
+<!-- Tailwind CSS v3 CDN with Forms and Container Queries plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              orange: '#FF5E1E',
+              orangeHover: '#FF7A42',
+              purple: '#8B5CF6',
+              purpleDark: '#6D28D9',
+              dark: '#05070D',
+              surface: '#090D18',
+              surfaceLight: '#111728',
+              border: '#1E293B',
+              borderLight: '#334155'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'Plus Jakarta Sans', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow-orange': '0 0 25px -5px rgba(255, 94, 30, 0.45)',
+            'glow-purple': '0 0 25px -5px rgba(139, 92, 246, 0.45)',
+            'glass': '0 8px 32px 0 rgba(0, 0, 0, 0.37)'
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style data-purpose="base-typography">
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #05070D;
+      color: #E2E8F0;
+      overflow-x: hidden;
+    }
+  </style>
+<style data-purpose="custom-utilities">
+    .gradient-brand-text {
+      background: linear-gradient(135deg, #FF5E1E 0%, #FF8F3D 45%, #C084FC 80%, #8B5CF6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .gradient-orange-btn {
+      background: linear-gradient(135deg, #FF5E1E 0%, #FF763B 100%);
+    }
+    .gradient-card-border {
+      position: relative;
+    }
+    .gradient-card-border::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      padding: 1px;
+      background: linear-gradient(135deg, rgba(255,94,30,0.3) 0%, rgba(139,92,246,0.3) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+    .glow-bg-radial {
+      background: radial-gradient(circle at 50% 20%, rgba(255, 94, 30, 0.12) 0%, rgba(139, 92, 246, 0.08) 35%, transparent 70%);
+    }
+  </style>
+</head>
+<body class="bg-brand-dark text-slate-200 antialiased selection:bg-brand-orange selection:text-white">
+<!-- BEGIN: MainHeader -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-[#080B14]/85 backdrop-blur-xl border-b border-brand-border/60 transition-all duration-300">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+<!-- Brand Logo -->
+<a class="flex items-center gap-3 group" data-purpose="brand-logo" href="#">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-purple p-[2px] shadow-glow-orange/30 group-hover:scale-105 transition-transform duration-300">
+<div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+<svg class="w-5 h-5 text-brand-orange ml-0.5 fill-current" viewbox="0 0 24 24">
+<path d="M5 3l14 9-14 9V3z"></path>
+</svg>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center gap-1.5">
+<span class="text-2xl font-extrabold tracking-tight text-white">Media<span class="text-brand-orange">Hub</span></span>
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-brand-purple animate-pulse"></span>
+</div>
+<span class="text-[10px] uppercase font-semibold tracking-wider text-slate-400 -mt-1">Creative Media Agency</span>
+</div>
+</a>
+<!-- Desktop Navigation Menu -->
+<nav aria-label="Main Navigation" class="hidden lg:flex items-center gap-8 text-sm font-medium text-slate-300">
+<a class="text-brand-orange relative py-1 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-brand-orange" href="#hero">Trang chủ</a>
+<a class="hover:text-white transition-colors duration-200 py-1" href="#creators">Tìm Creator</a>
+<a class="hover:text-white transition-colors duration-200 py-1" href="#du-an">Dự án</a>
+<a class="hover:text-white transition-colors duration-200 py-1" href="#quy-trinh">Quy trình</a>
+<a class="hover:text-white transition-colors duration-200 py-1" href="#dich-vu">Bảng giá &amp; Dịch vụ</a>
+<a class="hover:text-white transition-colors duration-200 py-1" href="#ve-chung-toi">Về chúng tôi</a>
+</nav>
+<!-- Right Header Actions -->
+<div class="flex items-center gap-4">
+<!-- Notification Bell -->
+<button aria-label="Thông báo" class="relative p-2.5 rounded-xl text-slate-400 hover:text-white hover:bg-brand-surfaceLight border border-transparent hover:border-brand-border transition-all duration-200">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<span class="absolute top-2 right-2 w-2 h-2 bg-brand-orange rounded-full ring-2 ring-brand-dark"></span>
+</button>
+<!-- Login Button -->
+<a class="hidden sm:inline-flex text-sm font-semibold text-slate-200 hover:text-white px-4 py-2 rounded-xl hover:bg-brand-surfaceLight transition-all duration-200" href="#login">
+          Đăng nhập
+        </a>
+<!-- Primary Gradient CTA -->
+<a class="inline-flex items-center gap-2 text-sm font-semibold text-white gradient-orange-btn hover:brightness-110 shadow-glow-orange px-5 py-2.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5" href="#brief">
+<span>Đăng dự án ngay</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+</div>
+</header>
+<!-- END: MainHeader -->
+<!-- BEGIN: MainContent -->
+<main class="pt-20">
+<!-- BEGIN: HeroSection -->
+<section class="relative pt-12 pb-20 lg:pt-16 lg:pb-28 overflow-hidden glow-bg-radial" data-purpose="hero-section" id="hero">
+<!-- Background Decorative Lights -->
+<div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-brand-orange/15 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<div class="absolute top-1/3 right-10 w-[450px] h-[350px] bg-brand-purple/15 blur-[130px] rounded-full pointer-events-none -z-10"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+<!-- Hero Text Content -->
+<div class="lg:col-span-6 space-y-7 text-left">
+<!-- Badge -->
+<div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-surfaceLight/80 border border-brand-border text-xs font-medium text-slate-300 shadow-sm backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-brand-orange animate-ping"></span>
+<span class="text-white font-semibold">Managed Creative Network</span>
+<span class="text-slate-500">|</span>
+<span class="text-slate-300">Không phải sàn tự do rủi ro</span>
+</div>
+<!-- Headline -->
+<h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15]">
+              Kết nối sáng tạo <br class="hidden sm:inline"/>
+<span class="gradient-brand-text">— Bứt phá nội dung</span>
+</h1>
+<!-- Subtitle -->
+<p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl font-normal">
+              MediaHub kết nối doanh nghiệp với những creator trẻ tài năng, đồng thời mang đến cơ hội để sinh viên truyền thông tham gia dự án thực tế, xây dựng portfolio và tạo thêm thu nhập.
+            </p>
+<p class="text-xs uppercase font-bold tracking-widest text-slate-400">
+<span class="text-brand-orange">Thực chiến</span> — <span class="text-brand-purple">Chất lượng</span> — <span class="text-white">Hiệu quả</span>
+</p>
+<!-- Dual Action CTAs -->
+<div class="flex flex-wrap items-center gap-4 pt-2">
+<a class="inline-flex items-center justify-center gap-2 text-base font-bold text-white gradient-orange-btn hover:brightness-110 shadow-glow-orange px-7 py-3.5 rounded-xl transition-all duration-300 transform hover:-translate-y-0.5" href="#dang-du-an">
+<span>Đăng dự án ngay</span>
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+<a class="inline-flex items-center justify-center gap-2 text-base font-semibold text-slate-200 bg-brand-surfaceLight/80 hover:bg-brand-surfaceLight border border-brand-borderLight px-6 py-3.5 rounded-xl transition-all duration-300 hover:border-slate-400" href="#creators">
+<span>Tìm Creator</span>
+<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+<!-- Social Proof Row -->
+<div class="pt-4 flex items-center gap-4 border-t border-brand-border/80">
+<div class="flex -space-x-3 overflow-hidden">
+<img alt="Creator Avatar 1" class="inline-block h-10 w-10 rounded-full ring-2 ring-brand-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAT7rmivLSf_gL9bnryffarVgrFWcxHAbR23AbNIaCDkRIYcvoxW5vQRdEfDlVOOwdJR3MMmrSZXH4x90hPrd7iyiMO4qEyWl8fg9DVm446VQVEhqgOGjRQUemkNDD4KnsbcUbOn1VVuln2VXaZur41JQr16bA32p0bnhMSTgGnAB68ISI--G3Fwu2V6FkAYHska245Od180tHGhWolU_tQ0RC_rxYdQA6tBFmWwPzn16yqY3qDLJTijw"/>
+<img alt="Creator Avatar 2" class="inline-block h-10 w-10 rounded-full ring-2 ring-brand-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCTU7cRaZl1eC49Agcf3TCbyAM2iMZ3gr3AL9oTRI-4g7dowxSnEhHCBzf8MWhZ8o0pkxJcu2nLiZPv-FIAlhzTM0QV0ReDQHrqLFC3I8ztqvCLnv9D5ZwH5HjX4I2AeBHwxtSbL0ysgL4PxLNpHppZ8P5ZSF_TSbgORN2OKdYPYn2WuymzVpEenCbhT_-cJS2pxsvXCYZa2XPC5-o4LiEsGwjuK7MGri5lxMVh8kqxuV9574Y_i4WQnA"/>
+<img alt="Creator Avatar 3" class="inline-block h-10 w-10 rounded-full ring-2 ring-brand-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN2mEZbt51fJpuAXrQGz3UzT_WUV2pxiiKGoI_Y10fM7LheJ8at72DjAGYxE9AAe6DM5sISMjbL_f_QpcqnkxMaHMQ2QJ-vZh5TM7azZgklbYkWcSC8jPw7UnAO6WizB2nzXIjQQxToDAm_R56MzZ5r4T081p85LHCn7S-trkTSz2w6hFMSmi_i3KKCi_JkxCIui6QcXGCS0rvDT5wrnb83o5JwNuwOs_rCWK9k5XoWYjnE6PVnw4RuA"/>
+<img alt="Creator Avatar 4" class="inline-block h-10 w-10 rounded-full ring-2 ring-brand-dark object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB7UEpXiWC0D2CruTDs2U8BPHyJgsOZ37bmHCvVRi_hi8w3u40hjl-MeZccDIuKBniT1UkOoMNrPHc5VBwLkIKgCndJ1vQSDmdv5k7aASgS5kNZcZX_NgC4Q2QZGHfFtpApIZe4oy2TilGm5ixVESKJDekb_7H53fz2zp3RR-uJC5qP8yD94OBfuwd-UqSVrTSrYvj_eWdEgLMVW72J-X5leRwx9xCt11FjT6lEpiVqyGqh2RfOV-8b2g"/>
+</div>
+<div class="text-xs sm:text-sm">
+<p class="font-bold text-white"><span class="text-brand-orange">500+</span> Creator trẻ tài năng đã tham gia</p>
+<p class="text-slate-400 font-medium">100+ dự án đã bàn giao chất lượng cao</p>
+</div>
+</div>
+</div>
+<!-- Hero Media Production Visual Card -->
+<div class="lg:col-span-6 relative">
+<div class="relative rounded-3xl p-1 bg-gradient-to-br from-brand-border via-brand-purple/40 to-brand-orange/40 shadow-2xl">
+<div class="relative rounded-[22px] overflow-hidden bg-brand-surface aspect-[4/3] sm:aspect-[16/11]">
+<!-- Production Set Cinematography Backdrop -->
+<img alt="MediaHub Cinema Production Crew Filming" class="w-full h-full object-cover object-center filter brightness-90 hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2oOpUiPGc5hwLydIuW_Y1z7dXXRKK7nLtJljrDF0F3PsZ7b1BqlJXqEKzp-M0JnkqTyINNvoG0hJNdO-rNInKwG1rWO02Oo21hz1k1jGECdxN9wAHBWOkCO0-1Sn9XDW9EHMsgAJw5UZiyafxIHOIPZtSvn14p1eL_gogDBoCKJQoBM0-mscWYkv0fIZ0BRc27Br-PPtA04MOcYBsYUVJyHkv4cCEMVGZ8I8ihWcZrYbSrI38DHSnyg"/>
+<!-- Dark Vignette Overlay -->
+<div class="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-brand-dark/30"></div>
+<!-- Floating Video Monitor Pill (Showreel) -->
+<div class="absolute bottom-6 right-6 flex items-center gap-3 bg-[#0c101d]/90 border border-brand-border/80 backdrop-blur-md p-3 pr-5 rounded-2xl shadow-xl hover:border-brand-purple transition-all duration-300 cursor-pointer group">
+<div class="w-11 h-11 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-purple flex items-center justify-center text-white shadow-glow-purple group-hover:scale-110 transition-transform">
+<svg class="w-5 h-5 fill-current ml-0.5" viewbox="0 0 24 24">
+<path d="M8 5v14l11-7z"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-xs font-bold text-white group-hover:text-brand-orange transition-colors">Xem Showreel 2025</h4>
+<p class="text-[11px] text-slate-400">Những dự án nổi bật của MediaHub</p>
+</div>
+</div>
+<!-- Floating Tags on Visual -->
+<div class="absolute top-5 left-5 flex flex-col gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-xs font-medium text-white shadow-lg">
+                    🎬 TVC &amp; Video Production
+                  </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-xs font-medium text-white shadow-lg">
+                    📸 Commercial Photography
+                  </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-xs font-medium text-white shadow-lg">
+                    🎨 Brand Identity &amp; 3D
+                  </span>
+</div>
+<!-- Live Tag -->
+<div class="absolute top-5 right-5 flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/20 border border-red-500/40 backdrop-blur-md text-[11px] font-semibold text-red-400">
+<span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                  MEDIA STUDIO LIVE
+                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: HeroSection -->
+<!-- BEGIN: SearchFilterPill -->
+<section class="relative -mt-6 z-20" data-purpose="search-and-pillars">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Search Bar Container -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-3 sm:p-4 shadow-2xl backdrop-blur-xl">
+<form class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
+<!-- Text Search Input -->
+<div class="md:col-span-4 relative">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<input class="w-full bg-brand-surfaceLight border border-brand-border text-white text-sm rounded-xl pl-11 pr-4 py-3 placeholder:text-slate-500 focus:outline-none focus:border-brand-orange transition-colors" placeholder="Tìm kiếm kỹ năng, tên Creator..." type="text"/>
+</div>
+<!-- Category Filter Dropdown -->
+<div class="md:col-span-3">
+<select class="w-full bg-brand-surfaceLight border border-brand-border text-slate-300 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors cursor-pointer">
+<option value="">Danh mục (Tất cả)</option>
+<option value="video">Sản xuất Video TVC</option>
+<option value="photo">Chụp ảnh sản phẩm</option>
+<option value="design">Thiết kế đồ hoạ &amp; 3D</option>
+<option value="marketing">Social Media &amp; PR</option>
+</select>
+</div>
+<!-- Location Filter Dropdown -->
+<div class="md:col-span-2">
+<select class="w-full bg-brand-surfaceLight border border-brand-border text-slate-300 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors cursor-pointer">
+<option value="">Khu vực (Toàn quốc)</option>
+<option value="hanoi">Hà Nội</option>
+<option value="hcm">TP. Hồ Chí Minh</option>
+<option value="danang">Đà Nẵng</option>
+<option value="remote">Online / Remote</option>
+</select>
+</div>
+<!-- Experience Level Dropdown -->
+<div class="md:col-span-2">
+<select class="w-full bg-brand-surfaceLight border border-brand-border text-slate-300 text-sm rounded-xl px-4 py-3 focus:outline-none focus:border-brand-orange transition-colors cursor-pointer">
+<option value="">Mức độ kinh nghiệm</option>
+<option value="junior">Junior (Sinh viên năm 3-4)</option>
+<option value="senior">Senior Student (Portfolio khủng)</option>
+<option value="team">Production Crew (Đội ngũ)</option>
+</select>
+</div>
+<!-- Submit Button -->
+<div class="md:col-span-1">
+<button class="w-full h-full min-h-[46px] bg-gradient-to-r from-brand-orange to-brand-purple hover:brightness-110 text-white font-semibold rounded-xl flex items-center justify-center transition-all duration-200" type="submit">
+<span class="md:hidden mr-2">Tìm kiếm</span>
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"></path>
+</svg>
+</button>
+</div>
+</form>
+</div>
+<!-- 4 Value Pillars -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-6" data-purpose="agency-value-pillars">
+<!-- Pillar 1 -->
+<div class="flex items-start gap-4 p-4 rounded-xl bg-brand-surface/70 border border-brand-border/70 hover:border-brand-orange/40 transition-colors">
+<div class="w-10 h-10 rounded-lg bg-brand-orange/10 border border-brand-orange/20 flex items-center justify-center text-brand-orange shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Creator chất lượng</h4>
+<p class="text-xs text-slate-400 mt-0.5">Được tuyển chọn, test tay nghề &amp; đánh giá kỹ lưỡng.</p>
+</div>
+</div>
+<!-- Pillar 2 -->
+<div class="flex items-start gap-4 p-4 rounded-xl bg-brand-surface/70 border border-brand-border/70 hover:border-brand-purple/40 transition-colors">
+<div class="w-10 h-10 rounded-lg bg-brand-purple/10 border border-brand-purple/20 flex items-center justify-center text-brand-purple shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Quy trình chuyên nghiệp</h4>
+<p class="text-xs text-slate-400 mt-0.5">MediaHub trực tiếp quản lý, cam kết đúng timeline.</p>
+</div>
+</div>
+<!-- Pillar 3 -->
+<div class="flex items-start gap-4 p-4 rounded-xl bg-brand-surface/70 border border-brand-border/70 hover:border-brand-orange/40 transition-colors">
+<div class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400 shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Chi phí hợp lý</h4>
+<p class="text-xs text-slate-400 mt-0.5">Tối ưu 40-50% chi phí so với agency truyền thống.</p>
+</div>
+</div>
+<!-- Pillar 4 -->
+<div class="flex items-start gap-4 p-4 rounded-xl bg-brand-surface/70 border border-brand-border/70 hover:border-brand-purple/40 transition-colors">
+<div class="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400 shrink-0">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h4 class="text-sm font-bold text-white">Hỗ trợ tận tâm</h4>
+<p class="text-xs text-slate-400 mt-0.5">Đội ngũ Account đồng hành 1:1 suốt vòng đời dự án.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: SearchFilterPill -->
+<!-- BEGIN: FeaturedProjectsSection -->
+<section class="py-24 relative" data-purpose="featured-projects" id="du-an">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-10 gap-4">
+<div>
+<div class="inline-flex items-center gap-2 text-xs uppercase font-bold text-brand-orange tracking-widest mb-2">
+<span>Sản phẩm thực tế</span>
+</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">Dự án nổi bật</h2>
+<p class="text-sm text-slate-400 mt-1">Được thực hiện bởi các nhóm sáng tạo thuộc mạng lưới MediaHub.</p>
+</div>
+<a class="inline-flex items-center gap-2 text-sm font-semibold text-brand-purple hover:text-white transition-colors duration-200 group" href="#all-projects">
+<span>Xem tất cả dự án</span>
+<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</a>
+</div>
+<!-- Projects Grid (4 Cards Matching Prompt Reference) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Project Card 1: Video Quảng Cáo The Coffee House -->
+<article class="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden hover:border-brand-orange/50 transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+<img alt="Video quảng cáo The Coffee House" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD59_HkH2Vx80WcOYA5hMnKuxPfjXTdUikGjdFmqG06Gl91zS8Clfc8fOms4mHA-H7y2uj1CEIbcvJomG-Si3qWOFBuCJsiqIT52hyr6HFqlelqk6yV1PK8Fg302mndhwJsXomVgoI_Fh2-Sm26pyBkoeLVMEIxYBLp_PgVtLAJFvOyZfBjFkMtqgR1UV3qJmia_gU6X3dpt8BMZopoGcilq0JrSsFn7LuSa5KQ8rlU5zqNrJx36Z-Zlg"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-red-600/90 text-white backdrop-blur-sm">
+                    Video TVC
+                  </span>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-white text-base group-hover:text-brand-orange transition-colors">
+                  Video quảng cáo – The Coffee House
+                </h3>
+<p class="text-xs text-slate-400 mt-1">Sản xuất TVC viral 30s truyền thông hương vị cà phê mới.</p>
+</div>
+</div>
+<div class="px-4 pb-4 pt-2 border-t border-brand-border/60 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-medium">Bởi nhóm <strong class="text-slate-200">CineMotion</strong></span>
+<div class="flex items-center gap-1 text-amber-400 font-semibold">
+<span>★</span>
+<span>5.0</span>
+</div>
+</div>
+</article>
+<!-- Project Card 2: Chụp ảnh sản phẩm Lamer Perfume -->
+<article class="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden hover:border-brand-purple/50 transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+<img alt="Chụp ảnh sản phẩm Lamer Perfume" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDF84nWRsX0i6_HJU5RjOqZkiHdkDhIn9L9ONgBFZepYGQ-t68oQna4RK5FFaYP8uOr7Qjl5j51ZD4at4LFpgNCR04wGUBcy9GctYWAlKcxeq5LvzAF7q0LEOU-18vtwAKFxny__zpxUSV3RoCqGowfgtYoTqaMplc5MTqCm0LM0loC2k3QIXxF__6OrqT6mW-CPLwgTuFXdM90WlUdFwshqMnAAj3MNS5QXy4QnjlA4Ok3UfvjkyuDSg"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-blue-600/90 text-white backdrop-blur-sm">
+                    Chụp ảnh
+                  </span>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-white text-base group-hover:text-brand-orange transition-colors">
+                  Chụp ảnh sản phẩm – Lamer Perfume
+                </h3>
+<p class="text-xs text-slate-400 mt-1">Bộ ảnh concept luxury cho lookbook ra mắt dòng nước hoa thu đông.</p>
+</div>
+</div>
+<div class="px-4 pb-4 pt-2 border-t border-brand-border/60 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-medium">Bởi nhóm <strong class="text-slate-200">Frame Studio</strong></span>
+<div class="flex items-center gap-1 text-amber-400 font-semibold">
+<span>★</span>
+<span>4.9</span>
+</div>
+</div>
+</article>
+<!-- Project Card 3: TVC TechTalk Live -->
+<article class="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden hover:border-brand-orange/50 transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+<img alt="TVC giới thiệu TechTalk Live" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgNI5fkazqqxAMOmtLxe4X0teX-HKVb2NGBB8JhV-aL1bLvBj5yHmBeoONVC4jbqIur0352y3sswTTuNTuOAx1VosadJ9u-djfyubma_TfwvELC1mbfZXVBPHcBIJOoKC3Rr8eJLWH8FVtPOMoxldaXXRGtQHVbNw_5hzqv_a6VQumucAo2F14BKoa0O_ucI_oeGUPVZkQG3_PGBClzZM8cleIjPJ7rPi81rffam3OVBICeBOFEcoddw"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-red-600/90 text-white backdrop-blur-sm">
+                    Video TVC
+                  </span>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-white text-base group-hover:text-brand-orange transition-colors">
+                  TVC giới thiệu – TechTalk Live
+                </h3>
+<p class="text-xs text-slate-400 mt-1">Motion graphics &amp; dựng teaser hội thảo công nghệ 2025.</p>
+</div>
+</div>
+<div class="px-4 pb-4 pt-2 border-t border-brand-border/60 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-medium">Bởi nhóm <strong class="text-slate-200">MediaCrew</strong></span>
+<div class="flex items-center gap-1 text-amber-400 font-semibold">
+<span>★</span>
+<span>4.8</span>
+</div>
+</div>
+</article>
+<!-- Project Card 4: Poster Summer Vibes -->
+<article class="bg-brand-surface rounded-2xl border border-brand-border overflow-hidden hover:border-brand-purple/50 transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative aspect-[16/10] overflow-hidden bg-slate-900">
+<img alt="Thiết kế poster sự kiện Summer Vibes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDcRhMpik9foOn0x832ZeLcgmJWs-wQ9nk8KHjDK840VWECwmI_thLzDahTbPivQeUZm9G3mRTDBeOeg11UcOT9HBvH1fYSfibQLkXFmlgt87p0NGoD7uFjpBg-x63bK2ztHUDEldJuGbpNhphd5oj9--a6G6YXX5RZOwy_9AkxYII5IOxkfkDPSnonQ37z1EUZZe8KxKRy2FXnAVIOKYMqPxmJ1XS3UldsXRWbeM1ecQJBH_vGxsisqQ"/>
+<div class="absolute top-3 left-3">
+<span class="px-2.5 py-1 rounded-md text-[11px] font-bold uppercase tracking-wider bg-purple-600/90 text-white backdrop-blur-sm">
+                    Thiết kế
+                  </span>
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-white text-base group-hover:text-brand-orange transition-colors">
+                  Thiết kế poster – Summer Vibes
+                </h3>
+<p class="text-xs text-slate-400 mt-1">Key visual &amp; hệ thống POSM nhạc hội sinh viên thường niên.</p>
+</div>
+</div>
+<div class="px-4 pb-4 pt-2 border-t border-brand-border/60 flex items-center justify-between text-xs">
+<span class="text-slate-400 font-medium">Bởi nhóm <strong class="text-slate-200">Design Hub</strong></span>
+<div class="flex items-center gap-1 text-amber-400 font-semibold">
+<span>★</span>
+<span>5.0</span>
+</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- END: FeaturedProjectsSection -->
+<!-- BEGIN: WorkflowSection -->
+<section class="py-24 bg-brand-surface/40 border-y border-brand-border/60 relative" data-purpose="how-it-works-timeline" id="quy-trinh">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Section Header -->
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="inline-flex items-center gap-2 text-xs uppercase font-bold text-brand-orange tracking-widest mb-2">
+<span>Quy trình làm việc 5 bước</span>
+</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Minh bạch, Tốc độ &amp; <span class="gradient-brand-text">Tuyệt đối an tâm</span>
+</h2>
+<p class="text-slate-400 text-sm sm:text-base mt-3">
+            Doanh nghiệp không phải bận tâm việc đốc thúc từng freelancer riêng lẻ. MediaHub điều phối và chịu trách nhiệm cao nhất về chất lượng dự án.
+          </p>
+</div>
+<!-- 5-Step Process Horizontal Stepper -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-6 relative">
+<!-- Step 1 -->
+<div class="relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/60 transition-colors">
+<div class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange font-black flex items-center justify-center text-base mb-4 border border-brand-orange/30">
+              01
+            </div>
+<h4 class="text-base font-bold text-white">Tiếp nhận</h4>
+<p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Lắng nghe nhu cầu, thấu hiểu đề bài, xác định mục tiêu và tư vấn giải pháp ngân sách phù hợp nhất.
+            </p>
+</div>
+<!-- Step 2 -->
+<div class="relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-purple/60 transition-colors">
+<div class="w-10 h-10 rounded-xl bg-brand-purple/15 text-brand-purple font-black flex items-center justify-center text-base mb-4 border border-brand-purple/30">
+              02
+            </div>
+<h4 class="text-base font-bold text-white">Đề xuất</h4>
+<p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Lập báo giá rõ ràng, moodboard concept và kế hoạch triển khai chi tiết từng cột mốc giao nhận.
+            </p>
+</div>
+<!-- Step 3 -->
+<div class="relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/60 transition-colors">
+<div class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange font-black flex items-center justify-center text-base mb-4 border border-brand-orange/30">
+              03
+            </div>
+<h4 class="text-base font-bold text-white">Thực hiện</h4>
+<p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              MediaHub tuyển chọn creator chuẩn gu và tổ chức sản xuất. Đội ngũ Account giám sát tiến độ liên tục.
+            </p>
+</div>
+<!-- Step 4 -->
+<div class="relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-purple/60 transition-colors">
+<div class="w-10 h-10 rounded-xl bg-brand-purple/15 text-brand-purple font-black flex items-center justify-center text-base mb-4 border border-brand-purple/30">
+              04
+            </div>
+<h4 class="text-base font-bold text-white">Kiểm duyệt</h4>
+<p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              MediaHub QA độc lập, hoàn thiện sản phẩm theo chuẩn chuyên nghiệp trước khi gửi khách hàng duyệt.
+            </p>
+</div>
+<!-- Step 5 -->
+<div class="relative bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange/60 transition-colors">
+<div class="w-10 h-10 rounded-xl bg-brand-orange/15 text-brand-orange font-black flex items-center justify-center text-base mb-4 border border-brand-orange/30">
+              05
+            </div>
+<h4 class="text-base font-bold text-white">Bàn giao</h4>
+<p class="text-xs text-slate-400 mt-2 leading-relaxed">
+              Bàn giao toàn bộ file gốc đúng deadline và hỗ trợ hiệu chỉnh theo cam kết hợp đồng.
+            </p>
+</div>
+</div>
+<!-- Agency Managed Callout Box -->
+<div class="mt-12 p-5 rounded-2xl bg-gradient-to-r from-brand-orange/10 via-brand-surface to-brand-purple/10 border border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-brand-orange/20 text-brand-orange flex items-center justify-center shrink-0">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M13 10V3L4 14h7v7l9-11h-7z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<div>
+<h5 class="text-sm sm:text-base font-bold text-white">Khác biệt độc bản tại MediaHub</h5>
+<p class="text-xs sm:text-sm text-slate-400">Bạn không cần tự quản lý freelancer. MediaHub chịu trách nhiệm toàn bộ tiến độ, rủi ro và chất lượng sản phẩm.</p>
+</div>
+</div>
+<a class="whitespace-nowrap px-5 py-2.5 rounded-xl bg-white text-brand-dark font-bold text-xs hover:bg-slate-200 transition-colors" href="#dang-du-an">
+            Bắt đầu dự án ngay
+          </a>
+</div>
+</div>
+</section>
+<!-- END: WorkflowSection -->
+<!-- BEGIN: ServicesSection -->
+<section class="py-24 relative" data-purpose="services-grid" id="dich-vu">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center max-w-3xl mx-auto mb-16">
+<div class="inline-flex items-center gap-2 text-xs uppercase font-bold text-brand-purple tracking-widest mb-2">
+<span>Dịch vụ của chúng tôi</span>
+</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+            Giải pháp truyền thông <span class="gradient-brand-text">toàn diện</span> cho doanh nghiệp
+          </h2>
+<p class="text-slate-400 text-sm sm:text-base mt-2">
+            Được triển khai linh hoạt theo từng gói ngân sách hoặc may đo riêng cho từng chiến dịch.
+          </p>
+</div>
+<!-- 6 Core Services -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Service 1: Thiết kế sáng tạo -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-orange transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-brand-orange/15 text-brand-orange flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-brand-orange transition-colors">Thiết kế sáng tạo</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Thiết kế logo, bộ nhận diện thương hiệu, banner quảng cáo, poster, bao bì sản phẩm và 3D rendering.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-brand-orange hover:underline inline-flex items-center gap-1" href="#quote-design">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Service 2: Sản xuất Video & TVC -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-purple transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-brand-purple/15 text-brand-purple flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-brand-purple transition-colors">Sản xuất Video &amp; TVC</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Video quảng cáo, TVC 15-30s, viral video, motion graphics, video 2D/3D animation và reel TikTok/Reels triệu view.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-brand-purple hover:underline inline-flex items-center gap-1" href="#quote-video">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Service 3: Marketing & Truyền thông số -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-orange transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-blue-500/15 text-blue-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-blue-400 transition-colors">Marketing &amp; Truyền thông số</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Quản trị trọn gói Fanpage, TikTok channel, chạy Ads hiệu quả, booking KOC sinh viên và mini campaign.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-blue-400 hover:underline inline-flex items-center gap-1" href="#quote-marketing">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Service 4: Viết nội dung & PR -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-purple transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-pink-500/15 text-pink-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-pink-400 transition-colors">Viết nội dung &amp; PR Báo chí</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Bài PR chuẩn SEO, content Fanpage, kịch bản video, bài phỏng vấn doanh nghiệp và thông cáo báo chí.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-pink-400 hover:underline inline-flex items-center gap-1" href="#quote-content">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Service 5: Web & Ứng dụng sáng tạo -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-orange transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-amber-500/15 text-amber-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-amber-400 transition-colors">Web &amp; Landing Page</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Thiết kế website doanh nghiệp, landing page bán hàng chuyển đổi cao, UI/UX chuẩn hiện đại và tối ưu di động.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-amber-400 hover:underline inline-flex items-center gap-1" href="#quote-web">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+<!-- Service 6: Livestream & Media Sự kiện -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-6 hover:border-brand-purple transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="w-12 h-12 rounded-xl bg-emerald-500/15 text-emerald-400 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
+<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24">
+<path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</div>
+<h3 class="text-lg font-bold text-white group-hover:text-emerald-400 transition-colors">Livestream &amp; Media Sự kiện</h3>
+<p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                Cung cấp thiết bị quay chụp, kỹ thuật viên đa máy quay cho hội nghị, gala, livestream bán hàng TikTok Shop.
+              </p>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-border/60">
+<a class="text-xs font-semibold text-emerald-400 hover:underline inline-flex items-center gap-1" href="#quote-event">
+<span>Xem chi tiết &amp; báo giá</span>
+<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M9 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: ServicesSection -->
+<!-- BEGIN: StatisticsSection -->
+<section class="py-16 bg-gradient-to-r from-brand-surfaceLight/60 via-brand-surface to-brand-surfaceLight/60 border-y border-brand-border" data-purpose="statistics-counter">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+<div class="space-y-1">
+<div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">1200<span class="text-brand-orange">+</span></div>
+<div class="text-xs sm:text-sm text-slate-400 font-medium">Creator tài năng</div>
+</div>
+<div class="space-y-1">
+<div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">800<span class="text-brand-purple">+</span></div>
+<div class="text-xs sm:text-sm text-slate-400 font-medium">Dự án hoàn thành</div>
+</div>
+<div class="space-y-1">
+<div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">300<span class="text-brand-orange">+</span></div>
+<div class="text-xs sm:text-sm text-slate-400 font-medium">Doanh nghiệp tin cậy</div>
+</div>
+<div class="space-y-1">
+<div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">98<span class="text-emerald-400">%</span></div>
+<div class="text-xs sm:text-sm text-slate-400 font-medium">Khách hàng hài lòng</div>
+</div>
+<div class="col-span-2 md:col-span-1 space-y-1">
+<div class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">5<span class="text-brand-purple">+</span></div>
+<div class="text-xs sm:text-sm text-slate-400 font-medium">Năm kinh nghiệm điều phối</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: StatisticsSection -->
+<!-- BEGIN: CreatorTalentSection -->
+<section class="py-24 relative" data-purpose="creator-showcase" id="creators">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+<div>
+<div class="inline-flex items-center gap-2 text-xs uppercase font-bold text-brand-orange tracking-widest mb-2">
+<span>MediaHub Selected Talent</span>
+</div>
+<h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+              Những Creator trẻ đang tạo dấu ấn
+            </h2>
+<p class="text-sm text-slate-400 mt-1">Đội ngũ sinh viên ưu tú từ các trường đại học truyền thông &amp; mỹ thuật hàng đầu.</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs text-slate-400 mr-2">Đã xác minh năng lực</span>
+<span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
+              ✓ Verified 100%
+            </span>
+</div>
+</div>
+<!-- Creator Cards Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- Creator 1 -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative w-20 h-20 mx-auto mb-4">
+<img alt="Hoàng Linh Chi" class="w-full h-full rounded-full object-cover ring-2 ring-brand-orange/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJTrGto3qzAf_v9VZupxsbTj1CiimapvJBG4vcrIEJCMxQk0PJWBaZKXeXiYUvQ2xMKuZ4uY0Nxc8kNRac5fGyo5modA_LugK7sE9gW0Ile4UcwkSing-PBhRYqt54l3G9q0GJHD30HbA-RgBOMtgr33E9_8dIKfaEJxeEVxhDQabqkfSJUVEQcG8Nbik8ElOwCzxg3SJYvEs9ID5627A6Oyhxfi3j1Bc_qEwVrrS4HlNrWaYMe4q6hQ"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-emerald-500 ring-2 ring-brand-dark flex items-center justify-center text-[10px] text-white">✓</span>
+</div>
+<div class="text-center">
+<h4 class="text-base font-bold text-white group-hover:text-brand-orange transition-colors">Hoàng Linh Chi</h4>
+<p class="text-xs text-brand-purple font-medium">Senior Motion Designer</p>
+<p class="text-xs text-slate-400 mt-1">ĐH Mỹ Thuật Công Nghiệp • 24 dự án hoàn thành</p>
+</div>
+<div class="flex flex-wrap justify-center gap-1.5 mt-4">
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">After Effects</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Cinema 4D</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">3D Visual</span>
+</div>
+</div>
+<div class="mt-6 pt-3 border-t border-brand-border/60 flex items-center justify-between">
+<span class="text-xs text-amber-400 font-semibold">★ 4.9 (18 reviews)</span>
+<a class="text-xs font-semibold text-white hover:text-brand-orange transition-colors" href="#creator-profile">Xem portfolio →</a>
+</div>
+</div>
+<!-- Creator 2 -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-purple transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative w-20 h-20 mx-auto mb-4">
+<img alt="Đặng Minh Quân" class="w-full h-full rounded-full object-cover ring-2 ring-brand-purple/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCrF4WWMAe8wVjpumiDOid3etyj74eRAlJcnOgQpLB0PNj7YABs_MYUEHrG8WoXbAnR9FX5fxyAl5J61guZA1gLtP29daH7fPvxlpDGsxgZABq9Jm52AiuIO0jMsEY0N2yPciqx8Ipghgi4IcuFYZE4EeN_Do4TaKCRb9NFMGhvn9FB6TcfCoYfgL0l3DN32ZhNb6-_Y2UtcaZVlVwZ1xIeM9xea4HmkgcwFxKlJST4_DhGNkjTDV8o1g"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-emerald-500 ring-2 ring-brand-dark flex items-center justify-center text-[10px] text-white">✓</span>
+</div>
+<div class="text-center">
+<h4 class="text-base font-bold text-white group-hover:text-brand-purple transition-colors">Đặng Minh Quân</h4>
+<p class="text-xs text-brand-orange font-medium">Director of Photography (DoP)</p>
+<p class="text-xs text-slate-400 mt-1">ĐH Sân Khấu Điện Ảnh • 31 TVC &amp; Music Video</p>
+</div>
+<div class="flex flex-wrap justify-center gap-1.5 mt-4">
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">TVC Production</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Color Grading</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Lighting</span>
+</div>
+</div>
+<div class="mt-6 pt-3 border-t border-brand-border/60 flex items-center justify-between">
+<span class="text-xs text-amber-400 font-semibold">★ 5.0 (27 reviews)</span>
+<a class="text-xs font-semibold text-white hover:text-brand-purple transition-colors" href="#creator-profile">Xem portfolio →</a>
+</div>
+</div>
+<!-- Creator 3 -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-orange transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative w-20 h-20 mx-auto mb-4">
+<img alt="Nguyễn Thảo Vy" class="w-full h-full rounded-full object-cover ring-2 ring-brand-orange/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBzobZaRsEp51L2F8nsLtfyJ5-2kH91eVapVH7NpioEj1C9DWu0d2C9vjZqpYRzULgE-rph5D_Bs8c32AEhULo_e_BjGkaB5ICIpP3kFdpzj8yAJSh_Ub0DpBPu8zrpjlXjIV52o85cI39c0Avih_O-XGgbMygcKOJpI7Up22DLkoMQ4NCU4ZMN1Ovi1mnjoaBYDQIfLacY2z1TFsk9ygk5AeZ1pRhJ6HRulLtUb6hRu0xhatFbwbIsvA"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-emerald-500 ring-2 ring-brand-dark flex items-center justify-center text-[10px] text-white">✓</span>
+</div>
+<div class="text-center">
+<h4 class="text-base font-bold text-white group-hover:text-brand-orange transition-colors">Nguyễn Thảo Vy</h4>
+<p class="text-xs text-brand-purple font-medium">Brand Identity &amp; UI Designer</p>
+<p class="text-xs text-slate-400 mt-1">Học viện Báo chí &amp; TT • 19 dự án Branding</p>
+</div>
+<div class="flex flex-wrap justify-center gap-1.5 mt-4">
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Figma</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Branding</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Illustrator</span>
+</div>
+</div>
+<div class="mt-6 pt-3 border-t border-brand-border/60 flex items-center justify-between">
+<span class="text-xs text-amber-400 font-semibold">★ 4.9 (22 reviews)</span>
+<a class="text-xs font-semibold text-white hover:text-brand-orange transition-colors" href="#creator-profile">Xem portfolio →</a>
+</div>
+</div>
+<!-- Creator 4 -->
+<div class="bg-brand-surface border border-brand-border rounded-2xl p-5 hover:border-brand-purple transition-all duration-300 group flex flex-col justify-between">
+<div>
+<div class="relative w-20 h-20 mx-auto mb-4">
+<img alt="Lê Tuấn Hưng" class="w-full h-full rounded-full object-cover ring-2 ring-brand-purple/40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBbvJY57XPsLllFI-g5ny_-SS7i_EH3rq6oQLOM94HYTQIFNe61gZbTjM13GeiRDjOYRIz1Vg49GCHOw8xL7dxp9HGVKGhaOf_pnNLvym9KACJLyU95KhGzPXmkf0WJF-j4tr7lFhxmmd8e95sVbzhVNPXRvjueASkRwhQvHdMKUESq8cFwPVNOmzmxi_ge0gC2CCiftg89c6IodLvuaJu43QVCC3wGPsNjfpVTNvb7yIi6RWXSAdzxvg"/>
+<span class="absolute bottom-0 right-0 w-5 h-5 rounded-full bg-emerald-500 ring-2 ring-brand-dark flex items-center justify-center text-[10px] text-white">✓</span>
+</div>
+<div class="text-center">
+<h4 class="text-base font-bold text-white group-hover:text-brand-purple transition-colors">Lê Tuấn Hưng</h4>
+<p class="text-xs text-brand-orange font-medium">Commercial Photographer</p>
+<p class="text-xs text-slate-400 mt-1">ĐH RMIT • Chụp F&amp;B &amp; Fashion Lookbook</p>
+</div>
+<div class="flex flex-wrap justify-center gap-1.5 mt-4">
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Studio Photo</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Retouching</span>
+<span class="text-[11px] px-2 py-0.5 rounded-md bg-brand-surfaceLight border border-brand-border text-slate-300">Lookbook</span>
+</div>
+</div>
+<div class="mt-6 pt-3 border-t border-brand-border/60 flex items-center justify-between">
+<span class="text-xs text-amber-400 font-semibold">★ 5.0 (15 reviews)</span>
+<a class="text-xs font-semibold text-white hover:text-brand-purple transition-colors" href="#creator-profile">Xem portfolio →</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: CreatorTalentSection -->
+<!-- BEGIN: DualConversionSection -->
+<section class="py-20 bg-brand-surface/30 border-y border-brand-border/60" data-purpose="dual-audience-conversion">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<!-- Column 1: For Business -->
+<div class="bg-gradient-to-br from-brand-surface to-brand-surfaceLight border border-brand-border p-8 rounded-3xl relative overflow-hidden group hover:border-brand-orange transition-all duration-300">
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-orange/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-orange/10 text-brand-orange text-xs font-bold uppercase tracking-wider mb-4">
+              Dành cho Doanh nghiệp &amp; Brand
+            </div>
+<h3 class="text-2xl font-extrabold text-white">Sản xuất nội dung chất lượng cao với ngân sách tối ưu</h3>
+<p class="text-sm text-slate-400 mt-2 mb-6">
+              Không lo trễ hẹn, không lo rủi ro tay nghề. MediaHub cam kết chất lượng, bảo mật dữ liệu và hóa đơn VAT đầy đủ.
+            </p>
+<ul class="space-y-3 mb-8 text-sm text-slate-300">
+<li class="flex items-center gap-2.5">
+<span class="text-brand-orange font-bold">✓</span> Giảm 40% chi phí so với các Agency truyền thống.
+              </li>
+<li class="flex items-center gap-2.5">
+<span class="text-brand-orange font-bold">✓</span> MediaHub chịu trách nhiệm quản lý tiến độ và QA.
+              </li>
+<li class="flex items-center gap-2.5">
+<span class="text-brand-orange font-bold">✓</span> Đổi Creator ngay lập tức nếu khách hàng chưa ưng ý.
+              </li>
+</ul>
+<a class="inline-flex items-center gap-2 gradient-orange-btn text-white text-sm font-bold px-6 py-3 rounded-xl shadow-glow-orange hover:brightness-110 transition-all" href="#dang-du-an">
+<span>Đăng brief dự án</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+<!-- Column 2: For Students / Young Creators -->
+<div class="bg-gradient-to-br from-brand-surface to-brand-surfaceLight border border-brand-border p-8 rounded-3xl relative overflow-hidden group hover:border-brand-purple transition-all duration-300">
+<div class="absolute -right-10 -bottom-10 w-48 h-48 bg-brand-purple/10 rounded-full blur-2xl pointer-events-none"></div>
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-purple/10 text-brand-purple text-xs font-bold uppercase tracking-wider mb-4">
+              Dành cho Sinh viên &amp; Creators Trẻ
+            </div>
+<h3 class="text-2xl font-extrabold text-white">Thực chiến dự án thật, xây portfolio khủng &amp; có thu nhập</h3>
+<p class="text-sm text-slate-400 mt-2 mb-6">
+              Không lo bị bùng tiền công, được mentor giàu kinh nghiệm hướng dẫn và làm việc cùng các thương hiệu lớn ngay khi còn trên ghế nhà trường.
+            </p>
+<ul class="space-y-3 mb-8 text-sm text-slate-300">
+<li class="flex items-center gap-2.5">
+<span class="text-brand-purple font-bold">✓</span> Thanh toán minh bạch, đúng hẹn 100% qua MediaHub Escrow.
+              </li>
+<li class="flex items-center gap-2.5">
+<span class="text-brand-purple font-bold">✓</span> Tích lũy kinh nghiệm làm việc với các brand hàng đầu.
+              </li>
+<li class="flex items-center gap-2.5">
+<span class="text-brand-purple font-bold">✓</span> Cơ hội nhận chứng nhận thực tập và thư giới thiệu việc làm.
+              </li>
+</ul>
+<a class="inline-flex items-center gap-2 bg-brand-purple hover:bg-brand-purpleDark text-white text-sm font-bold px-6 py-3 rounded-xl shadow-glow-purple transition-all" href="#gia-nhap-creator">
+<span>Đăng ký gia nhập MediaHub</span>
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M14 5l7 7m0 0l-7 7m7-7H3" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</a>
+</div>
+</div>
+</div>
+</section>
+<!-- END: DualConversionSection -->
+<!-- BEGIN: TestimonialAndBrandsSection -->
+<section class="py-24 relative" data-purpose="social-proof-clients">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Client Brand Logos Strip -->
+<div class="mb-20">
+<p class="text-center text-xs font-bold uppercase tracking-widest text-slate-500 mb-8">
+            Khách hàng &amp; Đối tác đồng hành tiêu biểu
+          </p>
+<div class="flex flex-wrap items-center justify-center gap-8 sm:gap-14 opacity-70 grayscale hover:grayscale-0 transition-all duration-300">
+<span class="text-xl sm:text-2xl font-black text-slate-300 tracking-tighter">THE COFFEE HOUSE</span>
+<span class="text-xl sm:text-2xl font-extrabold text-pink-400 tracking-wide">Glowy</span>
+<span class="text-xl sm:text-2xl font-black text-white italic tracking-tight">COOL<span class="text-blue-500">MATE</span></span>
+<span class="text-xl sm:text-2xl font-extrabold text-slate-200 tracking-tight flex items-center gap-1">
+<svg class="w-6 h-6 fill-current" viewbox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003 15.28 6.34 6.34 0 009.34 21.6 6.34 6.34 0 0015.68 15.3V8.87a8.18 8.18 0 004.79 1.54V6.95a4.85 4.85 0 01-.88-.26z"></path></svg>
+              TikTok Shop
+            </span>
+<span class="text-xl sm:text-2xl font-bold text-slate-300 tracking-tight">HIKARI <span class="text-xs text-brand-orange font-mono">COMPUTER</span></span>
+<span class="text-xl sm:text-2xl font-extrabold text-blue-400">Sapo</span>
+</div>
+</div>
+<!-- Featured Testimonial Quote -->
+<div class="max-w-4xl mx-auto bg-brand-surface border border-brand-border rounded-3xl p-8 sm:p-12 relative overflow-hidden shadow-2xl">
+<div class="absolute top-6 right-8 text-7xl font-serif text-brand-orange/15 select-none pointer-events-none">“</div>
+<div class="relative z-10 flex flex-col md:flex-row items-center gap-8">
+<img alt="Nguyễn Minh Quân - Coolmate" class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover ring-2 ring-brand-purple/40 shrink-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCz6Mu9AwyvyIzsSYimptnTizwxAdTFqCwf-9K5tcGSziQNiayt2xBihFrJX5ht1wkUCsz77u-KndHT4yQVU3sPdnoeOL2OKhHZzeVSFEBFisU61pQCZhm-ZlH1L8ffDfDuiarf7cbsflb8oYsurwaTR1IQqj5-1C2TSO5edkqh4uqxp5fkdOpiXuGyydVXyUow0sY7am9cq_anLdaAIM8KUEq_-KTzByRvlijQ1y-FPIKMJ8UdXOnLOg"/>
+<div>
+<div class="flex items-center gap-1 text-amber-400 mb-3">
+<span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+</div>
+<p class="text-base sm:text-lg text-slate-200 font-medium leading-relaxed italic">
+                “MediaHub đã giúp chúng tôi triển khai những chiến dịch truyền thông sáng tạo, hiệu quả và cực kỳ chuyên nghiệp. Đội ngũ sinh viên tài năng, nhiệt huyết và luôn đáp ứng nhanh chóng. Quan trọng nhất là team Account của MediaHub quản lý timeline rất chặt chẽ!”
+              </p>
+<div class="mt-4">
+<h5 class="font-bold text-white text-base">Nguyễn Minh Quân</h5>
+<p class="text-xs text-brand-orange font-medium">Marketing Lead — Coolmate</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- END: TestimonialAndBrandsSection -->
+</main>
+<!-- END: MainContent -->
+<!-- BEGIN: MainFooter -->
+<footer class="bg-[#03050A] border-t border-brand-border/80 pt-16 pb-12 text-slate-400 text-sm" data-purpose="page-footer">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<!-- Top Footer Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-brand-border/60">
+<!-- Brand Info Column -->
+<div class="lg:col-span-2 space-y-4">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-purple p-[2px]">
+<div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+<svg class="w-4 h-4 text-brand-orange ml-0.5 fill-current" viewbox="0 0 24 24">
+<path d="M5 3l14 9-14 9V3z"></path>
+</svg>
+</div>
+</div>
+<span class="text-2xl font-extrabold text-white tracking-tight">Media<span class="text-brand-orange">Hub</span></span>
+</div>
+<p class="text-xs sm:text-sm text-slate-400 max-w-sm leading-relaxed">
+            MediaHub Agency kết nối doanh nghiệp với nguồn nhân lực trẻ tài năng, cung cấp giải pháp truyền thông sáng tạo, hiệu quả và tối ưu chi phí.
+          </p>
+<div class="flex items-center gap-4 text-slate-400 pt-2">
+<a aria-label="Facebook" class="w-8 h-8 rounded-lg bg-brand-surfaceLight flex items-center justify-center hover:text-white hover:bg-brand-orange transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"></path></svg>
+</a>
+<a aria-label="TikTok" class="w-8 h-8 rounded-lg bg-brand-surfaceLight flex items-center justify-center hover:text-white hover:bg-brand-orange transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003 15.28 6.34 6.34 0 009.34 21.6 6.34 6.34 0 0015.68 15.3V8.87a8.18 8.18 0 004.79 1.54V6.95a4.85 4.85 0 01-.88-.26z"></path></svg>
+</a>
+<a aria-label="YouTube" class="w-8 h-8 rounded-lg bg-brand-surfaceLight flex items-center justify-center hover:text-white hover:bg-brand-orange transition-colors" href="#">
+<svg class="w-4 h-4 fill-current" viewbox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"></path></svg>
+</a>
+</div>
+</div>
+<!-- Links Column 1: Services -->
+<div class="space-y-3">
+<h4 class="text-xs font-bold uppercase tracking-wider text-white">Dịch vụ</h4>
+<ul class="space-y-2 text-xs sm:text-sm">
+<li><a class="hover:text-white transition-colors" href="#">Thiết kế sáng tạo</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Sản xuất video &amp; TVC</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Marketing &amp; Truyền thông</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Viết nội dung &amp; PR</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Web &amp; Landing page</a></li>
+</ul>
+</div>
+<!-- Links Column 2: About & Talent -->
+<div class="space-y-3">
+<h4 class="text-xs font-bold uppercase tracking-wider text-white">MediaHub</h4>
+<ul class="space-y-2 text-xs sm:text-sm">
+<li><a class="hover:text-white transition-colors" href="#">Giới thiệu</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Đội ngũ sáng tạo</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Tuyển dụng Creator</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Tin tức &amp; Sự kiện</a></li>
+<li><a class="hover:text-white transition-colors" href="#">Bảng giá minh bạch</a></li>
+</ul>
+</div>
+<!-- Links Column 3: Contact & Support -->
+<div class="space-y-3">
+<h4 class="text-xs font-bold uppercase tracking-wider text-white">Liên hệ &amp; Hỗ trợ</h4>
+<ul class="space-y-2 text-xs sm:text-sm">
+<li class="flex items-start gap-2">
+<span class="text-brand-orange">📍</span>
+<span>Tòa nhà MediaHub, Cầu Giấy, Hà Nội</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="text-brand-orange">📞</span>
+<span>0983 456 789</span>
+</li>
+<li class="flex items-center gap-2">
+<span class="text-brand-orange">✉️</span>
+<span>hello@mediahub.vn</span>
+</li>
+<li><a class="text-brand-purple hover:underline pt-1 inline-block" href="#">Chính sách bảo mật &amp; Điều khoản</a></li>
+</ul>
+</div>
+</div>
+<!-- Bottom Copyright Bar -->
+<div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+<div>© 2025 MediaHub Creative Agency. All rights reserved.</div>
+<div class="flex items-center gap-6">
+<a class="hover:text-white transition-colors" href="#">Quy chế hoạt động</a>
+<a class="hover:text-white transition-colors" href="#">Điều khoản dịch vụ</a>
+<a class="hover:text-white transition-colors" href="#">Bảo mật thanh toán</a>
+</div>
+</div>
+</div>
+</footer>
+<!-- END: MainFooter -->
+</body></html>

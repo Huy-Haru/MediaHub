@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="vi"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>MediaHub — Đăng nhập &amp; Đăng ký</title>
+<!-- Fonts: Inter & Plus Jakarta Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Plus+Jakarta+Sans:wght@600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim as instructed -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "on-secondary": "#3e008e",
+            "surface-tint": "#ffb59d",
+            "on-primary-fixed": "#390c00",
+            "error-container": "#93000a",
+            "on-error-container": "#ffdad6",
+            "surface-variant": "#32343f",
+            "surface-container-lowest": "#0b0e17",
+            "on-tertiary": "#00363d",
+            "secondary-container": "#7002f5",
+            "secondary-fixed-dim": "#d2bcff",
+            "surface-container-highest": "#32343f",
+            "inverse-surface": "#e0e2ef",
+            "outline": "#aa897f",
+            "background": "#10131c",
+            "on-surface": "#e0e2ef",
+            "on-primary": "#5d1900",
+            "inverse-primary": "#ab3500",
+            "on-primary-fixed-variant": "#832700",
+            "tertiary-container": "#00a2b5",
+            "surface-container": "#1c1f29",
+            "tertiary-fixed-dim": "#00daf3",
+            "primary-fixed": "#ffdbd0",
+            "on-background": "#e0e2ef",
+            "outline-variant": "#5b4138",
+            "on-secondary-fixed-variant": "#5900c7",
+            "tertiary": "#00daf3",
+            "on-tertiary-container": "#003138",
+            "on-secondary-fixed": "#25005a",
+            "on-secondary-container": "#dbc8ff",
+            "on-tertiary-fixed-variant": "#004f58",
+            "primary": "#ffb59d",
+            "on-primary-container": "#561600",
+            "tertiary-fixed": "#9cf0ff",
+            "on-surface-variant": "#e3beb3",
+            "surface-container-low": "#181b25",
+            "secondary": "#d2bcff",
+            "surface-container-high": "#272a34",
+            "secondary-fixed": "#eaddff",
+            "error": "#ffb4ab",
+            "surface-bright": "#363943",
+            "primary-fixed-dim": "#ffb59d",
+            "on-error": "#690005",
+            "surface": "#10131c",
+            "surface-dim": "#10131c",
+            "on-tertiary-fixed": "#001f24",
+            "primary-container": "#ff5e1e",
+            "inverse-on-surface": "#2d303a"
+          },
+          "borderRadius": {
+            "DEFAULT": "0.25rem",
+            "lg": "0.5rem",
+            "xl": "0.75rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "gutter": "1.5rem",
+            "space-lg": "1.5rem",
+            "margin": "2rem",
+            "space-xs": "0.25rem",
+            "space-sm": "0.5rem",
+            "space-md": "1rem",
+            "space-xl": "2.5rem"
+          },
+          "fontFamily": {
+            "body-lg": ["Inter"],
+            "headline-md": ["Plus Jakarta Sans"],
+            "body-md": ["Inter"],
+            "label-sm": ["Inter"],
+            "headline-sm": ["Plus Jakarta Sans"],
+            "headline-lg-mobile": ["Plus Jakarta Sans"],
+            "label-md": ["Inter"],
+            "display-hero": ["Plus Jakarta Sans"],
+            "label-lg": ["Inter"],
+            "headline-lg": ["Plus Jakarta Sans"],
+            "body-sm": ["Inter"],
+            "display-hero-mobile": ["Plus Jakarta Sans"]
+          },
+          "fontSize": {
+            "body-lg": ["16px", { "lineHeight": "26px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "22px", "fontWeight": "400" }],
+            "label-sm": ["11px", { "lineHeight": "14px", "letterSpacing": "0.05em", "fontWeight": "700" }],
+            "headline-sm": ["18px", { "lineHeight": "26px", "fontWeight": "600" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+            "label-md": ["12px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "600" }],
+            "display-hero": ["56px", { "lineHeight": "68px", "letterSpacing": "-0.03em", "fontWeight": "800" }],
+            "label-lg": ["14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "600" }],
+            "headline-lg": ["36px", { "lineHeight": "46px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "display-hero-mobile": ["36px", { "lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    .neon-orange-glow {
+      box-shadow: 0 8px 30px -4px rgba(255, 94, 30, 0.4);
+    }
+    .neon-violet-glow {
+      box-shadow: 0 8px 30px -4px rgba(112, 2, 245, 0.35);
+    }
+    .glass-card {
+      background: rgba(20, 24, 37, 0.75);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface antialiased min-h-screen flex flex-col justify-between selection:bg-primary-container selection:text-white relative overflow-x-hidden">
+<!-- Subtle Ambient Glow Backdrops -->
+<div class="fixed top-[-10%] left-[-10%] w-[550px] h-[550px] rounded-full bg-secondary-container opacity-20 blur-[130px] pointer-events-none -z-10"></div>
+<div class="fixed bottom-[-10%] right-[-5%] w-[650px] h-[650px] rounded-full bg-primary-container opacity-15 blur-[150px] pointer-events-none -z-10"></div>
+<div class="fixed top-[40%] right-[30%] w-[400px] h-[400px] rounded-full bg-tertiary-container opacity-10 blur-[120px] pointer-events-none -z-10"></div>
+<!-- Dedicated Header Navigation -->
+<header class="w-full border-b border-outline-variant/20 bg-surface/80 backdrop-blur-md sticky top-0 z-40">
+<div class="max-w-7xl mx-auto px-6 lg:px-12 py-3.5 flex items-center justify-between">
+<!-- MediaHub Logo & Tagline -->
+<a class="flex items-center gap-3 group transition-transform active:scale-95 duration-150" href="#">
+<div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-secondary-container via-[#8B5CF6] to-primary-container p-0.5 shadow-lg flex items-center justify-center">
+<div class="w-full h-full bg-surface-container-lowest rounded-[10px] flex items-center justify-center">
+<span class="material-symbols-outlined text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-secondary text-2xl" style="font-variation-settings: 'FILL' 1;">play_arrow</span>
+</div>
+</div>
+<div class="flex flex-col">
+<div class="flex items-center">
+<span class="text-headline-sm font-headline-sm font-black text-on-surface tracking-tight">Media</span>
+<span class="text-headline-sm font-headline-sm font-black text-primary-container tracking-tight">Hub</span>
+</div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/80 tracking-wide uppercase">Creative Media Agency</span>
+</div>
+</a>
+<!-- Back to Landing Link -->
+<a class="flex items-center gap-2 px-4 py-2 rounded-xl text-label-md font-label-md text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high/60 transition-all duration-200 border border-transparent hover:border-outline-variant/30" href="#">
+<span class="material-symbols-outlined text-base">arrow_back</span>
+<span>Quay lại Trang chủ</span>
+</a>
+</div>
+</header>
+<!-- Main Canvas: Split Screen -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 py-6 lg:py-10 flex items-center justify-center">
+<div class="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+<!-- Left Column: Cinematic Agency Branding, Social Proof & Value Proposition -->
+<section class="lg:col-span-6 flex flex-col justify-between rounded-2xl glass-card p-6 sm:p-8 lg:p-10 relative overflow-hidden border border-outline-variant/30 shadow-2xl">
+<!-- Visual Accent Glow inside card -->
+<div class="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-secondary-container/25 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-24 -right-24 w-80 h-80 rounded-full bg-primary-container/20 blur-3xl pointer-events-none"></div>
+<div class="relative z-10 flex flex-col gap-6">
+<!-- Live Network Indicator Tag -->
+<div class="inline-flex items-center gap-2 self-start px-3.5 py-1.5 rounded-full bg-surface-container-high/70 border border-outline-variant/30 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+<span class="text-label-sm font-label-sm text-primary tracking-wide">Mạng lưới sáng tạo toàn quốc</span>
+</div>
+<!-- Hero Headline -->
+<div class="space-y-3">
+<h1 class="text-headline-lg font-headline-lg text-on-surface tracking-tight">
+              Kết nối sáng tạo — <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary-container via-primary to-secondary">Bứt phá</span> nội dung truyền thông
+            </h1>
+<p class="text-body-md font-body-md text-on-surface-variant leading-relaxed">
+              MediaHub đồng hành cùng doanh nghiệp tối ưu chi phí sản xuất và trao cơ hội dự án thực chiến chuẩn agency cho thế hệ tài năng trẻ.
+            </p>
+</div>
+<!-- Dual Value Prop Cards (Enterprise vs Creators) -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+<!-- Doanh nghiệp block -->
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 border border-outline-variant/30 hover:border-primary-container/50 transition-all duration-200 group">
+<div class="w-10 h-10 rounded-lg bg-primary-container/15 text-primary-container flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">domain</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface text-[15px] mb-1">Dành cho Doanh nghiệp</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant/90 mb-2">
+                Tiết kiệm <span class="text-primary font-semibold">40-50% chi phí</span> sản xuất truyền thông.
+              </p>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-primary-container">verified</span>
+<span>Bảo chứng nghiệm thu QA 100%</span>
+</div>
+</div>
+<!-- Creator / Sinh viên block -->
+<div class="p-4 rounded-xl bg-surface-container-lowest/80 border border-outline-variant/30 hover:border-secondary/50 transition-all duration-200 group">
+<div class="w-10 h-10 rounded-lg bg-secondary-container/20 text-secondary flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-xl">palette</span>
+</div>
+<h3 class="text-headline-sm font-headline-sm text-on-surface text-[15px] mb-1">Dành cho Creator &amp; SV</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant/90 mb-2">
+                Thực chiến với nhãn hàng lớn &amp; nhận thù lao minh bạch.
+              </p>
+<div class="flex items-center gap-1.5 text-label-sm font-label-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-sm text-secondary">payments</span>
+<span>Thanh toán ký quỹ Escrow an toàn</span>
+</div>
+</div>
+</div>
+<!-- Featured Studio Shot Container -->
+<div class="relative rounded-xl overflow-hidden border border-outline-variant/30 aspect-[16/9] shadow-inner group">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A cinematic behind-the-scenes photograph of a young Vietnamese creative film production crew operating high-end digital cinema cameras on a moody studio set. Atmospheric dark obsidian aesthetics accented with vibrant amber warm key lighting and neon violet rim backlight. Deep cinematic contrast, high production value, crisp 4k resolution." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAU_dyYjbAHTHuZXjiBdg6nc6WC9rZkK_Y-JdV0YCRjGzJ38EVm07zrPASyY716u8G8FmxhluSf0_dZWf5YS8EfOkbChhUFn9ZFmk2fgSnM1jgtLcgeM0oHKki7162Pl3CDwESyHPqB5MfXXMzgahMCLlXWoC92Zx8it2hdB5FFe0Q98cNkFBaGAJsjFs0fThPhJHgY6OFnazZ93ovt0sndNfl3Zn2sIVT2Ki65o_jgTyULKFhke6v2Mw"/>
+<div class="absolute inset-0 bg-gradient-to-t from-[#0b0e17] via-transparent to-transparent opacity-90"></div>
+<!-- Live Tag On Media -->
+<div class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-white text-body-sm font-body-sm">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+<span class="text-xs font-semibold tracking-wide">TVC Project · The Coffee House</span>
+</div>
+<span class="text-xs text-on-surface-variant bg-surface-container-lowest/70 backdrop-blur-md px-2 py-0.5 rounded">Crew CineMotion</span>
+</div>
+</div>
+</div>
+<!-- Trust Stats & Testimonial Bottom Row -->
+<div class="mt-8 pt-6 border-t border-outline-variant/20 relative z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+<!-- Avatars Stack & Metrics -->
+<div class="flex items-center gap-3">
+<div class="flex -space-x-2.5 overflow-hidden">
+<img class="inline-block h-9 w-9 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait avatar of a young female Asian digital video editor wearing professional production studio headphones in a moody modern neon lit agency workspace. Warm cinematic backlight with soft orange highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOat-mQRdn3dqRlyhk3dRiT1NqK0MKSP0cWwQNvqV8UTYB0ZXbyphxahs-ibrPlh7aWrAulRdqVuowi0oG-vcPbzK2G2JSTNV1JXV2Hiau_5KzDcFhRbNeoy5hrc7hPcTBCaxgj48fjZD-OIVqDjenNkWMj0GbygrwTMDp1JgAkJWWV9MGMX7xjYuEAULFLAS9dArgmYWOZFhrJVYnQvS3RdT7J0qRnnbyetg69dJL-BKhxWrV1ma-hg"/>
+<img class="inline-block h-9 w-9 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait avatar of a stylish Asian male graphic designer and 3D visual artist smiling confidently in a modern dark studio background with violet neon accents." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkzG2WC1KuZjCwoDVexDZnl5fXJTMSSxuIDrYIeaHgsgaDp9u61fWizpV13-XJNfaLTnNaouFhfQG8YoFcZKHYWtByndCB6uGJfuOyWx0RuvOxjrDVQuHw6UOZMByiukrjcDj2UIlypBe2t5WLpfEg22OfmdlgW6SFjlrGuZ7GKBdJ_HK6Vc5hyRYTkvGrN5m9oWR7Sp_N9BXSw3EsCrqvgXRAIMaFrDqA7zmdtGMqy6eDtT5maOMcHQ"/>
+<img class="inline-block h-9 w-9 rounded-full ring-2 ring-surface-container-lowest object-cover" data-alt="Portrait avatar of a professional Vietnamese creative director and cinematographer holding an optical viewfinder in a dynamic studio environment with ambient dark slate grading." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATN6Tfy-zHA2NlxVxiaTotu1gXnRnNpVxdtRGh1ZBQRwcZQc0ZIptsHh9_Q_1GP1SrKpxF8KhFY78gngMJfCUm_y48LHSYSba4Yu4MduG2ZlcMnafIifYF9W9FiMoxrNmZ_eeEMHLBFaJkPf6P6gTOVbue7kGUgFLZxAWiXVlW5brvzWJ4QxfeQqUnV19lBtLO3xtmmwqnnmX-jtieJmZTvK0d_jB69FkAFdu_RE6Bx2PXLvcjw8rxlQ"/>
+<div class="h-9 w-9 rounded-full ring-2 ring-surface-container-lowest bg-primary-container text-white flex items-center justify-center text-xs font-bold font-label-sm">
+                +500
+              </div>
+</div>
+<div>
+<div class="text-label-md font-label-md text-on-surface">500+ Creator đã gia nhập</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant">120+ Dự án hoàn thành xuất sắc</div>
+</div>
+</div>
+<!-- Escrow Shield Badge -->
+<div class="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-surface-container-high/40 border border-outline-variant/30">
+<span class="material-symbols-outlined text-primary-container text-lg" style="font-variation-settings: 'FILL' 1;">verified_user</span>
+<span class="text-label-sm font-label-sm text-on-surface-variant">Hợp đồng pháp lý minh bạch</span>
+</div>
+</div>
+</section>
+<!-- Right Column: Interactive Glassmorphic Authentication Card -->
+<section class="lg:col-span-6 flex flex-col justify-center rounded-2xl glass-card p-6 sm:p-8 lg:p-10 border border-outline-variant/30 shadow-2xl relative">
+<!-- Segmented Toggle Tabs (Đăng nhập / Đăng ký) -->
+<div class="p-1 rounded-xl bg-surface-container-lowest border border-outline-variant/30 flex items-center mb-6">
+<button class="flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-surface-container-high text-on-surface shadow-md border border-outline-variant/30" id="tab-login" onclick="switchAuthTab('login')">
+<span class="material-symbols-outlined text-lg">login</span>
+<span>Đăng nhập</span>
+</button>
+<button class="flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 text-on-surface-variant hover:text-on-surface" id="tab-register" onclick="switchAuthTab('register')">
+<span class="material-symbols-outlined text-lg">how_to_reg</span>
+<span>Đăng ký</span>
+</button>
+</div>
+<!-- Social Authentication Buttons -->
+<div class="space-y-3 mb-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<button class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-surface-container-low/90 hover:bg-surface-container-high border border-outline-variant/30 text-body-md font-body-md text-on-surface transition-all duration-200 hover:border-secondary/50 active:scale-[0.98]">
+<!-- Google SVG Icon -->
+<svg class="w-4 h-4" viewbox="0 0 24 24">
+<path d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.3 8.9 5 12 5z" fill="#EA4335"></path>
+<path d="M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5c-.3 1.5-1.1 2.8-2.4 3.7l3.7 2.9c2.2-2 3.7-5 3.7-8.8z" fill="#4285F4"></path>
+<path d="M5.3 14.7c-.2-.7-.4-1.5-.4-2.7 0-1.2.2-2 .4-2.7L1.6 6.4C.6 8.3 0 10.6 0 12s.6 3.7 1.6 5.6l3.7-2.9z" fill="#FBBC05"></path>
+<path d="M12 23c3.2 0 6-1.1 8-3l-3.7-2.9c-1.1.7-2.5 1.2-4.3 1.2-3.1 0-5.8-2.3-6.7-5.3L1.6 15.9C3.5 19.7 7.4 23 12 23z" fill="#34A853"></path>
+</svg>
+<span>Google</span>
+</button>
+<button class="flex items-center justify-center gap-2.5 py-2.5 px-4 rounded-xl bg-surface-container-low/90 hover:bg-surface-container-high border border-outline-variant/30 text-body-md font-body-md text-on-surface transition-all duration-200 hover:border-secondary/50 active:scale-[0.98]">
+<!-- Apple SVG Icon -->
+<svg class="w-4 h-4 fill-current text-white" viewbox="0 0 170 170">
+<path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.34-6.19-9.54-10.92-20.2-14.21-31.97-3.29-11.77-4.93-22.95-4.93-33.53 0-14.5 3.73-26.65 11.19-36.46 7.46-9.8 16.9-14.82 28.32-15.05 4.88 0 10.37 1.34 16.48 4.02 6.1 2.68 10.15 4.07 12.13 4.16 1.49 0 5.86-1.47 13.11-4.41 7.25-2.94 13.23-4.2 17.94-3.79 13.3.98 23.64 5.92 31.02 14.81-11.75 7.15-17.51 17.06-17.29 29.74.22 10.03 4.18 18.35 11.88 24.96 5.37 4.67 11.45 7.78 18.25 9.33-2.61 7.62-5.78 15.19-9.51 22.71zM119.22 33.15c0-7.27 2.66-14.18 7.98-20.73 5.32-6.55 12.01-10.89 20.07-13.02 1.07 6.45-.48 13.3-4.66 20.55-4.18 7.25-10.45 11.66-18.8 13.2-.84-2.73-1.26-5.46-1.26-8.19z"></path>
+</svg>
+<span>Apple</span>
+</button>
+</div>
+<!-- Divider -->
+<div class="flex items-center gap-3 py-1">
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+<span class="text-label-sm font-label-sm text-on-surface-variant/80 uppercase" id="divider-text">Hoặc đăng nhập bằng Email</span>
+<div class="h-px flex-1 bg-outline-variant/30"></div>
+</div>
+</div>
+<!-- FORM CONTAINER -->
+<!-- FORM 1: LOGIN -->
+<form class="space-y-4" id="form-login" onsubmit="event.preventDefault();">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1.5" for="login-email">Email doanh nghiệp / cá nhân</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">mail</span>
+<input class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-md font-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="login-email" placeholder="name@company.com hoặc student@media.edu.vn" required="" type="email"/>
+</div>
+</div>
+<div>
+<div class="flex items-center justify-between mb-1.5">
+<label class="text-label-md font-label-md text-on-surface" for="login-password">Mật khẩu</label>
+<a class="text-label-sm font-label-sm text-primary hover:underline" href="#">Quên mật khẩu?</a>
+</div>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">lock</span>
+<input class="w-full pl-10 pr-11 py-2.5 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-md font-body-md focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all" id="login-password" placeholder="••••••••••••" required="" type="password"/>
+<button class="absolute right-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface p-0.5" onclick="togglePasswordVisibility('login-password', this)" type="button">
+<span class="material-symbols-outlined text-lg">visibility</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between pt-1">
+<label class="flex items-center gap-2.5 cursor-pointer select-none">
+<input checked="" class="w-4 h-4 rounded bg-surface-container-lowest border-outline-variant/50 text-primary-container focus:ring-primary-container focus:ring-offset-0" type="checkbox"/>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Ghi nhớ phiên đăng nhập</span>
+</label>
+</div>
+<!-- Primary Submit CTA -->
+<button class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-primary-container via-[#ff7a00] to-secondary-container text-white font-headline-sm text-sm tracking-wide neon-orange-glow hover:opacity-95 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 mt-2" type="submit">
+<span>Đăng nhập vào MediaHub</span>
+<span class="material-symbols-outlined text-lg">arrow_forward</span>
+</button>
+</form>
+<!-- FORM 2: REGISTER (Hidden by default) -->
+<form class="space-y-3.5 hidden" id="form-register" onsubmit="event.preventDefault();">
+<!-- Role Selection Segment -->
+<div class="space-y-1.5">
+<label class="block text-label-md font-label-md text-on-surface">Bạn đăng ký với tư cách nào?</label>
+<div class="grid grid-cols-2 gap-2.5">
+<label class="relative flex flex-col p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-primary-container cursor-pointer transition-all role-card active-role">
+<input checked="" class="sr-only" name="user_role" onchange="toggleRoleFields('client')" type="radio" value="client"/>
+<div class="flex items-center justify-between mb-1">
+<span class="material-symbols-outlined text-primary-container text-xl">business_center</span>
+<span class="role-check material-symbols-outlined text-primary-container text-base" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="text-headline-sm font-headline-sm text-xs text-on-surface">Doanh nghiệp</div>
+<div class="text-body-sm font-body-sm text-[11px] text-on-surface-variant/80">Tìm giải pháp &amp; nhân tài</div>
+</label>
+<label class="relative flex flex-col p-3 rounded-xl bg-surface-container-lowest border border-outline-variant/40 hover:border-secondary cursor-pointer transition-all role-card">
+<input class="sr-only" name="user_role" onchange="toggleRoleFields('creator')" type="radio" value="creator"/>
+<div class="flex items-center justify-between mb-1">
+<span class="material-symbols-outlined text-secondary text-xl">draw</span>
+<span class="role-check material-symbols-outlined text-on-surface-variant/40 text-base">radio_button_unchecked</span>
+</div>
+<div class="text-headline-sm font-headline-sm text-xs text-on-surface">Creator / Sinh viên</div>
+<div class="text-body-sm font-body-sm text-[11px] text-on-surface-variant/80">Thực chiến dự án có phí</div>
+</label>
+</div>
+</div>
+<!-- Full Name -->
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-name">Họ và tên</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">person</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-md font-body-md focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-name" placeholder="Nguyễn Văn A" required="" type="text"/>
+</div>
+</div>
+<!-- Email & Phone Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-email">Email liên hệ</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">mail</span>
+<input class="w-full pl-9 pr-3 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-sm font-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-email" placeholder="contact@brand.vn" required="" type="email"/>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-phone">Số điện thoại</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">call</span>
+<input class="w-full pl-9 pr-3 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-sm font-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-phone" placeholder="0912 345 678" required="" type="tel"/>
+</div>
+</div>
+</div>
+<!-- Dynamic Role-Specific Field -->
+<div id="role-field-container">
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-organization" id="role-field-label">Tên thương hiệu / Công ty</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg" id="role-field-icon">corporate_fare</span>
+<input class="w-full pl-10 pr-4 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-md font-body-md focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-organization" placeholder="VD: The Coffee House, Glowy Cosmetics..." type="text"/>
+</div>
+</div>
+<!-- Password & Confirm Password Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-pass">Mật khẩu</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">lock</span>
+<input class="w-full pl-9 pr-9 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-sm font-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-pass" placeholder="Ít nhất 8 ký tự" required="" type="password"/>
+<button class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePasswordVisibility('register-pass', this)" type="button">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</div>
+</div>
+<div>
+<label class="block text-label-md font-label-md text-on-surface mb-1" for="register-pass-confirm">Xác nhận mật khẩu</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-base">lock_reset</span>
+<input class="w-full pl-9 pr-9 py-2 rounded-xl bg-surface-container-lowest/90 border border-outline-variant/30 text-on-surface placeholder:text-on-surface-variant/40 text-body-sm font-body-sm focus:outline-none focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="register-pass-confirm" placeholder="Nhập lại mật khẩu" required="" type="password"/>
+<button class="absolute right-2.5 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-on-surface" onclick="togglePasswordVisibility('register-pass-confirm', this)" type="button">
+<span class="material-symbols-outlined text-base">visibility</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Register Primary CTA -->
+<button class="w-full py-3.5 px-6 rounded-xl bg-gradient-to-r from-secondary-container via-[#8B5CF6] to-primary-container text-white font-headline-sm text-sm tracking-wide neon-violet-glow hover:opacity-95 active:scale-[0.98] transition-all duration-150 flex items-center justify-center gap-2 mt-2" type="submit">
+<span>Tạo tài khoản MediaHub</span>
+<span class="material-symbols-outlined text-lg">rocket_launch</span>
+</button>
+</form>
+<!-- Terms and Legal Disclaimer -->
+<p class="mt-6 text-center text-label-sm font-label-sm text-on-surface-variant/70 leading-normal">
+          Bằng việc tiếp tục, bạn đồng ý với 
+          <a class="text-primary hover:underline font-medium" href="#">Điều khoản dịch vụ</a> và 
+          <a class="text-primary hover:underline font-medium" href="#">Chính sách bảo mật</a> của MediaHub.
+        </p>
+<!-- Security Guarantee Badge -->
+<div class="mt-4 pt-3 border-t border-outline-variant/20 flex items-center justify-center gap-2 text-label-sm font-label-sm text-on-surface-variant/60">
+<span class="material-symbols-outlined text-sm text-emerald-400">shield</span>
+<span>Dữ liệu được mã hóa 256-bit SSL tiêu chuẩn Enterprise</span>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer conforming to Shared Component Tokens -->
+<footer class="w-full border-t border-outline-variant/20 bg-surface-container-lowest">
+<div class="w-full py-6 px-6 lg:px-12 flex flex-col md:flex-row justify-between items-center gap-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-3">
+<span class="text-headline-sm font-headline-sm font-black text-on-surface tracking-tight">MediaHub</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">© 2025 MediaHub Creative Production Agency. All rights reserved.</span>
+</div>
+<div class="flex flex-wrap items-center justify-center gap-6 text-label-sm font-label-sm">
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Agency Compliance</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Creator Code of Conduct</a>
+<a class="text-on-surface-variant hover:text-on-surface transition-colors" href="#">Contact Support</a>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions Script -->
+<script>
+    function switchAuthTab(target) {
+      const loginTab = document.getElementById('tab-login');
+      const registerTab = document.getElementById('tab-register');
+      const loginForm = document.getElementById('form-login');
+      const registerForm = document.getElementById('form-register');
+      const dividerText = document.getElementById('divider-text');
+
+      if (target === 'login') {
+        loginTab.className = 'flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-surface-container-high text-on-surface shadow-md border border-outline-variant/30';
+        registerTab.className = 'flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 text-on-surface-variant hover:text-on-surface';
+        loginForm.classList.remove('hidden');
+        registerForm.classList.add('hidden');
+        dividerText.textContent = 'Hoặc đăng nhập bằng Email';
+      } else {
+        registerTab.className = 'flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 bg-surface-container-high text-on-surface shadow-md border border-outline-variant/30';
+        loginTab.className = 'flex-1 py-2.5 px-4 rounded-lg text-headline-sm font-headline-sm text-sm transition-all duration-200 flex items-center justify-center gap-2 text-on-surface-variant hover:text-on-surface';
+        registerForm.classList.remove('hidden');
+        loginForm.classList.add('hidden');
+        dividerText.textContent = 'Hoặc hoàn thiện hồ sơ đăng ký';
+      }
+    }
+
+    function toggleRoleFields(role) {
+      const label = document.getElementById('role-field-label');
+      const input = document.getElementById('register-organization');
+      const icon = document.getElementById('role-field-icon');
+      const cards = document.querySelectorAll('.role-card');
+
+      cards.forEach((card, idx) => {
+        const isClient = (idx === 0 && role === 'client');
+        const isCreator = (idx === 1 && role === 'creator');
+        const checkIcon = card.querySelector('.role-check');
+
+        if (isClient || isCreator) {
+          card.classList.add('border-primary-container', 'bg-surface-container-high/40');
+          checkIcon.textContent = 'check_circle';
+          checkIcon.style.fontVariationSettings = "'FILL' 1";
+          checkIcon.classList.remove('text-on-surface-variant/40');
+          checkIcon.classList.add('text-primary-container');
+        } else {
+          card.classList.remove('border-primary-container', 'bg-surface-container-high/40');
+          checkIcon.textContent = 'radio_button_unchecked';
+          checkIcon.style.fontVariationSettings = "'FILL' 0";
+          checkIcon.classList.add('text-on-surface-variant/40');
+          checkIcon.classList.remove('text-primary-container');
+        }
+      });
+
+      if (role === 'client') {
+        label.textContent = 'Tên thương hiệu / Công ty';
+        input.placeholder = 'VD: The Coffee House, Glowy Cosmetics...';
+        icon.textContent = 'corporate_fare';
+      } else {
+        label.textContent = 'Trường ĐH / Chuyên ngành sáng tạo';
+        input.placeholder = 'VD: ĐH Sân khấu Điện ảnh, ĐH FPT (Truyền thông số)...';
+        icon.textContent = 'school';
+      }
+    }
+
+    function togglePasswordVisibility(fieldId, btnElement) {
+      const field = document.getElementById(fieldId);
+      const iconSpan = btnElement.querySelector('.material-symbols-outlined');
+      if (field.type === 'password') {
+        field.type = 'text';
+        iconSpan.textContent = 'visibility_off';
+      } else {
+        field.type = 'password';
+        iconSpan.textContent = 'visibility';
+      }
+    }
+  </script>
+</body></html>
